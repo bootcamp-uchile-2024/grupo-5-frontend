@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { CreateMascotaDto } from 'src/interface/ICreateMascotaDTO';
+import { CreateMascotasDto } from '../interface/CreateMascotaDTO';
 
 const FormularioRegistroMascota: React.FC = () => {
-  const [mascota, setMascota] = useState<CreateMascotaDto>({
+  const [mascota, setMascota] = useState<CreateMascotasDto>({
     rutUsuario: '',
     nombre: '',
     edad: 0,
@@ -17,7 +17,7 @@ const FormularioRegistroMascota: React.FC = () => {
     setMascota({ ...mascota, [name]: value });
   };
 
-  const handleArrayChange = (e: React.ChangeEvent<HTMLTextAreaElement>, key: keyof CreateMascotaDto) => {
+  const handleArrayChange = (e: React.ChangeEvent<HTMLTextAreaElement>, key: keyof CreateMascotasDto) => {
     const { value } = e.target;
     const arrayValue = value.split(',').map(item => item.trim());
     setMascota({ ...mascota, [key]: arrayValue });

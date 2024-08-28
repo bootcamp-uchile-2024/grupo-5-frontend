@@ -1,5 +1,5 @@
-export interface CreatemascotaDto{
-    rutUsario: string;
+export interface CreateMascotasDto{
+    rutUsuario: string;
     nombre: string;
     edad: number;
     raza: string;
