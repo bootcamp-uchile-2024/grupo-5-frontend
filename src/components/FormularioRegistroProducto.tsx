@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
-import { CreateProductoDto } from '../interface/ICreateProductoDto';
+import React, { useState } from "react";
+import { CreateProductoDto } from "../interface/CreateProductoDTO";
 
 const FormularioRegistroProducto: React.FC = () => {
   const [producto, setProducto] = useState<CreateProductoDto>({
-    nombre: '',
-    descripcion: '',
+    nombre: "",
+    descripcion: "",
     precio: 0,
     etiquetas: [],
     stock: 0,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     if (name === "etiquetas") {
       setProducto({ ...producto, [name]: value.split(",") });
@@ -62,7 +64,9 @@ const FormularioRegistroProducto: React.FC = () => {
       </div>
 
       <div>
-        <label htmlFor="etiquetas">Etiquetas del Producto (separadas por comas)</label>
+        <label htmlFor="etiquetas">
+          Etiquetas del Producto (separadas por comas)
+        </label>
         <input
           type="text"
           name="etiquetas"

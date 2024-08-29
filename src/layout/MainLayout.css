@@ -1,0 +1,79 @@
+/* Estilos para el encabezado */
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1rem;
+    text-align: center;    
+}
+
+nav {
+    background-color: #535353;
+    padding: 10px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+nav ul li a:hover {
+    color: #4CAF50;
+}
+
+/* Estilos para el contenido principal */
+.main-container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    background-color: #f4f4f4;
+    padding: 1rem;
+    width: 200px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 1rem;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.sidebar ul li a:hover {
+    color: #4CAF50;
+}
+
+/* Home */
+.homepage {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1; 
+    text-align: center;
+}
+
+/* Pie de página */
+footer {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}

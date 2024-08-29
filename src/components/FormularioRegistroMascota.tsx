@@ -1,25 +1,30 @@
-import React, { useState } from 'react';
-import { CreateMascotasDto } from '../interface/CreateMascotaDTO';
+import React, { useState } from "react";
+import { CreateMascotasDto } from "../interface/CreateMascotaDTO";
 
 const FormularioRegistroMascota: React.FC = () => {
   const [mascota, setMascota] = useState<CreateMascotasDto>({
-    rutUsuario: '',
-    nombre: '',
+    rutUsuario: "",
+    nombre: "",
     edad: 0,
-    raza: '',
-    imagen: '',
+    raza: "",
+    imagen: "",
     afeccionesSalud: [],
     preferencias: [],
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setMascota({ ...mascota, [name]: value });
   };
 
-  const handleArrayChange = (e: React.ChangeEvent<HTMLTextAreaElement>, key: keyof CreateMascotasDto) => {
+  const handleArrayChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>,
+    key: keyof CreateMascotasDto
+  ) => {
     const { value } = e.target;
-    const arrayValue = value.split(',').map(item => item.trim());
+    const arrayValue = value.split(",").map((item) => item.trim());
     setMascota({ ...mascota, [key]: arrayValue });
   };
 
@@ -94,8 +99,8 @@ const FormularioRegistroMascota: React.FC = () => {
         <textarea
           name="afeccionesSalud"
           id="afeccionesSalud"
-          value={mascota.afeccionesSalud?.join(', ') || ''}
-          onChange={(e) => handleArrayChange(e, 'afeccionesSalud')}
+          value={mascota.afeccionesSalud?.join(", ") || ""}
+          onChange={(e) => handleArrayChange(e, "afeccionesSalud")}
         />
         <small>Separar con comas</small>
       </div>
@@ -105,8 +110,8 @@ const FormularioRegistroMascota: React.FC = () => {
         <textarea
           name="preferencias"
           id="preferencias"
-          value={mascota.preferencias?.join(', ') || ''}
-          onChange={(e) => handleArrayChange(e, 'preferencias')}
+          value={mascota.preferencias?.join(", ") || ""}
+          onChange={(e) => handleArrayChange(e, "preferencias")}
         />
         <small>Separar con comas</small>
       </div>
