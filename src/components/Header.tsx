@@ -3,7 +3,7 @@ import React from 'react'
 export default function Header() {
   return (
     <header>
-      <h1>TITULO DE LA APP</h1>
+      <h1>PET-TACULAR</h1>
     </header>
   )
 }
