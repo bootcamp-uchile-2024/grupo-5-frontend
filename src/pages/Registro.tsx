@@ -1,5 +1,5 @@
-import React from 'react';
-import FormularioRegistroUsuario from 'src\components\FormularioRegistroUsuario.tsx';
+import React from "react";
+import FormularioRegistroUsuario from "../components/FormularioRegistroUsuario";
 
 const Registro: React.FC = () => {
   return (
