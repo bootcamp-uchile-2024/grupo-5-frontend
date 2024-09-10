@@ -1,4 +1,4 @@
-import { MainLayout } from "../layout/MainLayout"
+import  { MainLayout }  from "../layout/MainLayout"
 
 export const AboutPage = () => {
     return (
@@ -8,4 +8,5 @@ export const AboutPage = () => {
             <p>Esta es la AboutPage</p>
         </div>
         </MainLayout>
+    )
   }

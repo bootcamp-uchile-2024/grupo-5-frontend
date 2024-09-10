@@ -6,7 +6,7 @@ import Footer from "../components/footer";
 
 import "../index.css";
 import "./MainLayout.css";
-export default function MainLayout() {
+export function MainLayout() {
   return (
     <>
       <Header />
