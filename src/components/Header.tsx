@@ -1,9 +1,14 @@
-import React from 'react'
+import { Link } from 'react-router-dom'
+import React from 'react';
 
-export default function Header() {
+export const Header: React.FC = () => {
   return (
     <header>
-      <h1>PET-TACULAR</h1>
-    </header>
-  )
+        <div>
+        <h1>Header</h1>
+        {/* <Link to="/">
+        </Link> */}
+        </div>
+      </header>
+  );
 }
