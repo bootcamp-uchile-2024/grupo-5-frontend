@@ -3,9 +3,7 @@ import Nav from "../components/Nav";
 import Sidebar from "../components/Sidebar";
 import Homepage from "../pages/HomePage";
 import Footer from "../components/footer";
-// import FormularioRegistroUsuario from "../components/FormularioRegistroUsuario";
-// import FormularioRegistroMascota from "../components/FormularioRegistroMascota";
-// import FormularioRegistroProducto from "../components/FormularioRegistroProducto";
+
 import "../index.css";
 import "./MainLayout.css";
 export default function MainLayout() {
@@ -18,9 +16,7 @@ export default function MainLayout() {
         <Homepage />
       </div>
       <Footer />
-      {/* <FormularioRegistroUsuario />
-      <FormularioRegistroMascota />
-      <FormularioRegistroProducto /> */}
+      
     </>
   );
 }
