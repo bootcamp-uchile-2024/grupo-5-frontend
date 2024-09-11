@@ -76,6 +76,161 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* Estilos para el encabezado */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #4CAF50;
+  padding: 25px;
+  border-bottom: 1px solid #dee2e6;
+  color: white;
+}
+
+.header-title {
+  margin: 0;
+  font-size: 24px;
+  flex: 1;
+  text-align: left;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.search-input {
+  padding: 10px 15rem 10px 10px;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.search-icon {
+  position: absolute;
+  right: 1rem; 
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+  pointer-events: none; 
+}
+
+.icons {
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.icon {
+  margin: 0 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+
+/* Estilos del Navbar */
+.Navbar {
+  margin: 0;
+  background-color: #535353;
+  padding: 10px;
+}
+
+.Navbar ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+}
+
+.Navbar ul li {
+  margin: 0 10px;
+}
+
+.Navbar ul li a {
+  text-decoration: none;
+  color: white;
+}
+
+.Navbar ul li a:hover {
+  color: #4CAF50;
+}
+
+/* Estilos para el Home */
+.HomePage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 75vh;
+}
+.HomePage h1 {
+  padding-bottom: 2rem;
+}
+
+.Card-img {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.Card-img div {
+  margin: 10px;
+}
+
+.Card-img img {
+  width: 300px; 
+  height: 200px; 
+  object-fit: cover; 
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el contenido principal */
+/* .main-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  background-color: #f4f4f4;
+  padding: 1rem;
+  width: 200px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 1rem;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #333;
+}
+
+.sidebar ul li a:hover {
+  color: #4CAF50;
+} */
+
+/* Pie de página */
+footer {
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+
+
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

@@ -10,6 +10,7 @@ function FormularioRegistroUsuario() {
     apeMaterno: "",
     correoElectronico: "",
     telefono: "",
+    rolUsuario: "usuario",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

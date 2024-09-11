@@ -4,12 +4,19 @@ import { CreateProductoDto } from "../interface/CreateProductoDTO";
 const FormularioRegistroProducto: React.FC = () => {
   const [producto, setProducto] = useState<CreateProductoDto>({
     nombre: "",
+    marca: "",
     descripcion: "",
     precio: 0,
+    imagenes: [],
     etiquetas: [],
+    categoria: "",
     stock: 0,
+    ingredientes: "",
+    tamanio: "",
+    origen: "",
+    vidaUtil: "",
+    recomendacionesUso: "",
   });
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
