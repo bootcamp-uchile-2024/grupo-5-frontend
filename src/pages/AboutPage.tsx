@@ -1,9 +1,5 @@
+import React from "react";
 
-export const AboutPage = () => {
-    return (        
-            <div>
-            <h1>About Page</h1>
-            <p>Esta es la AboutPage</p>
-        </div>        
-    )
-  }
+export default function AboutPage() {
+  return <div>AboutPage</div>;
+}

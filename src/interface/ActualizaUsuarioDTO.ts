@@ -1,10 +1,9 @@
-export interface CreateUsuarioDto{
+export interface ActualizaUsuarioDto {
     rutUsuario: string;
-    contrasena: string;
     nombre: string;
     apePaterno: string;
     apeMaterno: string;
     correoElectronico: string;
     telefono: string;
-    rolUsuario:string;
-}
+    rolUsuario: string;
+  }

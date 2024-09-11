@@ -1,4 +1,4 @@
-export interface CreateProductoDto {
+export interface ActualizarProductoDto {
     nombre: string;
     marca: string;
     descripcion: string;
@@ -13,4 +13,3 @@ export interface CreateProductoDto {
     vidaUtil: string;
     recomendacionesUso: string;
   }
-  

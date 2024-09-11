@@ -1,13 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "../index.css";
 
 export default function Nav() {
   return (
-    <nav>
+    <nav className="Navbar">
       <ul>
-      <li><Link to="/">Home Page</Link></li>
         <li>
-          <a href="#">Inicio</a>
+          <Link to="/">Inicio</Link>
+        </li>
+        <li>
+          <Link to="/catalogo-productos">Productos</Link>
         </li>
         <li>
           <a href="#">Sobre Nosotros</a>

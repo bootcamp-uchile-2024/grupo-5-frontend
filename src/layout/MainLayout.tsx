@@ -1,21 +1,18 @@
-import { Header } from '../components/Header';
+import Header from "../components/Header";
+import Nav from "../components/Nav";
+import Footer from "../components/footer";
 import "../index.css";
-import "../App.css";
-import Nav from '../components/Nav';
-import Sidebar from '../components/Sidebar';
-import Homepage from '../pages/HomePage';
-import Footer from '../components/footer';
+import { Outlet } from "react-router-dom";
 
-export default function MainLayout() {
+export function MainLayout() {
   return (
     <>
-     <Header /> 
-     <Nav />
-     <div className="main-container">
-        <Sidebar />
-        <Homepage />
-      </div>
+      <Header />
+      <Nav />
+      <main>
+        <Outlet />
+      </main>
       <Footer />
     </>
-  )
+  );
 }

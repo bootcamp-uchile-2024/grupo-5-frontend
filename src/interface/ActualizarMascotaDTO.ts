@@ -1,4 +1,4 @@
-export interface CreateMascotaDto{
+export interface ActualizarMascotaDto{
     rutUsuario: string;
     idMascota: number;
     nombre: string;
