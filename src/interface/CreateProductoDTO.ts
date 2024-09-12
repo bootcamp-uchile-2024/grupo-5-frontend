@@ -12,5 +12,6 @@ export interface CreateProductoDto {
     origen: string;
     vidaUtil: string;
     recomendacionesUso: string;
+    id: number;
   }
   

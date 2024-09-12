@@ -16,6 +16,7 @@ const FormularioRegistroProducto: React.FC = () => {
     origen: "",
     vidaUtil: "",
     recomendacionesUso: "",
+    id: 0,
   });
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

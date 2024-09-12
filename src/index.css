@@ -229,6 +229,49 @@ footer {
   padding: 1rem;
 }
 
+/*Estilo de las card de los productos*/
+.producto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.producto-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.producto-card img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 16px;
+}
+
+.producto-card h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.producto-card p {
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.producto-card a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.producto-card a:hover {
+  text-decoration: underline;
+}
+
 
 
 @media (prefers-color-scheme: light) {
