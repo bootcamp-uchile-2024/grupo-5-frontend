@@ -44,7 +44,7 @@ const DetalleProductos: React.FC = () => {
     getProducto();
   }, [id]);
 
-  if (loading) return <div>Cargando producto...</div>; // Mostrar loading
+  if (loading) return <div>Cargando catalogo de producto...</div>; // Mostrar loading
   if (error) return <div>{error}</div>; // Mostrar error si ocurre
 
   return (
