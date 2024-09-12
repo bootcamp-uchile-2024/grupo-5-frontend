@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { CreateProductoDto } from "../interface/CreateProductoDTO";
+import "../index.css";
 
 const DetalleProductos: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -48,13 +49,34 @@ const DetalleProductos: React.FC = () => {
 
   return (
     <>
-      <h1>Detalle del producto</h1>
+      <h1 className="titulo-principal">Detalle del producto</h1>
       {producto && (
         <div className="producto-card">
-          <h3>{producto.nombre}</h3>
-          <img src={producto.imagenes[0]} alt={producto.nombre} width="300" />
-          <p>Precio: ${producto.precio}</p>
-          <p>Detalle: {producto.descripcion}</p>
+          <div className="producto-izquierda">
+            <img
+              src={producto.imagenes[0]}
+              alt={producto.nombre}
+              className="producto-imagen"
+            />
+          </div>
+          <div className="producto-derecha">
+            <h4 className="producto-nombre">{producto.nombre}</h4>
+            <p className="producto-marca">Marca: {producto.marca}</p>
+            <p className="producto-categoria">
+              Categoria: {producto.categoria}
+            </p>
+            <p className="producto-stock">Stock: {producto.stock}</p>
+            <p className="producto-descripcion">
+              Detalle: {producto.descripcion}
+            </p>
+            <p className="producto-precio">Precio: ${producto.precio}</p>
+            <div className="botones-container">
+              <button className="btn-detalle">
+                <Link to="/catalogo-productos">Volver al Catalogo</Link>
+              </button>
+              <button className="btn-detalle">Comprar</button>
+            </div>
+          </div>
         </div>
       )}
     </>

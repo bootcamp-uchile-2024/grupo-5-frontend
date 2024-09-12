@@ -26,50 +26,7 @@ h1 {
   line-height: 1.1;
 }
 
-form {
-  background-color: #333;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  width: 100%;
-  max-width: 500px;
-}
 
-form div {
-  margin-bottom: 15px;
-}
-
-form label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-form input,
-form textarea {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #646cff;
-  border-radius: 4px;
-  background-color: #1a1a1a;
-  color: #fff;
-}
-
-form button {
-  width: 100%;
-  background-color: #646cff;
-  color: #fff;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  font-size: 1em;
-  cursor: pointer;
-  transition: background-color 0.25s;
-}
-
-form button:hover {
-  background-color: #535bf2;
-}
 
 button:focus,
 button:focus-visible {
@@ -89,7 +46,7 @@ button:focus-visible {
 
 .header-title {
   margin: 0;
-  font-size: 24px;
+  font-size: 30px;
   flex: 1;
   text-align: left;
 }
@@ -221,56 +178,197 @@ button:focus-visible {
   color: #4CAF50;
 } */
 
-/* Pie de página */
-footer {
-  background-color: #4CAF50;
-  color: white;
+/* Contenedor del catálogo */
+.catalogo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
   text-align: center;
-  padding: 1rem;
 }
-
-/*Estilo de las card de los productos*/
-.producto-grid {
+/* Contenedor de los productos */
+.producto-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  padding: 20px;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+  gap: 10px;
+  width: 60%; 
+  margin: 0 auto;
 }
 
-.producto-card {
+/* Estilo de las tarjetas de producto */
+.card-producto {
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 16px;
+  padding: 5px; /* Reducir el padding */
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+}
+
+/* Estilo de la imagen del producto */
+.card-producto img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Estilo del botón */
+.btn-detalle {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px; 
+  margin: 10px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.btn-detalle:hover {
+  background-color: #45a049;
+}
+
+/* Estilo del enlace */
+.link-detalle {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link-detalle:hover {
+  text-decoration: none;
+}
+
+/* Estilo del título principal */
+.titulo-principal {
+  text-align: center; /* Centrar el texto horizontalmente */
+  margin-top: 0; /* Eliminar el margen superior */
+  padding-top: 20px; /* Añadir un poco de padding superior si es necesario */
+}
+
+/* Contenedor del detalle del producto */
+.producto-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0px 5px 5px 5px;
+  margin: 5px auto 15px auto;
+  max-width: 800px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.producto-card img {
+/* Contenedor de la parte izquierda */
+.producto-izquierda {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contenedor de la parte derecha */
+.producto-derecha {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 10px;
+}
+
+/* Estilo del nombre del producto */
+.producto-nombre {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+/* Estilo de la imagen del producto */
+.producto-imagen {
   max-width: 100%;
   height: auto;
-  margin-bottom: 16px;
+  border-radius: 8px;
 }
 
-.producto-card h3 {
+/* Estilo del precio del producto */
+.producto-precio {
+  font-size: 20px;
+  color: #4CAF50;
+  margin-bottom: 10px; /* Reducir el margen inferior */
+}
+
+/* Estilo de la marca del producto */
+.producto-marca {
   font-size: 18px;
-  margin-bottom: 8px;
+  margin-bottom: 2px; /* Reducir el margen inferior */
 }
 
-.producto-card p {
+/* Estilo de la categoría del producto */
+.producto-categoria {
+  font-size: 18px;
+  margin-bottom: 2px; /* Reducir el margen inferior */
+}
+
+/* Estilo del stock del producto */
+.producto-stock {
   font-size: 16px;
-  margin-bottom: 16px;
+  color: #666;
+  margin-bottom: 1px; /* Reducir el margen inferior */
 }
 
-.producto-card a {
+/* Estilo de la descripción del producto */
+.producto-descripcion {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 2px; /* Reducir el margen inferior */
+}
+
+/* Contenedor de los botones */
+.botones-container {
+  display: flex;
+  gap: 10px; /* Espacio entre los botones */
+}
+
+/* Estilo de los botones */
+.btn-detalle {
+  background-color: #4CAF50; 
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
   text-decoration: none;
-  color: #007bff;
-  font-weight: bold;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
 
-.producto-card a:hover {
-  text-decoration: underline;
+.btn-detalle:hover {
+  background-color: #45a049;
 }
+
+.btn-detalle a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Pie de página */
+footer {
+  background-color: #4CAF50;
+  color: white;
+}
+
+
 
 
 
