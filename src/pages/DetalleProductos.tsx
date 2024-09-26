@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { CreateProductoDto } from "../interface/CreateProductoDTO";
-import "../index.css";
 
 const DetalleProductos: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -20,7 +19,7 @@ const DetalleProductos: React.FC = () => {
           throw new Error(`Error ${response.status}: ${errorText}`);
         }
 
-        let responseText = await response.text();
+        const responseText = await response.text();
         console.log("Raw response:", responseText);
 
         try {
@@ -33,9 +32,9 @@ const DetalleProductos: React.FC = () => {
             throw new Error("Error parsing JSON: Unknown error");
           }
         }
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.log("Ocurrió un error al obtener el producto:", error);
-        setError(`Error al obtener el producto: ${error.message}`);
+        setError(`Error al obtener el producto: ${(error as Error).message}`);
       } finally {
         setLoading(false);
       }
@@ -44,7 +43,7 @@ const DetalleProductos: React.FC = () => {
     getProducto();
   }, [id]);
 
-  if (loading) return <div>Cargando catalogo de producto...</div>; // Mostrar loading
+  if (loading) return <div>Cargando producto...</div>; // Mostrar loading
   if (error) return <div>{error}</div>; // Mostrar error si ocurre
 
   return (
@@ -61,18 +60,18 @@ const DetalleProductos: React.FC = () => {
           </div>
           <div className="producto-derecha">
             <h4 className="producto-nombre">{producto.nombre}</h4>
+            <p className="producto-precio">Precio: ${producto.precio}</p>
             <p className="producto-marca">Marca: {producto.marca}</p>
             <p className="producto-categoria">
-              Categoria: {producto.categoria}
+              Categoría: {producto.categoria}
             </p>
             <p className="producto-stock">Stock: {producto.stock}</p>
             <p className="producto-descripcion">
               Detalle: {producto.descripcion}
             </p>
-            <p className="producto-precio">Precio: ${producto.precio}</p>
             <div className="botones-container">
               <button className="btn-detalle">
-                <Link to="/catalogo-productos">Volver al Catalogo</Link>
+                <Link to="/catalogo-productos">Volver al Catálogo</Link>
               </button>
               <button className="btn-detalle">Comprar</button>
             </div>

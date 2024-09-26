@@ -17,7 +17,7 @@ const CatalogoProductos: React.FC = () => {
         const productosJson = await response.json();
         console.log(productosJson);
         setProductos(productosJson);
-      } catch (error) {
+      } catch {
         console.log("Ocurrio un error al obtener los productos");
       }
     }
@@ -36,7 +36,7 @@ const CatalogoProductos: React.FC = () => {
               <img
                 src={producto.imagenes[0]}
                 alt={producto.nombre}
-                width="200"
+                width="150"
               />
               <h3>{producto.nombre}</h3>
               <p>Precio: ${producto.precio}</p>

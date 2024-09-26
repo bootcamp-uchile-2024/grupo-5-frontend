@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import "../index.css";
 
@@ -7,7 +6,7 @@ export default function Nav() {
     <nav className="Navbar">
       <ul>
         <li>
-          <Link to="/">Inicio</Link>
+          <Link to="/home">Inicio</Link>
         </li>
         <li>
           <Link to="/catalogo-productos">Productos</Link>

@@ -1,6 +1,3 @@
-import React from "react";
-// import "../layout/MainLayout.css";
-
 export default function Sidebar() {
   return (
     <div className="sidebar">

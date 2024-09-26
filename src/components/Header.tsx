@@ -6,6 +6,7 @@ import {
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
 import "../index.css";
+import { Link } from "react-router-dom";
 
 const Header: React.FC = () => {
   return (
@@ -20,9 +21,15 @@ const Header: React.FC = () => {
         />
         <FontAwesomeIcon icon={faSearch} className="search-icon" />
       </div>
-      <div className="icons">
+      <div className="icon-container">
         <FontAwesomeIcon icon={faShoppingCart} className="icon" />
+        <span className="icon-text">Carrito</span>
+      </div>
+      <div className="icon-container">
         <FontAwesomeIcon icon={faCircleUser} className="icon" />
+        <Link to="" className="icon-link">
+          <span className="icon-text">Usuario</span>
+        </Link>
       </div>
     </header>
   );

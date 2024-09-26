@@ -1,7 +1,7 @@
 import React from "react";
 import FormularioRegistroUsuario from "../components/FormularioRegistroUsuario";
 
-const Registro: React.FC = () => {
+const RegistroUsuario: React.FC = () => {
   return (
     <div>
       <h1>Registro de Usuario</h1>
@@ -10,4 +10,4 @@ const Registro: React.FC = () => {
   );
 };
 
-export default Registro;
+export default RegistroUsuario;

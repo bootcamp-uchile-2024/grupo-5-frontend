@@ -70,7 +70,7 @@ button:focus-visible {
 
 .search-icon {
   position: absolute;
-  right: 1rem; 
+  right: 4rem; 
   top: 50%;
   transform: translateY(-50%);
   color: #aaa;
@@ -87,6 +87,19 @@ button:focus-visible {
   margin: 0 10px;
   font-size: 24px;
   cursor: pointer;
+}
+.icon-link {
+  color: white;
+  text-decoration: none;
+}
+
+.icon-link:hover {
+  text-decoration: underline;
+}
+
+.icon-text {
+  margin-top: 5px;
+  font-size: 14px;
 }
 
 
