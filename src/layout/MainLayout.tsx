@@ -6,13 +6,13 @@ import { Outlet } from "react-router-dom";
 
 export function MainLayout() {
   return (
-    <>
+      <div className="main-layout">
       <Header />
       <Nav />
-      <main>
+      <main className="contenedor-layout">
         <Outlet />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

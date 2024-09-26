@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { CreateProductoDto } from "../interface/CreateProductoDTO";
+import '../css/formulario.css';
 
 const FormularioRegistroProducto: React.FC = () => {
   const [producto, setProducto] = useState<CreateProductoDto>({
@@ -18,6 +19,7 @@ const FormularioRegistroProducto: React.FC = () => {
     recomendacionesUso: "",
     id: 0,
   });
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -35,69 +37,47 @@ const FormularioRegistroProducto: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form onSubmit={handleSubmit} className="formulario-registro-producto">
+      <div className="form-group">
         <label htmlFor="nombre">Nombre del Producto</label>
         <input
           type="text"
-          name="nombre"
           id="nombre"
+          name="nombre"
           value={producto.nombre}
           onChange={handleChange}
-          required
         />
       </div>
-
-      <div>
-        <label htmlFor="descripcion">Descripción del Producto</label>
-        <textarea
-          name="descripcion"
-          id="descripcion"
-          value={producto.descripcion}
-          onChange={handleChange}
-          required
-        />
-      </div>
-
-      <div>
-        <label htmlFor="precio">Precio del Producto</label>
-        <input
-          type="number"
-          name="precio"
-          id="precio"
-          value={producto.precio}
-          onChange={handleChange}
-          required
-        />
-      </div>
-
-      <div>
-        <label htmlFor="etiquetas">
-          Etiquetas del Producto (separadas por comas)
-        </label>
+      <div className="form-group">
+        <label htmlFor="marca">Marca</label>
         <input
           type="text"
-          name="etiquetas"
-          id="etiquetas"
-          value={producto.etiquetas.join(",")}
+          id="marca"
+          name="marca"
+          value={producto.marca}
           onChange={handleChange}
-          required
         />
       </div>
-
-      <div>
-        <label htmlFor="stock">Stock del Producto</label>
+      <div className="form-group">
+        <label htmlFor="descripcion">Descripción</label>
+        <textarea
+          id="descripcion"
+          name="descripcion"
+          value={producto.descripcion}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="precio">Precio</label>
         <input
           type="number"
-          name="stock"
-          id="stock"
-          value={producto.stock}
+          id="precio"
+          name="precio"
+          value={producto.precio}
           onChange={handleChange}
-          required
         />
       </div>
-
-      <button type="submit">Registrar Producto</button>
+      <button type="submit" className="btn-submit">Registrar Producto</button>
     </form>
   );
 };

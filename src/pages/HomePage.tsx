@@ -1,7 +1,10 @@
+import { Sidebar } from "../components/Sidebar";
 import "../index.css";
 
 export default function Homepage() {
   return (
+    <div className="admin-page">
+      <Sidebar />
     <div className="HomePage">
       <h1>Home</h1>
       <div className="Card-img">
@@ -24,6 +27,7 @@ export default function Homepage() {
           />
         </div>
       </div>
+    </div>
     </div>
   );
 }

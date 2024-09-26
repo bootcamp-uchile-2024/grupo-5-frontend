@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { login } from "../services/loginService";
 import { useNavigate } from "react-router-dom";
+import '../index.css';
 
 interface IForm {
   user: string;
@@ -19,7 +20,6 @@ export const LoginPage = () => {
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    console.log(form);
 
     if (form.user === "" || form.password === "") {
       setError(true);
@@ -27,7 +27,7 @@ export const LoginPage = () => {
     }
 
     if (login(form)) {
-      navigate("/home");
+      navigate("/admin");
     } else {
       setValidCredentials(false);
     }
@@ -37,7 +37,6 @@ export const LoginPage = () => {
     const { name, value } = event.target;
     setError(false);
     setValidCredentials(true);
-
     setForm({
       ...form,
       [name]: value,
@@ -45,30 +44,31 @@ export const LoginPage = () => {
   };
 
   return (
-    <div>
+    <div className="login-container">
       <h1>Acceder a tu cuenta</h1>
-      <p>Esta es la pagina de login</p>
-      <form>
-        <input
-          type="text"
-          placeholder="Usuario"
-          name="user"
-          onChange={handleChange}
-          value={form.user}
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          name="password"
-          onChange={handleChange}
-          value={form.password}
-        />
-        <button type="submit" onClick={handleSubmit}>
-          Ingresar
-        </button>
-      </form>
-      {error && <div>Debes llenar todos los campos</div>}
-      {!validCredentials && <div>Credenciales invalidas</div>}
+      <div className="login-card">
+        <form>
+          <input
+            type="text"
+            placeholder="Usuario"
+            name="user"
+            onChange={handleChange}
+            value={form.user}
+          />
+          <input
+            type="password"
+            placeholder="Contraseña"
+            name="password"
+            onChange={handleChange}
+            value={form.password}
+          />
+          <button type="submit" onClick={handleSubmit}>
+            Ingresar
+          </button>
+        </form>
+        {error && <div className="error-message">Debes llenar todos los campos</div>}
+        {!validCredentials && <div className="error-message">Credenciales invalidas</div>}
+      </div>
     </div>
   );
 };

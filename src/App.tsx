@@ -7,8 +7,7 @@ import { LoginPage } from "./pages/LoginPage";
 import DetalleProductos from "./pages/DetalleProductos";
 import "./index.css";
 import { PrivateRoute } from "./components/PrivateRoute";
-import RegistroUsuario from "./pages/RegistroUsuario";
-import RegistroProducto from "./pages/RegistroProducto";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
   return (
@@ -16,21 +15,12 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<LoginPage />} />
-          <Route path="home" element={<HomePage />} />
+          <Route path="home" element={<PrivateRoute roles={["user"]}><HomePage /></PrivateRoute>} />
           <Route path="about" element={<AboutPage />} />
           <Route path="catalogo-productos" element={<CatalogoProductos />} />
           <Route path="detalle-productos/:id" element={<DetalleProductos />} />
-          {/* <Route path="login" element={<LoginPage />} /> */}
-          <Route
-            path="registro-usuario"
-            element={
-              <PrivateRoute>
-                <RegistroUsuario />
-              </PrivateRoute>
-            }
-          />
+          <Route path="admin" element={<PrivateRoute roles={["admin"]}><AdminPage /></PrivateRoute>}/>
         </Route>
-        <Route path="registro-producto" element={<RegistroProducto />} />
       </Routes>
     </BrowserRouter>
   );
