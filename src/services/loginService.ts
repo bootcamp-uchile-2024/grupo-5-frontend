@@ -1,36 +1,44 @@
 interface ILogin {
-user: string;
-password: string;
-roles?: string[];
+  user: string;
+  password: string;
+  roles?: string[];
 }
 
 export function login(user: ILogin): boolean {
+  if (user.user === "administrador" && user.password === "administrador") {
+    const UserResponse: ILogin = {
+      ...user,
+      roles: ["admin", "user"],
+    };
 
-    if (user.user === "administrador" && user.password === "administrador") {
+    const datosUsuario = JSON.stringify(UserResponse);
+    localStorage.setItem("user", datosUsuario);
 
-      const UserResponse : ILogin = {
-        ...user,
-        roles: ["admin", "user"],
-      }
+    return true;
+  } else if (user.user === "usuario" && user.password === "usuario") {  // Autenticación del usuario normal
+    const UserResponse: ILogin = {
+      ...user,
+      roles: ["user"],
+    };
 
-        const datosUsuario = JSON.stringify(UserResponse);
-        localStorage.setItem("user", datosUsuario);
+    const datosUsuario = JSON.stringify(UserResponse);
+    localStorage.setItem("user", datosUsuario);
 
-        return true;
+    return true;
+  } else {
+    return false;
+  }
+}
 
-      }else{
-        return false;
-      }
-    }
+export const logout = () => localStorage.removeItem("user");
 
-    export const logout = () => localStorage.removeItem("user");
-    export const isAuth = () => localStorage.getItem("user") ? true : false;
-    export const userHasRole = (roles: string[]) => {
-      const user = localStorage.getItem("user");
-      if (user) {
-        const UserResponse: ILogin = JSON.parse(user);
-        return roles.some(role => UserResponse.roles?.includes(role));
-      }
-      return false;
-    }
-    
+export const isAuth = () => localStorage.getItem("user") ? true : false;
+
+export const userHasRole = (roles: string[]) => {
+  const user = localStorage.getItem("user");
+  if (user) {
+    const UserResponse: ILogin = JSON.parse(user);
+    return roles.some(role => UserResponse.roles?.includes(role));
+  }
+  return false;
+};

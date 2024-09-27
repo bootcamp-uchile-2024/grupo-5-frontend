@@ -15,11 +15,19 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<LoginPage />} />
-          <Route path="home" element={<PrivateRoute roles={["user"]}><HomePage /></PrivateRoute>} />
+          <Route path="home" element={
+            <PrivateRoute roles={["user", "admin"]}>
+              <HomePage />
+            </PrivateRoute>
+          } />
           <Route path="about" element={<AboutPage />} />
           <Route path="catalogo-productos" element={<CatalogoProductos />} />
           <Route path="detalle-productos/:id" element={<DetalleProductos />} />
-          <Route path="admin" element={<PrivateRoute roles={["admin"]}><AdminPage /></PrivateRoute>}/>
+          <Route path="admin" element={
+            <PrivateRoute roles={["admin"]}>
+              <AdminPage />
+            </PrivateRoute>
+          } />
         </Route>
       </Routes>
     </BrowserRouter>

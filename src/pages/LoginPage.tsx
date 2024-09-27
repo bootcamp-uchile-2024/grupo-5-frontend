@@ -26,8 +26,22 @@ export const LoginPage = () => {
       return;
     }
 
-    if (login(form)) {
-      navigate("/admin");
+    const isAuthenticated = login(form);
+    
+    if (isAuthenticated) {
+      // Obtener el usuario desde localStorage después del login exitoso
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        const parsedUser = JSON.parse(storedUser);
+        const roles = parsedUser.roles;
+
+        // Redirigir a la página correspondiente según el rol
+        if (roles.includes("admin")) {
+          navigate("/admin");
+        } else if (roles.includes("user")) {
+          navigate("/home");
+        }
+      }
     } else {
       setValidCredentials(false);
     }
@@ -67,7 +81,7 @@ export const LoginPage = () => {
           </button>
         </form>
         {error && <div className="error-message">Debes llenar todos los campos</div>}
-        {!validCredentials && <div className="error-message">Credenciales invalidas</div>}
+        {!validCredentials && <div className="error-message">Credenciales inválidas</div>}
       </div>
     </div>
   );
