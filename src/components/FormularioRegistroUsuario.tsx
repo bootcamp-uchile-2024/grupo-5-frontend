@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { CreateUsuarioDto } from "../interface/CreateUsuarioDTO";
-import '../css/formulario.css';
 
 function FormularioRegistroUsuario() {
   const [usuario, setUsuario] = useState<CreateUsuarioDto>({
@@ -110,7 +109,9 @@ function FormularioRegistroUsuario() {
         />
       </div>
 
-      <button type="submit" className="btn-submit">Registrar Usuario</button>
+      <button type="submit" className="btn-submit">
+        Registrar Usuario
+      </button>
     </form>
   );
 }

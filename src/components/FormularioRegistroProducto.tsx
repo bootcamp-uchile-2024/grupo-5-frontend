@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CreateProductoDto } from "../interface/CreateProductoDTO";
-import '../css/formulario.css';
+import "../css/formulario.css";
 
 const FormularioRegistroProducto: React.FC = () => {
   const [producto, setProducto] = useState<CreateProductoDto>({
@@ -20,6 +20,8 @@ const FormularioRegistroProducto: React.FC = () => {
     id: 0,
   });
 
+  const [error, setError] = useState<boolean>(false);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -33,7 +35,17 @@ const FormularioRegistroProducto: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(producto);
+    if (
+      !producto.nombre ||
+      !producto.marca ||
+      !producto.descripcion ||
+      producto.precio <= 0
+    ) {
+      setError(true);
+    } else {
+      setError(false);
+      console.log(producto);
+    }
   };
 
   return (
@@ -77,7 +89,10 @@ const FormularioRegistroProducto: React.FC = () => {
           onChange={handleChange}
         />
       </div>
-      <button type="submit" className="btn-submit">Registrar Producto</button>
+      <button type="submit" className="btn-submit">
+        Registrar Producto
+      </button>
+      {error && <div>Faltan llegar algunos campos</div>}
     </form>
   );
 };

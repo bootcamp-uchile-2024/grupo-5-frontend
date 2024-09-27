@@ -2,7 +2,6 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleUser,
-  faSearch,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
 import "../index.css";
@@ -19,7 +18,6 @@ const Header: React.FC = () => {
           aria-label="Buscar"
           className="search-input"
         />
-        <FontAwesomeIcon icon={faSearch} className="search-icon" />
       </div>
       <div className="icon-container">
         <FontAwesomeIcon icon={faShoppingCart} className="icon" />
