@@ -9,13 +9,13 @@ export default function Nav() {
           <Link to="/">Inicio</Link>
         </li>
         <li>
+          <Link to="/home">Home</Link>
+        </li>
+        <li>
           <Link to="/catalogo-productos">Productos</Link>
         </li>
         <li>
-          <a href="#">Sobre Nosotros</a>
-        </li>
-        <li>
-          <a href="#">Servicios</a>
+          <Link to="/admin">Administrador</Link>
         </li>
         <li>
           <a href="#">Contacto</a>

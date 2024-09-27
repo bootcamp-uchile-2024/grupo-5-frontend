@@ -2,16 +2,16 @@ import { logout } from "../services/loginService";
 import { useNavigate } from "react-router-dom";
 import "../index.css";
 
-  export const Sidebar = () => {
-    const navigate = useNavigate();
+export const Sidebar = () => {
+  const navigate = useNavigate();
 
-    const handleLogout = () => {
-      logout();
-      navigate("/home");
-    }
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
-    return (
-      <div className="sidebar">
+  return (
+    <div className="sidebar">
       <ul className="sidebar-menu">
         <li className="sidebar-header">
           <h2>Menu</h2>
@@ -32,10 +32,5 @@ import "../index.css";
         </button>
       </div>
     </div>
-    );
-  }
-
-
-
-
-
+  );
+};
