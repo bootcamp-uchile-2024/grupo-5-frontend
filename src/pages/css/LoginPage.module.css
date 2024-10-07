@@ -1,0 +1,50 @@
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2rem;  
+  }
+  
+  .loginContainer h1 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .loginCard {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .loginCard form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .loginCard input {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .loginCard button {
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .loginCard button:hover {
+    background-color: #0056b3;
+  }
+  
+  .loginCard .error-message {
+    color: red;
+    margin-top: 1rem;
+  }

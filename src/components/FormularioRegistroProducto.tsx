@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { CreateProductoDto } from "../interface/CreateProductoDTO";
+import styles from "./css/formulario.module.css";
 
 const FormularioRegistroProducto: React.FC = () => {
   const [producto, setProducto] = useState<CreateProductoDto>({
@@ -18,6 +19,9 @@ const FormularioRegistroProducto: React.FC = () => {
     recomendacionesUso: "",
     id: 0,
   });
+
+  const [error, setError] = useState<boolean>(false);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -31,73 +35,64 @@ const FormularioRegistroProducto: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(producto);
+    if (
+      !producto.nombre ||
+      !producto.marca ||
+      !producto.descripcion ||
+      producto.precio <= 0
+    ) {
+      setError(true);
+    } else {
+      setError(false);
+      console.log(producto);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form onSubmit={handleSubmit} className={styles.formProductos}>
+      <div className={styles.formGroup}>
         <label htmlFor="nombre">Nombre del Producto</label>
         <input
           type="text"
-          name="nombre"
           id="nombre"
+          name="nombre"
           value={producto.nombre}
           onChange={handleChange}
-          required
         />
       </div>
-
-      <div>
-        <label htmlFor="descripcion">Descripción del Producto</label>
-        <textarea
-          name="descripcion"
-          id="descripcion"
-          value={producto.descripcion}
-          onChange={handleChange}
-          required
-        />
-      </div>
-
-      <div>
-        <label htmlFor="precio">Precio del Producto</label>
-        <input
-          type="number"
-          name="precio"
-          id="precio"
-          value={producto.precio}
-          onChange={handleChange}
-          required
-        />
-      </div>
-
-      <div>
-        <label htmlFor="etiquetas">
-          Etiquetas del Producto (separadas por comas)
-        </label>
+      <div className={styles.formGroup}>
+        <label htmlFor="marca">Marca</label>
         <input
           type="text"
-          name="etiquetas"
-          id="etiquetas"
-          value={producto.etiquetas.join(",")}
+          id="marca"
+          name="marca"
+          value={producto.marca}
           onChange={handleChange}
-          required
         />
       </div>
-
-      <div>
-        <label htmlFor="stock">Stock del Producto</label>
+      <div className={styles.formGroup}>
+        <label htmlFor="descripcion">Descripción</label>
+        <textarea
+          id="descripcion"
+          name="descripcion"
+          value={producto.descripcion}
+          onChange={handleChange}
+        />
+      </div>
+      <div className={styles.formGroup}>
+        <label htmlFor="precio">Precio</label>
         <input
           type="number"
-          name="stock"
-          id="stock"
-          value={producto.stock}
+          id="precio"
+          name="precio"
+          value={producto.precio}
           onChange={handleChange}
-          required
         />
       </div>
-
-      <button type="submit">Registrar Producto</button>
+      <button type="submit" className={styles.btnSubmit}>
+        Registrar Producto
+      </button>
+      {error && <div>Faltan llegar algunos campos</div>}
     </form>
   );
 };

@@ -1,0 +1,26 @@
+.Navbar {
+    margin: 0;
+    background-color: #2c3e50cc;
+    padding: 10px;
+  }
+  
+  .Navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .Navbar ul li {
+    margin: 0 10px;
+  }
+  
+  .Navbar ul li a {
+    text-decoration: none;
+    color: white;
+  }
+  
+  .Navbar ul li a:hover {
+    color: #4CAF50;
+  }

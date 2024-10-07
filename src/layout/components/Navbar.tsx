@@ -1,10 +1,9 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import "../index.css";
+import styles from "./nav.module.css";
 
-export default function Nav() {
+export const Navbar = () => {
   return (
-    <nav className="Navbar">
+    <nav className={styles.Navbar}>
       <ul>
         <li>
           <Link to="/">Inicio</Link>
@@ -13,10 +12,7 @@ export default function Nav() {
           <Link to="/catalogo-productos">Productos</Link>
         </li>
         <li>
-          <a href="#">Sobre Nosotros</a>
-        </li>
-        <li>
-          <a href="#">Servicios</a>
+          <Link to="/admin">Administrador</Link>
         </li>
         <li>
           <a href="#">Contacto</a>

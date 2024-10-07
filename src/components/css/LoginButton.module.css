@@ -1,0 +1,16 @@
+.textButton{
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    color: white;
+  }
+
+  .textButton:hover{
+    text-decoration: none;
+
+  }

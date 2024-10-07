@@ -1,11 +1,12 @@
-import React from "react";
-import "../index.css";
+import { MainLayout } from "../layout/MainLayout";
+import styles from "./css/HomePage.module.css";
 
-export default function Homepage() {
+export const HomePage = () => {
   return (
-    <div className="HomePage">
+    <MainLayout>
+    <div className={styles.HomePage} >
       <h1>Home</h1>
-      <div className="Card-img">
+      <div className={styles.CardImg}>
         <div>
           <img
             src="https://t3.ftcdn.net/jpg/01/80/28/58/240_F_180285804_a050aAHqWKPKbnxiQ61k1d7zZuiRkzSA.jpg"
@@ -26,5 +27,6 @@ export default function Homepage() {
         </div>
       </div>
     </div>
+    </MainLayout>
   );
 }

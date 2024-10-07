@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { CreateUsuarioDto } from "../interface/CreateUsuarioDTO";
+import styles from "./css/formulario.module.css";
 
 function FormularioRegistroUsuario() {
   const [usuario, setUsuario] = useState<CreateUsuarioDto>({
@@ -24,8 +25,8 @@ function FormularioRegistroUsuario() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form onSubmit={handleSubmit} className={styles.formUsuario}>
+      <div className={styles.formGroup}>
         <label htmlFor="rutUsuario">RUT Usuario</label>
         <input
           type="text"
@@ -37,7 +38,7 @@ function FormularioRegistroUsuario() {
         />
       </div>
 
-      <div>
+      <div className={styles.formGroup}>
         <label htmlFor="contrasena">Contraseña</label>
         <input
           type="password"
@@ -49,7 +50,7 @@ function FormularioRegistroUsuario() {
         />
       </div>
 
-      <div>
+      <div className={styles.formGroup}>
         <label htmlFor="nombre">Nombre</label>
         <input
           type="text"
@@ -61,7 +62,7 @@ function FormularioRegistroUsuario() {
         />
       </div>
 
-      <div>
+      <div className={styles.formGroup}>
         <label htmlFor="apePaterno">Apellido Paterno</label>
         <input
           type="text"
@@ -73,7 +74,7 @@ function FormularioRegistroUsuario() {
         />
       </div>
 
-      <div>
+      <div className={styles.formGroup}>
         <label htmlFor="apeMaterno">Apellido Materno</label>
         <input
           type="text"
@@ -85,7 +86,7 @@ function FormularioRegistroUsuario() {
         />
       </div>
 
-      <div>
+      <div className={styles.formGroup}>
         <label htmlFor="correoElectronico">Correo Electrónico</label>
         <input
           type="email"
@@ -97,7 +98,7 @@ function FormularioRegistroUsuario() {
         />
       </div>
 
-      <div>
+      <div className={styles.formGroup}>
         <label htmlFor="telefono">Teléfono</label>
         <input
           type="tel"
@@ -109,7 +110,9 @@ function FormularioRegistroUsuario() {
         />
       </div>
 
-      <button type="submit">Registrar Usuario</button>
+      <button type="submit" className={styles.btnSubmit}>
+        Registrar Usuario
+      </button>
     </form>
   );
 }

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CreateProductoDto } from "../interface/CreateProductoDTO";
-import "../index.css";
+import styles from "./css/Catalogo.module.css";
 
-const CatalogoProductos: React.FC = () => {
+export const CatalogoProductos = () => {
+
   const [productos, setProductos] = useState<CreateProductoDto[]>([]);
 
   useEffect(() => {
@@ -17,7 +18,7 @@ const CatalogoProductos: React.FC = () => {
         const productosJson = await response.json();
         console.log(productosJson);
         setProductos(productosJson);
-      } catch (error) {
+      } catch {
         console.log("Ocurrio un error al obtener los productos");
       }
     }
@@ -27,23 +28,23 @@ const CatalogoProductos: React.FC = () => {
 
   return (
     <>
-      <div className="catalogo-container">
+      <div className= {styles.catalogoContainer}>
         <h1>Catalogo de Productos</h1>
         <br />
-        <div className="producto-container">
+        <div className= {styles.productoContainer }>
           {productos.map((producto) => (
-            <div key={producto.id} className="card-producto">
+            <div key={producto.id} className= {styles.cardProducto}>
               <img
                 src={producto.imagenes[0]}
                 alt={producto.nombre}
-                width="200"
+                width="150"
               />
               <h3>{producto.nombre}</h3>
               <p>Precio: ${producto.precio}</p>
               <button className="btn-detalle">
                 <Link
                   to={`/detalle-productos/${producto.id}`}
-                  className="link-detalle"
+                  className= {styles.linkDetalle}
                 >
                   Ver Detalle
                 </Link>
@@ -55,5 +56,3 @@ const CatalogoProductos: React.FC = () => {
     </>
   );
 };
-
-export default CatalogoProductos;

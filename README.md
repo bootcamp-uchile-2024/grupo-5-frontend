@@ -1,50 +1,55 @@
-# React + TypeScript + Vite
+# Pet-tacular
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es una aplicación web desarrollada con React, TypeScript y Vite. La aplicación es un e-commerce de productos para animales.
 
-Currently, two official plugins are available:
+## Requisitos Previos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Antes de comenzar, asegúrate de tener instalado lo siguiente:
 
-## Expanding the ESLint configuration
+- [Node.js](https://nodejs.org/) (versión 14 o superior)
+- [npm](https://www.npmjs.com/) (versión 6 o superior)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Instalación
 
-- Configure the top-level `parserOptions` property like this:
+Sigue estos pasos para configurar el proyecto en tu máquina local:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```sh
+1.  Clona el repositorio:   
+
+    git clone https://github.com/bootcamp-uchile-2024/grupo-5-frontend.git
+
+2.  Navega al directorio del proyecto:
+
+    cd grupo-5-frontend
+
+3.  Instala las dependencias:
+
+    npm install
+
+4.  Uso:
+
+    Para iniciar la aplicación en modo de desarrollo, ejecuta:
+    npm run dev
+
+    Esto iniciará el servidor de desarrollo y podrás acceder a la aplicación en http://localhost:5173/
 ```
+## Credenciales de Acceso
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Utiliza las siguientes credenciales para acceder a la aplicación:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+#### Usuario:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+* Usuario: `user`
+* Password: `user`
+
+#### Administrador:
+
+* Usuario: `admin`
+* Password: `admin`
+
+## Scripts Disponibles
+
+- `npm run dev`: Inicia el servidor de desarrollo.
+- `npm run build`: Compila la aplicación para producción.
+- `npm run lint`: Ejecuta ESLint para encontrar y arreglar problemas en el código.
+

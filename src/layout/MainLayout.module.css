@@ -1,0 +1,23 @@
+.mainLayout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main {
+    flex: 1;
+    margin: 64px auto;    
+}
+
+.container {
+    display: flex;
+    height: 100%;
+}
+
+.container > * {
+    flex: 1;
+}
+
+.container > main {
+    flex: 5;
+}
