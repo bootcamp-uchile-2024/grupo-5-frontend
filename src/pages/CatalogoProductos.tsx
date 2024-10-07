@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CreateProductoDto } from "../interface/CreateProductoDTO";
-import "../index.css";
+import styles from "./css/Catalogo.module.css";
 
-const CatalogoProductos: React.FC = () => {
+export const CatalogoProductos = () => {
+
   const [productos, setProductos] = useState<CreateProductoDto[]>([]);
 
   useEffect(() => {
@@ -27,12 +28,12 @@ const CatalogoProductos: React.FC = () => {
 
   return (
     <>
-      <div className="catalogo-container">
+      <div className= {styles.catalogoContainer}>
         <h1>Catalogo de Productos</h1>
         <br />
-        <div className="producto-container">
+        <div className= {styles.productoContainer }>
           {productos.map((producto) => (
-            <div key={producto.id} className="card-producto">
+            <div key={producto.id} className= {styles.cardProducto}>
               <img
                 src={producto.imagenes[0]}
                 alt={producto.nombre}
@@ -43,7 +44,7 @@ const CatalogoProductos: React.FC = () => {
               <button className="btn-detalle">
                 <Link
                   to={`/detalle-productos/${producto.id}`}
-                  className="link-detalle"
+                  className= {styles.linkDetalle}
                 >
                   Ver Detalle
                 </Link>
@@ -55,5 +56,3 @@ const CatalogoProductos: React.FC = () => {
     </>
   );
 };
-
-export default CatalogoProductos;

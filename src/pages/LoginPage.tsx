@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { login } from "../services/loginService";
 import { useNavigate } from "react-router-dom";
-import '../index.css';
+import { MainLayout } from "../layout/MainLayout";
+import styles from "./css/LoginPage.module.css";
 
 interface IForm {
   user: string;
@@ -29,17 +30,15 @@ export const LoginPage = () => {
     const isAuthenticated = login(form);
     
     if (isAuthenticated) {
-      // Obtener el usuario desde localStorage después del login exitoso
       const storedUser = localStorage.getItem("user");
       if (storedUser) {
         const parsedUser = JSON.parse(storedUser);
         const roles = parsedUser.roles;
-
-        // Redirigir a la página correspondiente según el rol
+        
         if (roles.includes("admin")) {
           navigate("/admin");
         } else if (roles.includes("user")) {
-          navigate("/home");
+          navigate("/dashboard");
         }
       }
     } else {
@@ -58,9 +57,10 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="login-container">
+    <MainLayout>
+    <div className= {styles.loginContainer}>
       <h1>Acceder a tu cuenta</h1>
-      <div className="login-card">
+      <div className= {styles.loginCard}>
         <form>
           <input
             type="text"
@@ -84,5 +84,6 @@ export const LoginPage = () => {
         {!validCredentials && <div className="error-message">Credenciales inválidas</div>}
       </div>
     </div>
+    </MainLayout>
   );
 };

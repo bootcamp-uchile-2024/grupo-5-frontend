@@ -118,4 +118,4 @@ const nuevoProducto: CreateProductoDto = {
 
 **2- Usuario:** El usuario podra autentificarse como Usuario a traves de un formulario de ingreso. Este permisos para acceder a la página home.
 
-**Ruta local:** http://localhost:5173/home
+**Ruta local:** http://localhost:5173

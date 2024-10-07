@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { CreateProductoDto } from "../interface/CreateProductoDTO";
+import styles from "./css/DetalleProductos.module.css";
 
-const DetalleProductos: React.FC = () => {
+export const DetalleProductos = () => {
   const { id } = useParams<{ id: string }>();
   const [producto, setProducto] = useState<CreateProductoDto | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -43,30 +44,30 @@ const DetalleProductos: React.FC = () => {
     getProducto();
   }, [id]);
 
-  if (loading) return <div>Cargando producto...</div>; // Mostrar loading
-  if (error) return <div>{error}</div>; // Mostrar error si ocurre
+  if (loading) return <div>Cargando producto...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <>
-      <h1 className="titulo-principal">Detalle del producto</h1>
+      <h1 className= {styles.tituloPrincipal}>Detalle del producto</h1>
       {producto && (
-        <div className="producto-card">
-          <div className="producto-izquierda">
+        <div className= {styles.productoCard}>
+          <div className= {styles.productoIzquierda}>
             <img
               src={producto.imagenes[0]}
               alt={producto.nombre}
-              className="producto-imagen"
+              className= {styles.productoImagen}
             />
           </div>
-          <div className="producto-derecha">
-            <h4 className="producto-nombre">{producto.nombre}</h4>
-            <p className="producto-precio">Precio: ${producto.precio}</p>
-            <p className="producto-marca">Marca: {producto.marca}</p>
-            <p className="producto-categoria">
+          <div className= {styles.productoDerecha}>
+            <h4 className={styles.productoNombre}>{producto.nombre}</h4>
+            <p className= {styles.productoPrecio}>Precio: ${producto.precio}</p>
+            <p className= {styles.productoMarca}>Marca: {producto.marca}</p>
+            <p className= {styles.productoCategoria}>
               Categoría: {producto.categoria}
             </p>
-            <p className="producto-stock">Stock: {producto.stock}</p>
-            <p className="producto-descripcion">
+            <p className= {styles.productoStock}>Stock: {producto.stock}</p>
+            <p className= {styles.productoDescripcion}>
               Detalle: {producto.descripcion}
             </p>
             <div className="botones-container">
@@ -81,5 +82,3 @@ const DetalleProductos: React.FC = () => {
     </>
   );
 };
-
-export default DetalleProductos;

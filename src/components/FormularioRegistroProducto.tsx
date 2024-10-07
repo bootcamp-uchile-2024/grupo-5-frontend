@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CreateProductoDto } from "../interface/CreateProductoDTO";
-import "../css/formulario.css";
+import styles from "./css/formulario.module.css";
 
 const FormularioRegistroProducto: React.FC = () => {
   const [producto, setProducto] = useState<CreateProductoDto>({
@@ -49,8 +49,8 @@ const FormularioRegistroProducto: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="formulario-registro-producto">
-      <div className="form-group">
+    <form onSubmit={handleSubmit} className={styles.formProductos}>
+      <div className={styles.formGroup}>
         <label htmlFor="nombre">Nombre del Producto</label>
         <input
           type="text"
@@ -60,7 +60,7 @@ const FormularioRegistroProducto: React.FC = () => {
           onChange={handleChange}
         />
       </div>
-      <div className="form-group">
+      <div className={styles.formGroup}>
         <label htmlFor="marca">Marca</label>
         <input
           type="text"
@@ -70,7 +70,7 @@ const FormularioRegistroProducto: React.FC = () => {
           onChange={handleChange}
         />
       </div>
-      <div className="form-group">
+      <div className={styles.formGroup}>
         <label htmlFor="descripcion">Descripción</label>
         <textarea
           id="descripcion"
@@ -79,7 +79,7 @@ const FormularioRegistroProducto: React.FC = () => {
           onChange={handleChange}
         />
       </div>
-      <div className="form-group">
+      <div className={styles.formGroup}>
         <label htmlFor="precio">Precio</label>
         <input
           type="number"
@@ -89,7 +89,7 @@ const FormularioRegistroProducto: React.FC = () => {
           onChange={handleChange}
         />
       </div>
-      <button type="submit" className="btn-submit">
+      <button type="submit" className={styles.btnSubmit}>
         Registrar Producto
       </button>
       {error && <div>Faltan llegar algunos campos</div>}

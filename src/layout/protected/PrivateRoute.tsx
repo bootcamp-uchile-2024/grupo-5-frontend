@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
-import { isAuth, userHasRole } from "../services/loginService";
+import { isAuth, userHasRole } from "../../services/loginService";
+import { MainLayout } from "../MainLayout";
 
 interface PrivateRouteProps {
   children: ReactNode;
@@ -10,7 +11,7 @@ export const PrivateRoute = (props: PrivateRouteProps) => {
   const auth = isAuth();
   const hasRole = userHasRole(props.roles);
 
-  return <>{auth && hasRole ? props.children : <h1>Acceso denegado</h1>}</>;
+  return <>{auth && hasRole ? props.children : <MainLayout><h1>Acceso denegado</h1></MainLayout>}</>;
 };
 
 

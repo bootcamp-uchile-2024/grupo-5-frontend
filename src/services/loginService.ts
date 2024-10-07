@@ -15,7 +15,7 @@ export function login(user: ILogin): boolean {
     localStorage.setItem("user", datosUsuario);
 
     return true;
-  } else if (user.user === "usuario" && user.password === "usuario") {  // Autenticación del usuario normal
+  } else if (user.user === "usuario" && user.password === "usuario") {
     const UserResponse: ILogin = {
       ...user,
       roles: ["user"],
@@ -30,15 +30,14 @@ export function login(user: ILogin): boolean {
   }
 }
 
-export const logout = () => localStorage.removeItem("user");
-
-export const isAuth = () => localStorage.getItem("user") ? true : false;
+export const logout = () => localStorage.removeItem('user');
+export const isAuth = () => localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null;
 
 export const userHasRole = (roles: string[]) => {
-  const user = localStorage.getItem("user");
-  if (user) {
-    const UserResponse: ILogin = JSON.parse(user);
-    return roles.some(role => UserResponse.roles?.includes(role));
-  }
-  return false;
-};
+    const user = localStorage.getItem('user');
+    if (user) {
+        const userResponse: ILogin = JSON.parse(user);
+        return roles.some(role => userResponse.roles?.includes(role));
+    }
+    return false;
+}
