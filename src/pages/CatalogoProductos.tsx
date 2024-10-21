@@ -30,7 +30,6 @@ export const CatalogoProductos = () => {
     <>
       <div className= {styles.catalogoContainer}>
         <h1>Catalogo de Productos</h1>
-        <br />
         <div className= {styles.productoContainer }>
           {productos.map((producto) => (
             <div key={producto.id} className= {styles.cardProducto}>

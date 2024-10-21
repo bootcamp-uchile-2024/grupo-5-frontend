@@ -1,27 +1,7 @@
 .HomePage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .HomePage h1 {
-    padding-bottom: 2rem;
-  }
-  
-  .CardImg {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  .CardImg div {
-    margin: 10px;
-  }
-  
-  .CardImg img {
-    width: 300px; 
-    height: 200px; 
-    object-fit: cover; 
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}

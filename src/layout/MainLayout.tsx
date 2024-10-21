@@ -1,6 +1,6 @@
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
-import { Sidebar } from "./components/Sidebar";
+// import { Sidebar } from "./components/Sidebar";
 import { Navbar } from "./components/Navbar";
 import styles from "./MainLayout.module.css";
 interface MainLayoutProps {
@@ -13,7 +13,7 @@ export const MainLayout = (props: MainLayoutProps) => {
             <Header />
             <Navbar />   
             <div className={styles.container}>
-              <Sidebar />
+              {/* <Sidebar /> */}
               <main className={styles.main}>
                   {props.children}
               </main>
