@@ -49,30 +49,30 @@ export const DetalleProductos = () => {
 
   return (
     <>
-      <h1 className= {styles.tituloPrincipal}>Detalle del producto</h1>
+      <h1 className={styles.tituloPrincipal}>Detalle del producto</h1>
       {producto && (
-        <div className= {styles.productoCard}>
-          <div className= {styles.productoIzquierda}>
+        <div className={styles.productoCard}>
+          <div className={styles.productoIzquierda}>
             <img
               src={producto.imagenes[0]}
               alt={producto.nombre}
-              className= {styles.productoImagen}
+              className={styles.productoImagen}
             />
           </div>
-          <div className= {styles.productoDerecha}>
+          <div className={styles.productoDerecha}>
             <h4 className={styles.productoNombre}>{producto.nombre}</h4>
-            <p className= {styles.productoPrecio}>Precio: ${producto.precio}</p>
-            <p className= {styles.productoMarca}>Marca: {producto.marca}</p>
-            <p className= {styles.productoCategoria}>
+            <p className={styles.productoPrecio}>Precio: ${producto.precio}</p>
+            <p className={styles.productoMarca}>Marca: {producto.marca}</p>
+            <p className={styles.productoCategoria}>
               Categoría: {producto.categoria}
             </p>
-            <p className= {styles.productoStock}>Stock: {producto.stock}</p>
-            <p className= {styles.productoDescripcion}>
+            <p className={styles.productoStock}>Stock: {producto.stock}</p>
+            <p className={styles.productoDescripcion}>
               Detalle: {producto.descripcion}
             </p>
             <div className="botones-container">
               <button className="btn-detalle">
-                <Link to="/catalogo-productos">Volver al Catálogo</Link>
+                <Link to="/">Volver al Catálogo</Link>
               </button>
               <button className="btn-detalle">Comprar</button>
             </div>

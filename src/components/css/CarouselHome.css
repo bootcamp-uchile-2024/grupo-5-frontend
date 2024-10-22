@@ -3,10 +3,14 @@
     height: 448px;
 }
 
-/* .carousel-item-start{
+.carousel-item-start{
     width: 60%;
     height: 448px;
-} */
+}
+.carousel-item-end{
+    width: 60%;
+    height: 448px;
+}
 
 .carousel-control-prev,
 .carousel-control-next {

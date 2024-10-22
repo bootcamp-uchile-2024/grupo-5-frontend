@@ -4,7 +4,6 @@ import { CreateProductoDto } from "../interface/CreateProductoDTO";
 import styles from "./css/Catalogo.module.css";
 
 export const CatalogoProductos = () => {
-
   const [productos, setProductos] = useState<CreateProductoDto[]>([]);
 
   useEffect(() => {
@@ -28,11 +27,11 @@ export const CatalogoProductos = () => {
 
   return (
     <>
-      <div className= {styles.catalogoContainer}>
-        <h1>Catalogo de Productos</h1>
-        <div className= {styles.productoContainer }>
+      <div className={styles.catalogoContainer}>
+        {/* <h1>Catalogo de Productos</h1> */}
+        <div className={styles.productoContainer}>
           {productos.map((producto) => (
-            <div key={producto.id} className= {styles.cardProducto}>
+            <div key={producto.id} className={styles.cardProducto}>
               <img
                 src={producto.imagenes[0]}
                 alt={producto.nombre}
@@ -43,7 +42,7 @@ export const CatalogoProductos = () => {
               <button className="btn-detalle">
                 <Link
                   to={`/detalle-productos/${producto.id}`}
-                  className= {styles.linkDetalle}
+                  className={styles.linkDetalle}
                 >
                   Ver Detalle
                 </Link>
