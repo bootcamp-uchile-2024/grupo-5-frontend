@@ -2,9 +2,13 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CreateProductoDto } from "../interface/CreateProductoDTO";
 import styles from "./css/Catalogo.module.css";
+import { addToCart } from "../states/cartSlice";
+import { useDispatch } from "react-redux";
 
 export const CatalogoProductos = () => {
   const [productos, setProductos] = useState<CreateProductoDto[]>([]);
+  const dispatch = useDispatch();
+  // const carritoButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     async function getProductos() {
@@ -25,10 +29,16 @@ export const CatalogoProductos = () => {
     getProductos();
   }, []);
 
+  const handleAddToCart = (producto: CreateProductoDto) => {
+    dispatch(addToCart({ ...producto, stock: 1 }));
+    // if (carritoButtonRef.current) {
+    //   carritoButtonRef.current.click();
+    // }
+  };
+
   return (
     <>
       <div className={styles.catalogoContainer}>
-        {/* <h1>Catalogo de Productos</h1> */}
         <div className={styles.productoContainer}>
           {productos.map((producto) => (
             <div key={producto.id} className={styles.cardProducto}>
@@ -39,6 +49,9 @@ export const CatalogoProductos = () => {
               />
               <h3>{producto.nombre}</h3>
               <p>Precio: ${producto.precio}</p>
+              <button type="button" onClick={() => handleAddToCart(producto)}>
+                Añadir al carrito
+              </button>
               <button className="btn-detalle">
                 <Link
                   to={`/detalle-productos/${producto.id}`}
@@ -51,6 +64,15 @@ export const CatalogoProductos = () => {
           ))}
         </div>
       </div>
+      <button
+        // ref={carritoButtonRef}
+        className="btn btn-primary"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasCarrito"
+        aria-controls="offcanvasCarrito"
+        style={{ display: "none" }}
+      ></button>
     </>
   );
 };

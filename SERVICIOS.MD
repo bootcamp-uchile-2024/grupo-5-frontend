@@ -119,3 +119,33 @@ const nuevoProducto: CreateProductoDto = {
 **2- Usuario:** El usuario podra autentificarse como Usuario a traves de un formulario de ingreso. Este permisos para acceder a la página home.
 
 **Ruta local:** http://localhost:5173
+
+#
+
+## Redux
+
+**Implementación:**
+
+1. **Configuración de la tienda (store.ts):**
+
+   - Se creó un archivo `store.ts` para configurar la tienda de Redux.
+   - Se utilizó `configureStore` de `@reduxjs/toolkit` para crear la tienda.
+   - Se añadieron los reducers necesarios, incluyendo `cartSlice`.
+
+2. **Slice del carrito (cartSlice.ts):**
+   - Se creó un archivo `cartSlice.ts` para manejar el estado del carrito.
+   - Se utilizó `createSlice` de `@reduxjs/toolkit` para definir el slice del carrito.
+   - Se definieron las acciones `addToCart`, `removeFromCart`, `clearCart`, y `updateQuantity`.
+   - Se implementó la lógica para agregar, eliminar, y actualizar la cantidad de productos en el carrito.
+   - Se añadió la persistencia del estado del carrito en `localStorage`.
+
+## Nuevas Páginas
+
+1. **Página de Resumen del Carrito (ResumenPage.tsx):**
+
+   - Se creó una página para mostrar el resumen del carrito de compras.
+   - Se utilizó el componente `ResumenCarrito` para mostrar los productos en el carrito, el total y un botón para volver al home.
+
+2. **Componente de Resumen del Carrito (ResumenCarrito.tsx):**
+   - Se creó un componente para mostrar los productos en el carrito, el total y un botón para volver al home.
+   - Se implementó la lógica para aumentar, disminuir y eliminar productos del carrito.
