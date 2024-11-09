@@ -3,26 +3,31 @@ import { login } from "../services/loginService";
 import { useNavigate } from "react-router-dom";
 import { MainLayout } from "../layout/MainLayout";
 import styles from "./css/LoginPage.module.css";
+import { useDispatch } from "react-redux";
+import { save } from "../states/userSlice";
 
 interface IForm {
   user: string;
-  password: string;
+  email: string;
+  password: string;  
 }
 
 export const LoginPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [error, setError] = useState<boolean>(false);
   const [validCredentials, setValidCredentials] = useState<boolean>(true);
   const [form, setForm] = useState<IForm>({
     user: "",
-    password: "",
+    email: "",
+    password: "",    
   });
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    if (form.user === "" || form.password === "") {
+    if (form.user === "" || form.password === "" || form.email === "") {
       setError(true);
       return;
     }
@@ -31,11 +36,14 @@ export const LoginPage = () => {
     
     if (isAuthenticated) {
       const storedUser = localStorage.getItem("user");
+      
       if (storedUser) {
         const parsedUser = JSON.parse(storedUser);
         const roles = parsedUser.roles;
-        
+        dispatch(save({ user: form.user, email: form.email }));
+
         if (roles.includes("admin")) {
+          
           navigate("/admin");
         } else if (roles.includes("user")) {
           navigate("/dashboard");
@@ -68,6 +76,13 @@ export const LoginPage = () => {
             name="user"
             onChange={handleChange}
             value={form.user}
+          />
+          <input
+            type="email"
+            placeholder="Correo electrónico"
+            name="email"
+            onChange={handleChange}
+            value={form.email}
           />
           <input
             type="password"
