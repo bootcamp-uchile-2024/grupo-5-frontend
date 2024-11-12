@@ -1,0 +1,9 @@
+version: "3.8"
+
+name: entrega-9
+
+services:
+  frontend:
+    image: leori0/entrega-9:cmd
+    ports:
+      - "8080:8080"

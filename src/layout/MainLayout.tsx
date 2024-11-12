@@ -8,6 +8,7 @@ interface MainLayoutProps {
 }
 
 export const MainLayout = (props: MainLayoutProps) => {
+    console.log(`Mi endpoint es: ${import.meta.env.VITE_URL_ENDPOINT_BACKEND}`);
     return (
         <div className={styles.mainLayout}>
             <Header />

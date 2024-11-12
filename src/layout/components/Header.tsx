@@ -9,7 +9,7 @@ import { LoginButton } from "../../components/LoginButton";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import styles from "./header.module.css";
+import styles from "/src/layout/components/Header.module.css";
 import { ModalCarrito } from "../../components/ModalCarrito";
 import img from "../../assets/Group-7.svg";
 import { useSelector } from "react-redux";

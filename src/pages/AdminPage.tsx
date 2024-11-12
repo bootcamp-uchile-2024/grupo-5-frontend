@@ -1,7 +1,7 @@
 import FormularioRegistroUsuario from '../components/FormularioRegistroUsuario';
 import FormularioRegistroProducto from '../components/FormularioRegistroProducto';
 import { MainLayout } from '../layout/MainLayout';
-import styles from './css/AdminPage.module.css';
+import styles from '/src/pages/css/adminPage.module.css';
 
 export const AdminPage = () => {
   return (
