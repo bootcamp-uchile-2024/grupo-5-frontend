@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { MainLayout } from "../layout/MainLayout";
 import styles from "./css/LoginPage.module.css";
 import { useDispatch } from "react-redux";
-import { save } from "../states/userSlice";
+import { save } from "../states/loggedUserSlice";
 
 interface IForm {
   user: string;
   email: string;
-  password: string;  
+  password: string;
 }
 
 export const LoginPage = () => {
@@ -21,7 +21,7 @@ export const LoginPage = () => {
   const [form, setForm] = useState<IForm>({
     user: "",
     email: "",
-    password: "",    
+    password: "",
   });
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -33,17 +33,16 @@ export const LoginPage = () => {
     }
 
     const isAuthenticated = login(form);
-    
+
     if (isAuthenticated) {
       const storedUser = localStorage.getItem("user");
-      
+
       if (storedUser) {
         const parsedUser = JSON.parse(storedUser);
         const roles = parsedUser.roles;
         dispatch(save({ user: form.user, email: form.email }));
 
         if (roles.includes("admin")) {
-          
           navigate("/admin");
         } else if (roles.includes("user")) {
           navigate("/dashboard");
@@ -66,39 +65,43 @@ export const LoginPage = () => {
 
   return (
     <MainLayout>
-    <div className= {styles.loginContainer}>
-      <h1>Acceder a tu cuenta</h1>
-      <div className= {styles.loginCard}>
-        <form>
-          <input
-            type="text"
-            placeholder="Usuario"
-            name="user"
-            onChange={handleChange}
-            value={form.user}
-          />
-          <input
-            type="email"
-            placeholder="Correo electrónico"
-            name="email"
-            onChange={handleChange}
-            value={form.email}
-          />
-          <input
-            type="password"
-            placeholder="Contraseña"
-            name="password"
-            onChange={handleChange}
-            value={form.password}
-          />
-          <button type="submit" onClick={handleSubmit}>
-            Ingresar
-          </button>
-        </form>
-        {error && <div className="error-message">Debes llenar todos los campos</div>}
-        {!validCredentials && <div className="error-message">Credenciales inválidas</div>}
+      <div className={styles.loginContainer}>
+        <h1>Acceder a tu cuenta</h1>
+        <div className={styles.loginCard}>
+          <form>
+            <input
+              type="text"
+              placeholder="Usuario"
+              name="user"
+              onChange={handleChange}
+              value={form.user}
+            />
+            <input
+              type="email"
+              placeholder="Correo electrónico"
+              name="email"
+              onChange={handleChange}
+              value={form.email}
+            />
+            <input
+              type="password"
+              placeholder="Contraseña"
+              name="password"
+              onChange={handleChange}
+              value={form.password}
+            />
+            <button type="submit" onClick={handleSubmit}>
+              Ingresar
+            </button>
+          </form>
+          {error && (
+            <div className="error-message">Debes llenar todos los campos</div>
+          )}
+          {!validCredentials && (
+            <div className="error-message">Credenciales inválidas</div>
+          )}
+        </div>
       </div>
-    </div>
     </MainLayout>
   );
 };

@@ -13,7 +13,7 @@ export const CatalogoProductos = () => {
   useEffect(() => {
     async function getProductos() {
       try {
-        const response = await fetch("/api/productos");
+        const response = await fetch("/api/producto");
 
         if (!response.ok) {
           console.log("No pudimos obtener los productos");

@@ -21,7 +21,7 @@ export const DetalleProductos = () => {
       try {
         if (!id) return;
 
-        const response = await fetch(`/api/productos/${id}`);
+        const response = await fetch(`/api/producto/${id}`);
         if (!response.ok) {
           const errorText = await response.text();
           throw new Error(`Error ${response.status}: ${errorText}`);

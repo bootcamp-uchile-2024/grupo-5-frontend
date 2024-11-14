@@ -23,7 +23,7 @@ COPY --from=build /usr/app/dist /usr/share/nginx/html
 # Configurar el directorio de trabajo
 WORKDIR /usr/share/nginx/html
 
-ENV VITE_URL_ENDPOINT_BACKEND=http://localhost:3001
+# ENV VITE_URL_ENDPOINT_BACKEND=http://localhost:3001
 
 # Exponer el puerto 80
 EXPOSE 80

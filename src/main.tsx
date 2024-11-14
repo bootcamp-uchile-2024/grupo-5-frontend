@@ -15,6 +15,8 @@ import "./index.css";
 import { DashboardPage } from "./pages/DashboardPage";
 import { Provider } from "react-redux";
 import { store } from "./states/store";
+import { GestionUsuarios } from "./pages/GestionUsuarios";
+import { GestionProductos } from "./pages/GestionProductos";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -24,6 +26,8 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/users" element={<GestionUsuarios />} />
+          <Route path="/products" element={<GestionProductos />} />
           <Route path="/catalogo-productos" element={<CatalogoProductos />} />
           <Route path="/detalle-productos/:id" element={<DetalleProductos />} />
           <Route path="/carrito" element={<ResumenPage />} />
