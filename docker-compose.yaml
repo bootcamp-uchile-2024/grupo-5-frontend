@@ -1,9 +1,39 @@
-version: "3.8"
-
-name: entrega-9
-
 services:
   frontend:
-    image: leori0/entrega-9:cmd
+    build:
+      context: ./frontend  # Ruta al frontend
     ports:
       - "8080:8080"
+    environment:
+      - VITE_URL_ENDPOINT_BACKEND=http://api-1:5001
+    depends_on:
+      - api-1
+    networks:
+      - app_network
+
+  api-1:
+    image: leori0/backend:cmd
+    ports:
+      - "5001:5001"
+    environment:
+      - DB_HOST=db-1
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=clave123
+    depends_on:
+      - db-1
+    networks:
+      - app_network
+
+  db-1:
+    image: mysql:8.0.39-debian
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=clave123
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
