@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CreateProductoDto } from "../interface/CreateProductoDTO";
+import { CreateProductoDto } from "../interface/Productos/create-producto.dto";
 import styles from "./css/formulario.module.css";
 
 const FormularioRegistroProducto: React.FC = () => {

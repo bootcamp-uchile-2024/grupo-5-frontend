@@ -2,12 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserState{
     user: string,
-    email: string,
 }
 
 const initialState: UserState = {
     user: "",
-    email: "",
 };
 
 export const userSlice = createSlice({
@@ -16,9 +14,8 @@ export const userSlice = createSlice({
     reducers: {
         save: (state: UserState, action: PayloadAction<UserState>) => {
             console.log("llamando al reducer save");
-            const { user, email } = action.payload;
+            const { user} = action.payload;
             state.user = user;
-            state.email = email;
             return state;
         },
 
@@ -26,10 +23,6 @@ export const userSlice = createSlice({
             state = {...initialState};
             return state;
         },
-        updateMail: (state: UserState, action: PayloadAction<string>) => {
-            state.email = action.payload;
-            return state;
-        }
     },
 })
 

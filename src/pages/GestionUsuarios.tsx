@@ -2,12 +2,12 @@ import { useState } from "react";
 import { MainLayout } from "../layout/MainLayout";
 import { useDispatch } from "react-redux";
 import { addUser } from "../states/usersSlice";
-import { CreateUsuarioDto } from "../interface/CreateUsuarioDTO";
+import { UsuarioDto, UserRole } from "../interface/Usuarios/read-usuario.dto";
 
 export const GestionUsuarios = () => {
   const dispatch = useDispatch();
 
-  const [form, setForm] = useState<CreateUsuarioDto>({
+  const [form, setForm] = useState<UsuarioDto>({
     rutUsuario: "",
     contrasena: "",
     nombre: "",
@@ -15,13 +15,11 @@ export const GestionUsuarios = () => {
     apeMaterno: "",
     correoElectronico: "",
     telefono: "",
-    rolUsuario: "",
+    rolUsuario: "USER" as UserRole,
   });
 
   const [searchRut, setSearchRut] = useState<string>("");
-  const [searchResult, setSearchResult] = useState<CreateUsuarioDto | null>(
-    null
-  );
+  const [searchResult, setSearchResult] = useState<UsuarioDto | null>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -35,7 +33,7 @@ export const GestionUsuarios = () => {
     setSearchRut(event.target.value);
   };
 
-  const addUserToAPI = async (user: CreateUsuarioDto) => {
+  const addUserToAPI = async (user: UsuarioDto) => {
     const response = await fetch("/api/usuarios", {
       method: "POST",
       headers: {
@@ -97,7 +95,7 @@ export const GestionUsuarios = () => {
       alert("El campo teléfono es obligatorio");
       return;
     }
-    if (form.rolUsuario === "") {
+    if (!form.rolUsuario) {
       alert("El campo rol usuario es obligatorio");
       return;
     }
@@ -113,7 +111,7 @@ export const GestionUsuarios = () => {
         apeMaterno: "",
         correoElectronico: "",
         telefono: "",
-        rolUsuario: "",
+        rolUsuario: "USER" as UserRole,
       });
     } catch (error) {
       console.error("Error al agregar el usuario:", error);

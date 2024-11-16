@@ -4,8 +4,8 @@ export interface ActualizarMascotaDto{
     nombre: string;
     categoria: string;
     raza: string;
-    edad: number;   
-    imagen: string;
-    afeccionesSalud: string[];
-    preferencias: string[];
+    edad: number;
+    imagen?: string;
+    afeccionesSalud?: string[];
+    preferencias?: string[];
 }

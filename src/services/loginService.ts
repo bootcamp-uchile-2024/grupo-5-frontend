@@ -2,7 +2,6 @@
 interface ILogin {
   user: string;
   password: string;
-  email: string;
   roles?: string[];
 }
 

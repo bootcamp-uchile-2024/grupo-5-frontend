@@ -4,8 +4,8 @@ export interface CreateMascotaDto{
     nombre: string;
     categoria: string;
     raza: string;
-    edad: number;   
-    imagen: string;
-    afeccionesSalud: string[];
-    preferencias: string[];
+    edad: number;
+    imagen?: string;
+    afeccionesSalud?: string[];
+    preferencias?: string[];
 }

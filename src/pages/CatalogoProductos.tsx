@@ -1,31 +1,23 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { CreateProductoDto } from "../interface/CreateProductoDTO";
+import { CatalogoProductoDto } from "../interface/Productos/read-catalogo-productos.dto";
 import styles from "./css/Catalogo.module.css";
 import { addToCart } from "../states/cartSlice";
 import { useDispatch } from "react-redux";
+import Carousel from "react-bootstrap/Carousel";
 
 export const CatalogoProductos = () => {
-  const [productos, setProductos] = useState<CreateProductoDto[]>([]);
+  const [productos, setProductos] = useState<CatalogoProductoDto[]>([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     async function getProductos() {
       try {
-        const response = await fetch("http://localhost:5001/api/producto", {
-          method: "POST",
-          mode: 'no-cors',
+        const response = await fetch("/api/productos", {
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
-            credentials: 'include',
           },
-          body: JSON.stringify({
-            nombre: "Producto de prueba",
-            descripcion: "Este es un producto de prueba",
-            precio: 100,
-            imagenes: ["url_imagen_producto"],
-            stock: 10
-          }),
         });
 
         if (!response.ok) {
@@ -34,18 +26,17 @@ export const CatalogoProductos = () => {
         }
 
         const productosJson = await response.json();
-        console.log("Productos recibidos:", productosJson);
-
+        console.log(productosJson);
         setProductos(productosJson);
       } catch (error) {
-        console.log("Ocurrió un error al obtener los productos:", error);
+        console.log("Ocurrio un error al obtener los productos", error);
       }
     }
 
     getProductos();
   }, []);
 
-  const handleAddToCart = (producto: CreateProductoDto) => {
+  const handleAddToCart = (producto: CatalogoProductoDto) => {
     dispatch(addToCart({ ...producto, stock: 1 }));
   };
 
@@ -53,42 +44,41 @@ export const CatalogoProductos = () => {
     <>
       <div className={styles.catalogoContainer}>
         <div className={styles.productoContainer}>
-          {productos.length === 0 ? (
-            <p>No pudimos obtener los productos</p>
-          ) : (
-            productos.map((producto) => (
-              <div key={producto.id} className={styles.cardProducto}>
-                <img
-                  src={producto.imagenes[0]}
-                  alt={producto.nombre}
-                  width="150"
-                />
-                <h3>{producto.nombre}</h3>
-                <p>Precio: ${producto.precio}</p>
-                <button type="button" onClick={() => handleAddToCart(producto)}>
-                  Añadir al carrito
-                </button>
-                <button className="btn-detalle">
-                  <Link
-                    to={`/detalle-productos/${producto.id}`}
-                    className={styles.linkDetalle}
-                  >
-                    Ver Detalle
-                  </Link>
-                </button>
-              </div>
-            ))
-          )}
+          {productos.map((producto) => (
+            <div key={producto.id} className={styles.cardProducto}>
+              {producto.ImagenesProducto &&
+              producto.ImagenesProducto.length > 0 ? (
+                <Carousel slide={false}>
+                  {producto.ImagenesProducto.map((imagen, index) => (
+                    <Carousel.Item key={index}>
+                      <img
+                        src={imagen.pathImagenProducto}
+                        className="d-block w-100"
+                        alt={`${producto.NombreProducto} imagen ${index + 1}`}
+                      />
+                    </Carousel.Item>
+                  ))}
+                </Carousel>
+              ) : (
+                <p>Imagen no disponible</p>
+              )}
+              <h3>{producto.NombreProducto}</h3>
+              <p>Precio: ${producto.PrecioProducto}</p>
+              <button type="button" onClick={() => handleAddToCart(producto)}>
+                Añadir al carrito
+              </button>
+              <button className="btn-detalle">
+                <Link
+                  to={`/detalle-productos/${producto.id}`}
+                  className={styles.linkDetalle}
+                >
+                  Ver Detalle
+                </Link>
+              </button>
+            </div>
+          ))}
         </div>
       </div>
-      <button
-        className="btn btn-primary"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasCarrito"
-        aria-controls="offcanvasCarrito"
-        style={{ display: "none" }}
-      ></button>
     </>
   );
 };

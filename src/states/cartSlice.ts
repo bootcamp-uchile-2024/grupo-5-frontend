@@ -1,11 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CreateProductoDto } from '../interface/CreateProductoDTO';
-
+import { CatalogoProductoDto } from '../interface/Productos/read-catalogo-productos.dto';
 export interface CartState {
   idUsuario: number;
-  productos: CreateProductoDto[];
+  productos: CatalogoProductoDto[];
 }
-
 const loadCartFromLocalStorage = (): CartState => {
   try {
     const savedCart = localStorage.getItem('__redux__cart__');
@@ -16,7 +14,6 @@ const loadCartFromLocalStorage = (): CartState => {
     return { idUsuario: 1, productos: [] };
   }
 };
-
 const saveCartToLocalStorage = (state: CartState) => {
   try {
     console.log('Guardando en localStorage:', state);
@@ -26,16 +23,13 @@ const saveCartToLocalStorage = (state: CartState) => {
     console.error('Error al guardar el carrito de compras', error);
   }
 };
-
 const initialState: CartState = loadCartFromLocalStorage();
-
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart(state, action: PayloadAction<CreateProductoDto>) {
+    addToCart(state, action: PayloadAction<CatalogoProductoDto>) {
       const existingItem = state.productos.find(item => item.id === action.payload.id);
-
       if (existingItem) {
         existingItem.stock += action.payload.stock;
       } else {
@@ -43,17 +37,14 @@ const cartSlice = createSlice({
       }
       saveCartToLocalStorage(state);
     },
-
     removeFromCart(state, action: PayloadAction<number>) {
       state.productos = state.productos.filter(item => item.id !== action.payload);
       saveCartToLocalStorage(state);
     },
-
     clearCart(state) {
       state.productos = [];
       saveCartToLocalStorage(state);
     },
-
     updateQuantity: (state, action: PayloadAction<{ id: number; cantidad: number }>) => {
       const { id, cantidad } = action.payload;
       const item = state.productos.find(item => item.id === id);
@@ -67,6 +58,5 @@ const cartSlice = createSlice({
     },
   },
 });
-
 export const { addToCart, removeFromCart, clearCart, updateQuantity } = cartSlice.actions;
 export default cartSlice.reducer;

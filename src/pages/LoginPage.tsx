@@ -8,7 +8,6 @@ import { save } from "../states/loggedUserSlice";
 
 interface IForm {
   user: string;
-  email: string;
   password: string;
 }
 
@@ -20,14 +19,13 @@ export const LoginPage = () => {
   const [validCredentials, setValidCredentials] = useState<boolean>(true);
   const [form, setForm] = useState<IForm>({
     user: "",
-    email: "",
     password: "",
   });
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    if (form.user === "" || form.password === "" || form.email === "") {
+    if (form.user === "" || form.password === "") {
       setError(true);
       return;
     }
@@ -40,7 +38,7 @@ export const LoginPage = () => {
       if (storedUser) {
         const parsedUser = JSON.parse(storedUser);
         const roles = parsedUser.roles;
-        dispatch(save({ user: form.user, email: form.email }));
+        dispatch(save({ user: form.user }));
 
         if (roles.includes("admin")) {
           navigate("/admin");
@@ -75,13 +73,6 @@ export const LoginPage = () => {
               name="user"
               onChange={handleChange}
               value={form.user}
-            />
-            <input
-              type="email"
-              placeholder="Correo electrónico"
-              name="email"
-              onChange={handleChange}
-              value={form.email}
             />
             <input
               type="password"

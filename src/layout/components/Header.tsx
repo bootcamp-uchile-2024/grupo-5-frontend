@@ -18,7 +18,7 @@ import { RootState } from "../../states/store";
 export const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [userRoles, setUserRoles] = useState<string[]>([]);
-  const userState = useSelector((state: RootState) => state.user);
+  const userState = useSelector((state: RootState) => state.loggedUser);
   const cart = useSelector((state: RootState) => state.cart.productos);
   const totalItems = cart.reduce(
     (total, producto) => total + producto.stock,
@@ -57,7 +57,7 @@ export const Header = () => {
         />
       </div>
       <div className={styles.iconContainer}>
-        <FontAwesomeIcon icon={faCircleUser} className={styles.icon} />        
+        <FontAwesomeIcon icon={faCircleUser} className={styles.icon} />
         {!isLoggedIn ? (
           <Link to="/login" className={styles.iconLink}>
             <span className={styles.iconText}>

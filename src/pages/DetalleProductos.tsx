@@ -1,63 +1,58 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { CreateProductoDto } from "../interface/CreateProductoDTO";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../states/cartSlice";
+import { GetProductoDto } from "../interface/Productos/read-producto.dto";
 import styles from "./css/DetalleProductos.module.css";
-// import { addToCart, updateQuantity } from "../states/cartSlice";
-// import { useDispatch, useSelector } from "react-redux";
-// import { RootState } from "../states/store";
 import { MainLayout } from "../layout/MainLayout";
+import { Carousel } from "react-bootstrap";
 
 export const DetalleProductos = () => {
   const { id } = useParams<{ id: string }>();
-  const [producto, setProducto] = useState<CreateProductoDto | null>(null);
+  const [producto, setProducto] = useState<GetProductoDto | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [quantity] = useState<number>(1);
-  // const dispatch = useDispatch();
-  // const cart = useSelector((state: RootState) => state.cart.productos);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getProducto = async () => {
       try {
         if (!id) return;
-
-        const response = await fetch(`/api/producto/${id}`);
+        const response = await fetch(`/api/productos/${id}`);
         if (!response.ok) {
           const errorText = await response.text();
           throw new Error(`Error ${response.status}: ${errorText}`);
         }
-
-        const productoJson = await response.json();
-        setProducto(productoJson);
-      } catch (error: unknown) {
+        const data = await response.json();
+        if (Array.isArray(data) && data.length > 0) {
+          setProducto(data[0]); // Accede al primer elemento del array
+        } else {
+          throw new Error("Producto no encontrado");
+        }
+      } catch (error: any) {
         console.log("Ocurrió un error al obtener el producto:", error);
-        setError(`Error al obtener el producto: ${(error as Error).message}`);
+        setError(`Error al obtener el producto: ${error.message}`);
       } finally {
         setLoading(false);
       }
     };
-
     getProducto();
   }, [id]);
 
-  // const handleIncrease = () => {
-  //   setQuantity((prevQuantity) => prevQuantity + 1);
-  // };
-
-  // const handleDecrease = () => {
-  //   setQuantity((prevQuantity) => (prevQuantity > 1 ? prevQuantity - 1 : 1));
-  // };
-
-  // const handleAddToCart = () => {
-  //   if (producto) {
-  //     const existingItem = cart.find((item) => item.id === producto.id);
-  //     if (existingItem) {
-  //       dispatch(updateQuantity({ id: producto.id, cantidad: quantity }));
-  //     } else {
-  //       dispatch(addToCart({ ...producto, stock: quantity }));
-  //     }
-  //   }
-  // };
+  const handleAddToCart = () => {
+    if (producto) {
+      dispatch(
+        addToCart({
+          ...producto,
+          stock: 1,
+          NombreProducto: "",
+          MarcaProducto: "",
+          PrecioProducto: 0,
+          ImagenesProducto: [],
+        })
+      );
+    }
+  };
 
   if (loading) return <div>Cargando producto...</div>; // Mostrar loading
   if (error) return <div>{error}</div>; // Mostrar error si ocurre
@@ -65,54 +60,47 @@ export const DetalleProductos = () => {
   return (
     <MainLayout>
       <div className={styles.detalleProductoContainer}>
+        <h1 className={styles.tituloPrincipal}>Detalle del producto</h1>
         {producto && (
-          <div className="card mb-3">
-            <div className="row g-0">
-              <div className="col-md-4">
-                <img
-                  src={producto.imagenes[0]}
-                  className="img-fluid rounded-start"
-                  alt={producto.nombre}
-                />
-              </div>
-              <div className="col-md-8">
-                <div className="card-body">
-                  <h5 className="card-title">{producto.nombre}</h5>
-                  <p className="card-text">
-                    Precio: ${producto.precio * quantity}
-                  </p>
-                  <p className="card-text">Marca: {producto.marca}</p>
-                  <p className="card-text">Categoría: {producto.categoria}</p>
-                  <p className="card-text">Stock: {producto.stock}</p>
-                  <p className="card-text">Detalle: {producto.descripcion}</p>
-                  {/* <div className="d-flex align-items-center">
-                    <button
-                      className="btn btn-outline-secondary me-2"
-                      onClick={handleDecrease}
-                    >
-                      -
-                    </button>
-                    <span>{quantity}</span>
-                    <button
-                      className="btn btn-outline-secondary ms-2"
-                      onClick={handleIncrease}
-                    >
-                      +
-                    </button>
-                  </div> */}
-                  <div className="botones-container mt-2">
-                    {/* <button
-                      className="btn btn-primary"
-                      onClick={handleAddToCart}
-                    >
-                      Añadir al carrito
-                    </button> */}
-                    <Link to="/" className="btn btn-secondary ms-2">
-                      Volver al Catálogo
-                    </Link>
-                  </div>
-                </div>
-              </div>
+          <div className={styles.productoCard}>
+            <div className={styles.productoIzquierda}>
+              {producto.imagenes && producto.imagenes.length > 0 ? (
+                <Carousel slide={false}>
+                  {producto.imagenes.map((imagen, index) => (
+                    <Carousel.Item key={index}>
+                      <img
+                        src={imagen.pathImagenProducto}
+                        className={styles.productoImagen}
+                        alt={`${producto.nombreProducto} imagen ${index + 1}`}
+                      />
+                    </Carousel.Item>
+                  ))}
+                </Carousel>
+              ) : (
+                <p>Imagen no disponible</p>
+              )}
+            </div>
+            <div className={styles.productoDerecha}>
+              <h3 className={styles.productoNombre}>
+                {producto.nombreProducto}
+              </h3>
+              <p className={styles.productoMarca}>Marca: {producto.marca}</p>
+              <p className={styles.productoCategoria}>
+                Categoría: {producto.categoria}
+              </p>
+              <p className={styles.productoPrecio}>
+                Precio: ${producto.precio}
+              </p>
+              <p className={styles.productoStock}>Stock: {producto.stock}</p>
+              <p className={styles.productoDescripcion}>
+                Descripción: {producto.descripcion}
+              </p>
+              <button className="btn btn-primary" onClick={handleAddToCart}>
+                Añadir al carrito
+              </button>
+              <Link to="/" className="btn btn-secondary mt-2">
+                Volver a la página principal
+              </Link>
             </div>
           </div>
         )}
