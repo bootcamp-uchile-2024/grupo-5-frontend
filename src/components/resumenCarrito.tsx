@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import img from "../assets/shopping-cart.svg";
+import { Carousel } from "react-bootstrap";
 
 export const ResumenCarrito = () => {
   const cart = useSelector((state: RootState) => state.cart.productos);
@@ -24,7 +25,7 @@ export const ResumenCarrito = () => {
   };
 
   const total = cart.reduce(
-    (acc, producto) => acc + producto.precio * producto.stock,
+    (acc, producto) => acc + producto.PrecioProducto * producto.stock,
     0
   );
 
@@ -55,17 +56,30 @@ export const ResumenCarrito = () => {
               <div key={producto.id} className="card mb-3">
                 <div className="row g-0">
                   <div className="col-md-4">
-                    <img
-                      src={producto.imagenes[0]}
-                      className="img-fluid rounded-start"
-                      alt={producto.nombre}
-                    />
+                    {producto.ImagenesProducto &&
+                    producto.ImagenesProducto.length > 0 ? (
+                      <Carousel slide={false}>
+                        {producto.ImagenesProducto.map((imagen, index) => (
+                          <Carousel.Item key={index}>
+                            <img
+                              src={imagen.pathImagenProducto}
+                              className="d-block w-100"
+                              alt={`${producto.NombreProducto} imagen ${
+                                index + 1
+                              }`}
+                            />
+                          </Carousel.Item>
+                        ))}
+                      </Carousel>
+                    ) : (
+                      <p>Imagen no disponible</p>
+                    )}
                   </div>
                   <div className="col-md-8">
                     <div className="card-body">
-                      <h5 className="card-title">{producto.nombre}</h5>
+                      <h5 className="card-title">{producto.NombreProducto}</h5>
                       <p className="card-text">
-                        Precio: ${producto.precio * producto.stock}
+                        Precio: ${producto.PrecioProducto * producto.stock}
                       </p>
                       <div className="d-flex align-items-center">
                         <button

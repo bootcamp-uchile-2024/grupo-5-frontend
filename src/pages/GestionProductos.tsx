@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MainLayout } from "../layout/MainLayout";
 import Table from "react-bootstrap/Table";
-import { GetProductoDto, setProducts } from "../states/ProductSlice";
+import { GetProductoDto } from "../states/ProductSlice";
 import { RootState } from "../states/store";
 
 export const GestionProductos = () => {
@@ -23,12 +23,7 @@ export const GestionProductos = () => {
 
     const data = await response.json();
     console.log("Productos obtenidos de la API:", data);
-
-    if (Array.isArray(data) && data.length > 0) {
-      dispatch(setProducts(data));
-    } else {
-      throw new Error("No se encontraron productos");
-    }
+    dispatch({ type: "products/setProducts", payload: data });
   };
 
   useEffect(() => {
