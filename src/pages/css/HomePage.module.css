@@ -3,12 +3,14 @@
   font-size: 64px;
   font-weight: 900;
   font-family: "Montserrat", serif;
+  text-align: center;
+  padding-bottom: 30px;
 }
 
 .titulo2{
   font-size: 64px;
   font-weight: 900;
-  font-family: "Montserrat", serif;
+  font-family: "Montserrat", serif;  
 }
 
 .subtitulo {
@@ -25,4 +27,51 @@
   font-weight: 500;
   font-family: "Montserrat", serif;
 }
+
+.suscripcion{
+  background-color: #F27405;
+}
+
+.suscripcion_text{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+h3{
+  width: 649px;
+  color: white;
+  font-size: 40px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+}
+
+.suscripcion_text p{
+  width: 638px;
+  text-align: left;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: "Montserrat", serif;
+  line-height: 1.2;
+}
+
+.suscripcion_input{
+  width: 497px;
+  height: 44px;
+  border-radius: 32px;
+  border: 1px solid #000000;
+  margin-bottom: 20px;
+}
+
+.suscripcion_input::placeholder {
+  color: #535353;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Montserrat", serif;
+  padding-left: 20px;
+}
+
 

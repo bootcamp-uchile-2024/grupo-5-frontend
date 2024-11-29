@@ -1,73 +1,47 @@
-.tituloPrincipal {
-    text-align: center;
-    margin-top: 0; 
-    padding-top: 20px;
-  }
-
-.productoCard {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 0px 5px 5px 5px;
-    margin: 5px auto 15px auto;
-    max-width: 800px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .productoIzquierda {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .productoDerecha {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding-left: 10px;
-  }
-  
+.linkVolver {
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+  color: #404040;
+  display: flex;
+  align-items: center;
+}  
   .productoNombre {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 2px;
+    width: 568px;
+    font-size: 40px;
+    font-weight: 700;
+    font-family: "Montserrat", serif;
+    color: #000000;
+    line-height: 1.2;
+    margin-bottom: 15px;
   }
   
   .productoImagen {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
+    width: 279px;
+    height: 341px;
+  }
+
+  .productoMarca {
+    font-size: 25px;
+    font-weight: 700;
+    font-family: "Montserrat", serif;
+    color: #000000;
+    padding-bottom: 30px;
   }
   
   .productoPrecio {
-    font-size: 20px;
-    color: #4CAF50;
-    margin-bottom: 10px;
+    font-size: 32px;
+    font-weight: 500;
+    font-family: "Montserrat", serif;
+    color: #000000;
   }
-  
-  .productoMarca {
-    font-size: 18px;
-    margin-bottom: 2px;
-  }
-    
-  .productoCategoria {
-    font-size: 18px;
-    margin-bottom: 2px;
-  }
-  
-  .productoStock {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 1px;
-  }
-  .productoDescripcion {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 2px;
+
+  .titulo {
+    color: #535353;
+    font-size: 64px;
+    font-weight: 900;
+    font-family: "Montserrat", serif;
+    text-align: center;
+    padding-bottom: 30px;
   }

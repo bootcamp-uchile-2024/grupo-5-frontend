@@ -51,9 +51,7 @@ export const GestionProductos = () => {
             {products.map((product: GetProductoDto) => (
               <tr key={product.id}>
                 <td>{product.id}</td>
-                <td>{product.nombreProducto}</td>
-                <td>{product.descripcion}</td>
-                <td>{product.precio}</td>
+                <td>{product.NombreProducto}</td>
               </tr>
             ))}
           </tbody>
