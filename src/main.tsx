@@ -18,6 +18,8 @@ import { GestionUsuarios } from "./pages/GestionUsuarios";
 import { GestionProductos } from "./pages/GestionProductos";
 import CategoriaPerros from "./pages/CategoriaPerros";
 import AlimentosPerros from "./pages/AlimentosPerros";
+import { RegistrodeUsuario } from "./pages/RegistrodeUsuario"
+
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -34,6 +36,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/carrito" element={<ResumenPage />} />
           <Route path="/categoria-perro" element={<CategoriaPerros />} />
           <Route path="/alimentos-perro" element={<AlimentosPerros />} />
+          <Route path="/registro" element={<RegistrodeUsuario />} />
           <Route
             path="/admin"
             element={

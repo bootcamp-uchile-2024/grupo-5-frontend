@@ -64,8 +64,8 @@ export const LoginPage = () => {
   return (
     <MainLayout>
       <div className={styles.loginContainer}>
-        <h1>Acceder a tu cuenta</h1>
         <div className={styles.loginCard}>
+          <h1>Iniciar sesión</h1>
           <form>
             <input
               type="text"
@@ -81,16 +81,28 @@ export const LoginPage = () => {
               onChange={handleChange}
               value={form.password}
             />
+            <div className={styles.forgotPassword}>
+              <a href="#">¿Olvidaste tu contraseña?</a>
+            </div>
             <button type="submit" onClick={handleSubmit}>
-              Ingresar
+              Iniciar sesión
             </button>
           </form>
           {error && (
-            <div className="error-message">Debes llenar todos los campos</div>
+            <div className={styles.errorMessage}>Debes llenar todos los campos</div>
           )}
           {!validCredentials && (
-            <div className="error-message">Credenciales inválidas</div>
+            <div className={styles.errorMessage}>Credenciales inválidas</div>
           )}
+        </div>
+
+        {/* Rectángulo Azul */}
+        <div className={styles.rectangle}></div>
+
+        {/* Botones a la derecha */}
+        <div className={styles.sideOptions}>
+          <button>Registrarme</button>
+          <button>Continuar como invitado</button>
         </div>
       </div>
     </MainLayout>
