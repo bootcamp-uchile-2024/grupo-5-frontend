@@ -64,8 +64,8 @@ export const DetalleProductos = () => {
     }
   };
 
-  if (loading) return <div>Cargando producto...</div>; // Mostrar loading
-  if (error) return <div>{error}</div>; // Mostrar error si ocurre
+  if (loading) return <div>Cargando producto...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <MainLayout>
