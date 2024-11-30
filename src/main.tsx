@@ -16,6 +16,8 @@ import { Provider } from "react-redux";
 import { store } from "./states/store";
 import { GestionUsuarios } from "./pages/GestionUsuarios";
 import { GestionProductos } from "./pages/GestionProductos";
+import CategoriaPerros from "./pages/CategoriaPerros";
+import AlimentosPerros from "./pages/AlimentosPerros";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -30,6 +32,8 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/catalogo-productos" element={<CatalogoProductos />} />
           <Route path="/detalle-productos/:id" element={<DetalleProductos />} />
           <Route path="/carrito" element={<ResumenPage />} />
+          <Route path="/categoria-perro" element={<CategoriaPerros />} />
+          <Route path="/alimentos-perro" element={<AlimentosPerros />} />
           <Route
             path="/admin"
             element={

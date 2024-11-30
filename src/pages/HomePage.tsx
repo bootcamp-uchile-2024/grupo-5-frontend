@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 export const HomePage = () => {
   return (
     <MainLayout>
-      <Container fluid className="d-flex flex-column">
+      <Container fluid className="d-flex flex-column mt-5">
         <Row className="justify-content-center mb-5">
           <Col md={10}>
             <Carousel
@@ -60,11 +60,13 @@ export const HomePage = () => {
         </Row>
         <Row className="justify-content-center mb-5">
           <Col xs={3} sm={3} md={3}>
-            <img
-              src={CardSection1}
-              alt="CardSection1"
-              className="img-fluid w-100"
-            />
+            <Link to={"/categoria-perro"}>
+              <img
+                src={CardSection1}
+                alt="CardSection1"
+                className="img-fluid w-100"
+              />
+            </Link>
           </Col>
           <Col xs={3} sm={3} md={3}>
             <img
