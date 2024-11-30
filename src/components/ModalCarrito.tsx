@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { Offcanvas, Button, Carousel, Card, Row, Col } from "react-bootstrap";
 import { useState, forwardRef, useImperativeHandle } from "react";
 
-export const ModalCarrito = forwardRef((props, ref) => {
+export const ModalCarrito = forwardRef((_props, ref) => {
   const cart = useSelector((state: RootState) => state.cart.productos);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
@@ -192,7 +192,7 @@ export const ModalCarrito = forwardRef((props, ref) => {
                     fontWeight: "700",
                   }}
                 >
-                  <Link to={"/carrito"} className="link-custom">
+                  <Link to={"/login"} className="link-custom">
                     Ir a Comprar
                   </Link>
                 </Button>

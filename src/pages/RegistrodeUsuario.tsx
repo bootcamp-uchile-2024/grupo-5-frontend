@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Form, Button, Container, Row, Col, Image, Alert } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Container,
+  Row,
+  Col,
+  Image,
+  Alert,
+} from "react-bootstrap";
 import { MainLayout } from "../layout/MainLayout";
 
 export const RegistrodeUsuario = () => {
@@ -14,7 +22,7 @@ export const RegistrodeUsuario = () => {
     ofertas: false,
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
@@ -22,7 +30,7 @@ export const RegistrodeUsuario = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Datos del formulario:", formData);
   };
@@ -32,7 +40,11 @@ export const RegistrodeUsuario = () => {
       <Container className="mt-5">
         <Row className="align-items-center">
           {/* Imagen del gato */}
-          <Col xs={3} className="d-flex justify-content-start" style={{ marginLeft: "-115px", marginTop: "-330px" }}>
+          <Col
+            xs={3}
+            className="d-flex justify-content-start"
+            style={{ marginLeft: "-115px", marginTop: "-330px" }}
+          >
             <Image
               src="src/assets/CuteCat.png"
               rounded
@@ -49,22 +61,31 @@ export const RegistrodeUsuario = () => {
               alt="Globo de texto"
               className="position-absolute"
               style={{
-                top: "-5px",  // Ajusta la posición vertical
+                top: "-5px", // Ajusta la posición vertical
                 left: "-70px", // Ajusta la posición horizontal
-                zIndex: 0,     // Asegura que el globo quede detrás del texto
+                zIndex: 0, // Asegura que el globo quede detrás del texto
                 maxWidth: "100%",
               }}
             />
             {/* Texto principal */}
-            <h1 className="mb-4" style={{ position: "relative", zIndex: 1, top: "-50px", left: "-280px" }}>
+            <h1
+              className="mb-4"
+              style={{
+                position: "relative",
+                zIndex: 1,
+                top: "-50px",
+                left: "-280px",
+              }}
+            >
               Bienvenid@ a Petropolis
             </h1>
             <p style={{ position: "relative", zIndex: 1, top: "-10px" }}>
-              Para comenzar la experiencia personalizada en Petropolis, rellena tus datos:
+              Para comenzar la experiencia personalizada en Petropolis, rellena
+              tus datos:
             </p>
-            
+
             {/* Aquí movemos solo el formulario */}
-            <Form onSubmit={handleSubmit} style={{ marginTop: '80px' }}>
+            <Form onSubmit={handleSubmit} style={{ marginTop: "80px" }}>
               {/* Campos del formulario */}
               <Form.Group className="mb-3" controlId="formNombre">
                 <Form.Label>Nombre</Form.Label>
@@ -111,7 +132,8 @@ export const RegistrodeUsuario = () => {
               </Form.Group>
 
               <Alert variant="info">
-                Una contraseña segura debe tener al menos 8 caracteres, una mayúscula y un carácter especial.
+                Una contraseña segura debe tener al menos 8 caracteres, una
+                mayúscula y un carácter especial.
               </Alert>
 
               <Form.Group className="mb-3" controlId="formContraseña">
@@ -161,22 +183,25 @@ export const RegistrodeUsuario = () => {
               </Button>
             </Form>
           </Col>
-          
-          {/* Imagen adicional al final, frente al campo de Contraseña */}
-          <Col xs={3} className="d-flex justify-content-end" style={{ marginTop: '20px' }}>
-  <Image
-    src="src/assets/CoolDog.png" 
-    rounded
-    style={{
-      maxWidth: "1000px",              // Controlamos el tamaño máximo
-      position: "relative",           // Necesario para mover la imagen
-      top: "64px",                    // Mueve la imagen verticalmente
-      left: "1111px",                   // Mueve la imagen horizontalmente
-    }}
-    alt="Imagen perrito"
-  />
-</Col>
 
+          {/* Imagen adicional al final, frente al campo de Contraseña */}
+          <Col
+            xs={3}
+            className="d-flex justify-content-end"
+            style={{ marginTop: "20px" }}
+          >
+            <Image
+              src="src/assets/CoolDog.png"
+              rounded
+              style={{
+                maxWidth: "1000px", // Controlamos el tamaño máximo
+                position: "relative", // Necesario para mover la imagen
+                top: "64px", // Mueve la imagen verticalmente
+                left: "1111px", // Mueve la imagen horizontalmente
+              }}
+              alt="Imagen perrito"
+            />
+          </Col>
         </Row>
       </Container>
     </MainLayout>

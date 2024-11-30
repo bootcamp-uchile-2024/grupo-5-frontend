@@ -43,7 +43,7 @@ export const LoginPage = () => {
         if (roles.includes("admin")) {
           navigate("/admin");
         } else if (roles.includes("user")) {
-          navigate("/dashboard");
+          navigate("/carrito");
         }
       }
     } else {
@@ -89,7 +89,9 @@ export const LoginPage = () => {
             </button>
           </form>
           {error && (
-            <div className={styles.errorMessage}>Debes llenar todos los campos</div>
+            <div className={styles.errorMessage}>
+              Debes llenar todos los campos
+            </div>
           )}
           {!validCredentials && (
             <div className={styles.errorMessage}>Credenciales inválidas</div>
