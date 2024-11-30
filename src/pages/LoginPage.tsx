@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { login } from "../services/loginService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MainLayout } from "../layout/MainLayout";
 import styles from "./css/LoginPage.module.css";
 import { useDispatch } from "react-redux";
@@ -103,7 +103,9 @@ export const LoginPage = () => {
 
         {/* Botones a la derecha */}
         <div className={styles.sideOptions}>
-          <button>Registrarme</button>
+          <Link to="/registro">
+            <button>Registrarme</button>
+          </Link>
           <button>Continuar como invitado</button>
         </div>
       </div>
