@@ -78,17 +78,30 @@ export const ModalCarrito = forwardRef((_props, ref) => {
               <Card key={producto.id} className="mb-3">
                 <Row noGutters>
                   <Col md={4}>
-                    <Carousel>
-                      {producto.ImagenesProducto.map((imagen, index) => (
-                        <Carousel.Item key={index}>
-                          <img
-                            className="d-block w-100"
-                            src={imagen.pathImagenProducto}
-                            alt={`Imagen ${index + 1}`}
-                          />
-                        </Carousel.Item>
-                      ))}
-                    </Carousel>
+                    <div className="img-container">
+                      {producto.ImagenesProducto &&
+                      producto.ImagenesProducto.length > 0 ? (
+                        <Carousel
+                          slide={false}
+                          controls={false}
+                          indicators={false}
+                        >
+                          {producto.ImagenesProducto.map((imagen, index) => (
+                            <Carousel.Item key={index}>
+                              <img
+                                src={imagen.pathImagenProducto}
+                                className="d-block img-fluid"
+                                alt={`${producto.NombreProducto} imagen ${
+                                  index + 1
+                                }`}
+                              />
+                            </Carousel.Item>
+                          ))}
+                        </Carousel>
+                      ) : (
+                        <p>Imagen no disponible</p>
+                      )}
+                    </div>
                   </Col>
                   <Col md={8}>
                     <Card.Body>
