@@ -15,7 +15,7 @@ RUN npm run build
 RUN ls -al /usr/app/dist
 
 # Etapa dos, empaquetado con Nginx
-FROM nginx:latest:$IMAGEN
+FROM nginx:latest
 
 # Copiar los archivos generados desde la etapa de construcción
 COPY --from=build /usr/app/dist /usr/share/nginx/html
