@@ -70,7 +70,7 @@ export const DetalleProductos = () => {
   return (
     <MainLayout>
       <Container fluid>
-        <Row className="mb-5">
+        <Row className="mb-5 pt-5">
           <Link to="/" className={styles.linkVolver}>
             <span
               aria-hidden="true"

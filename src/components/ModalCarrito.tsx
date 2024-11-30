@@ -1,16 +1,26 @@
 import "./css/ModalCarrito.css";
-import img from "../assets/shopping-cart.svg";
+import trash from "../assets/icons/trash.svg";
+import plus from "../assets/icons/plus.svg";
+import truck from "../assets/icons/truck.svg";
+import CarritoVacio from "../assets/Carrito/Carro_vacio.png";
 import { removeFromCart, updateQuantity } from "../states/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../states/store";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { Carousel } from "react-bootstrap";
+import { Offcanvas, Button, Carousel, Card, Row, Col } from "react-bootstrap";
+import { useState, forwardRef, useImperativeHandle } from "react";
 
-export const ModalCarrito = () => {
+export const ModalCarrito = forwardRef((props, ref) => {
   const cart = useSelector((state: RootState) => state.cart.productos);
   const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  useImperativeHandle(ref, () => ({
+    openModal: handleShow,
+  }));
 
   const handleIncrease = (id: number) => {
     dispatch(updateQuantity({ id, cantidad: 1 }));
@@ -30,114 +40,175 @@ export const ModalCarrito = () => {
   );
 
   return (
-    <div>
-      <button
-        className="btn btn-primary"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasCarrito"
-        aria-controls="offcanvasCarrito"
-        style={{ display: "none" }}
-        id="carritoButton"
-      ></button>
-
-      <div
-        className="offcanvas offcanvas-end"
-        data-bs-scroll="true"
-        data-bs-backdrop="false"
-        tabIndex={-1}
-        id="offcanvasCarrito"
-        aria-labelledby="offcanvasCarritoLabel"
+    <>
+      <Offcanvas
+        show={show}
+        onHide={handleClose}
+        placement="end"
+        style={{ width: "500px" }}
       >
-        <div className="offcanvas-header">
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="offcanvas"
+        <Offcanvas.Header style={{ backgroundColor: "#05C7F2" }}>
+          <Button
+            variant="link"
+            onClick={handleClose}
             aria-label="Close"
-          ></button>
-        </div>
-        <div className="offcanvas-body offcanvasBody">
+            className="btn-close-custom"
+          >
+            <span aria-hidden="true" className="no-underline">
+              X
+            </span>
+          </Button>
+          <Offcanvas.Title
+            className="mx-auto"
+            style={{
+              color: "white",
+            }}
+          >
+            Carrito de Compras
+          </Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
           {cart.length === 0 ? (
             <div className="empty-cart">
-              <h4>¡Tu carrito está vacío!</h4>
-              <img src={img} alt="Icon-Carrito" />
+              <p>¡El carrito está vacío!</p>
+              <img src={CarritoVacio} alt="Carrito vacío" />
             </div>
           ) : (
-            <>
-              <h4>Tu carrito</h4>
-              <div className="cart-items">
-                {cart.map((producto) => (
-                  <div key={producto.id} className="card mb-3">
-                    <div className="row g-0">
-                      <div className="col-md-4">
-                        {producto.ImagenesProducto &&
-                        producto.ImagenesProducto.length > 0 ? (
-                          <Carousel>
-                            {producto.ImagenesProducto.map((imagen, index) => (
-                              <Carousel.Item key={index}>
-                                <img
-                                  src={imagen.pathImagenProducto}
-                                  className="d-block w-100"
-                                  alt={`${producto.NombreProducto} imagen ${
-                                    index + 1
-                                  }`}
-                                />
-                              </Carousel.Item>
-                            ))}
-                          </Carousel>
-                        ) : (
-                          <p>Imagen no disponible</p>
-                        )}
-                      </div>
-                      <div className="col-md-8">
-                        <div className="card-body">
-                          <h5 className="card-title">
-                            {producto.NombreProducto}
-                          </h5>
-                          <p className="card-text">
-                            Precio: ${producto.PrecioProducto * producto.stock}
-                          </p>
-                          <div className="d-flex align-items-center">
-                            <button
-                              className="btn btn-outline-secondary me-2"
-                              onClick={() => handleDecrease(producto.id)}
-                            >
-                              -
-                            </button>
-                            <span>{producto.stock}</span>
-                            <button
-                              className="btn btn-outline-secondary ms-2"
-                              onClick={() => handleIncrease(producto.id)}
-                            >
-                              +
-                            </button>
-                            <button
-                              className="btn btn-danger ms-2"
-                              onClick={() => handleRemove(producto.id)}
-                            >
-                              <FontAwesomeIcon icon={faTrashCan} />
-                            </button>
-                          </div>
+            cart.map((producto) => (
+              <Card key={producto.id} className="mb-3">
+                <Row noGutters>
+                  <Col md={4}>
+                    <Carousel>
+                      {producto.ImagenesProducto.map((imagen, index) => (
+                        <Carousel.Item key={index}>
+                          <img
+                            className="d-block w-100"
+                            src={imagen.pathImagenProducto}
+                            alt={`Imagen ${index + 1}`}
+                          />
+                        </Carousel.Item>
+                      ))}
+                    </Carousel>
+                  </Col>
+                  <Col md={8}>
+                    <Card.Body>
+                      <Card.Title
+                        style={{
+                          color: "#363636",
+                          fontSize: "16px",
+                          fontFamily: "Montserrat",
+                          fontWeight: "500",
+                        }}
+                      >
+                        {producto.NombreProducto}
+                      </Card.Title>
+                      <Card.Text
+                        style={{
+                          color: "#363636",
+                          fontSize: "24px",
+                          fontFamily: "Montserrat",
+                          fontWeight: "700",
+                        }}
+                      >
+                        ${producto.PrecioProducto}
+                      </Card.Text>
+                      <div className="d-flex justify-content-end align-items-center">
+                        <div className="button-container">
+                          <Button
+                            variant="danger"
+                            size="sm"
+                            className="btn-trash"
+                            onClick={() => {
+                              if (producto.stock > 1) {
+                                handleDecrease(producto.id);
+                              } else {
+                                handleRemove(producto.id);
+                              }
+                            }}
+                          >
+                            <img src={trash} alt="trash" />
+                          </Button>
+                          <span className="mx-2">{producto.stock}</span>
+                          <Button
+                            variant="outline-secondary"
+                            size="sm"
+                            className="btn-plus"
+                            onClick={() => handleIncrease(producto.id)}
+                          >
+                            <img src={plus} alt="" />
+                          </Button>
                         </div>
+                        <Button
+                          className="btn-detalle"
+                          style={{
+                            backgroundColor: "white",
+                            width: "113px",
+                            height: "40px",
+                            padding: "16",
+                            borderRadius: "32px",
+                            marginLeft: "10px",
+                            marginTop: " 20px",
+                            color: "#363636",
+                            fontSize: "16px",
+                            fontFamily: "Montserrat",
+                            fontWeight: "500",
+                            border: "1px solid #FFC71D",
+                          }}
+                        >
+                          Comparar
+                        </Button>
                       </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="cart-total d-flex justify-content-between align-items-center">
-                <div className="total-amount">
-                  <h5>Total</h5>
-                  <p>${total}</p>
-                </div>
-                <Link to="/carrito" className="btn btn-primary mt-2">
-                  Ir a comprar
-                </Link>
-              </div>
-            </>
+                    </Card.Body>
+                  </Col>
+                </Row>
+              </Card>
+            ))
           )}
-        </div>
-      </div>
-    </div>
+        </Offcanvas.Body>
+        {cart.length > 0 && (
+          <div className="offcanvas-footer" style={{ width: "100%" }}>
+            <Row className="justify-content-center">
+              <Col
+                xs="auto"
+                style={{
+                  backgroundColor: "#EEF8FD",
+                  width: "235px",
+                  height: " 79px",
+                }}
+              >
+                <h5 className="titulo_total">TOTAL</h5>
+                <p className="texto_total">${total}</p>
+              </Col>
+              <Col xs="auto" className="d-flex align-items-center">
+                <Button
+                  style={{
+                    backgroundColor: "#05C7F2",
+                    border: "none",
+                    width: "232px",
+                    height: "79px",
+                    color: "white",
+                    fontSize: "24px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "700",
+                  }}
+                >
+                  <Link to={"/carrito"} className="link-custom">
+                    Ir a Comprar
+                  </Link>
+                </Button>
+              </Col>
+            </Row>
+            <Row className="justify-content-center mt-3">
+              <Col xs="auto" className="text-center">
+                <div className="envio-gratis-container">
+                  <img src={truck} alt="Envío gratis" />
+                  <p className="mb-0 ms-2 text_envio">Envío gratis</p>
+                </div>
+              </Col>
+            </Row>
+          </div>
+        )}
+      </Offcanvas>
+    </>
   );
-};
+});
