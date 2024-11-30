@@ -1,5 +1,4 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { AboutPage } from "./pages/AboutPage";
@@ -17,7 +16,10 @@ import { Provider } from "react-redux";
 import { store } from "./states/store";
 import { GestionUsuarios } from "./pages/GestionUsuarios";
 import { GestionProductos } from "./pages/GestionProductos";
+import CategoriaPerros from "./pages/CategoriaPerros";
+import AlimentosPerros from "./pages/AlimentosPerros";
 import { RegistrodeUsuario } from "./pages/RegistrodeUsuario"
+
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -32,6 +34,8 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/catalogo-productos" element={<CatalogoProductos />} />
           <Route path="/detalle-productos/:id" element={<DetalleProductos />} />
           <Route path="/carrito" element={<ResumenPage />} />
+          <Route path="/categoria-perro" element={<CategoriaPerros />} />
+          <Route path="/alimentos-perro" element={<AlimentosPerros />} />
           <Route path="/registro" element={<RegistrodeUsuario />} />
           <Route
             path="/admin"

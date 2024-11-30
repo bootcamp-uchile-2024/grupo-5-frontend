@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface GetProductoDto {
     id: number;
-    nombreProducto: string;
+    NombreProducto: string;
     marca: string;
     descripcion: string;
     sku: string;

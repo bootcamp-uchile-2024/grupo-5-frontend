@@ -4,6 +4,7 @@ import cartReducer from "./cartSlice";
 import loggedUser from "./loggedUserSlice";
 import usersSlices from "./usersSlice";
 import  productsSlice  from "./ProductSlice";
+import filtersReducer from "./filtersSlice";
 
 const persistedState: Middleware = store => next => action => {
 
@@ -31,7 +32,8 @@ export const store = configureStore({
     cart: cartReducer,
     loggedUser: loggedUser,
     users: usersSlices,
-    products: productsSlice
+    products: productsSlice,
+    filters: filtersReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(persistedState),
 });

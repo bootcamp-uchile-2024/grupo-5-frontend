@@ -8,9 +8,9 @@ export const GestionUsuarios = () => {
   const dispatch = useDispatch();
 
   const [form, setForm] = useState<UsuarioDto>({
-    rutUsuario: "",
+    rut: "",
     contrasena: "",
-    nombre: "",
+    nombreUsuario: "",
     apePaterno: "",
     apeMaterno: "",
     correoElectronico: "",
@@ -67,11 +67,11 @@ export const GestionUsuarios = () => {
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    if (form.nombre === "") {
+    if (form.nombreUsuario === "") {
       alert("El campo nombre es obligatorio");
       return;
     }
-    if (form.rutUsuario === "") {
+    if (form.rut === "") {
       alert("El campo RUT Usuario es obligatorio");
       return;
     }
@@ -104,9 +104,9 @@ export const GestionUsuarios = () => {
       const newUser = await addUserToAPI(form);
       dispatch(addUser(newUser));
       setForm({
-        rutUsuario: "",
+        rut: "",
         contrasena: "",
-        nombre: "",
+        nombreUsuario: "",
         apePaterno: "",
         apeMaterno: "",
         correoElectronico: "",
@@ -135,11 +135,7 @@ export const GestionUsuarios = () => {
       <form>
         <div>
           <label>RUT Usuario</label>
-          <input
-            name="rutUsuario"
-            value={form.rutUsuario}
-            onChange={handleChange}
-          />
+          <input name="rutUsuario" value={form.rut} onChange={handleChange} />
         </div>
         <div>
           <label>Contraseña</label>
@@ -152,7 +148,11 @@ export const GestionUsuarios = () => {
         </div>
         <div>
           <label>Nombre</label>
-          <input name="nombre" value={form.nombre} onChange={handleChange} />
+          <input
+            name="nombre"
+            value={form.nombreUsuario}
+            onChange={handleChange}
+          />
         </div>
         <div>
           <label>Apellido Paterno</label>
@@ -211,8 +211,8 @@ export const GestionUsuarios = () => {
         {searchResult && (
           <div>
             <h3>Resultado de la búsqueda:</h3>
-            <p>Nombre: {searchResult.nombre}</p>
-            <p>RUT: {searchResult.rutUsuario}</p>
+            <p>Nombre: {searchResult.nombreUsuario}</p>
+            <p>RUT: {searchResult.rut}</p>
             <p>Email: {searchResult.correoElectronico}</p>
             <p>Teléfono: {searchResult.telefono}</p>
             <p>Rol: {searchResult.rolUsuario}</p>

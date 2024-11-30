@@ -3,7 +3,7 @@ import {
   faCircleUser,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { isAuth } from "../../services/loginService";
 import { LoginButton } from "../../components/LoginButton";
 import { Link } from "react-router-dom";
@@ -25,6 +25,8 @@ export const Header = () => {
     0
   );
 
+  const modalCarritoRef = useRef<{ openModal: () => void }>(null);
+
   useEffect(() => {
     const user = isAuth();
     if (user) {
@@ -37,9 +39,8 @@ export const Header = () => {
   }, []);
 
   const handleCarritoClick = () => {
-    const carritoButton = document.getElementById("carritoButton");
-    if (carritoButton) {
-      carritoButton.click();
+    if (modalCarritoRef.current) {
+      modalCarritoRef.current.openModal();
     }
   };
 
@@ -85,7 +86,7 @@ export const Header = () => {
             </span>
           )}
         </div>
-        <ModalCarrito />
+        <ModalCarrito ref={modalCarritoRef} />
       </div>
     </header>
   );
