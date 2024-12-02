@@ -5,6 +5,7 @@ import { MainLayout } from "../layout/MainLayout";
 import styles from "./css/LoginPage.module.css";
 import { useDispatch } from "react-redux";
 import { save } from "../states/loggedUserSlice";
+import { Row } from "react-bootstrap";
 
 interface IForm {
   user: string;
@@ -63,7 +64,25 @@ export const LoginPage = () => {
 
   return (
     <MainLayout>
+      <Row className="mb-5 pt-5">
+          <Link to="/" className={styles.linkVolver}>
+            <span
+              aria-hidden="true"
+              className="carousel-control-prev-icon"
+              style={{
+                width: "24px",
+                height: "24px",
+                filter: "invert(1)",
+                marginRight: "8px",
+                marginLeft: "30px",
+              }}
+            />
+            Volver
+          </Link>
+        </Row>
+      <h1 className={styles.titulo}>Continuar comprando como...</h1>
       <div className={styles.loginContainer}>
+        
         <div className={styles.loginCard}>
           <h1>Iniciar sesión</h1>
           <form>

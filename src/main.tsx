@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { AboutPage } from "./pages/AboutPage";
 import { CatalogoProductos } from "./pages/CatalogoProductos";
-import { LoginPage } from "./pages/LoginPage";
+import {LoginPage} from "./pages/LoginPage";
 import { DetalleProductos } from "./pages/DetalleProductos";
 import { PrivateRoute } from "./layout/protected/PrivateRoute";
 import { ResumenPage } from "./pages/ResumenPage";
