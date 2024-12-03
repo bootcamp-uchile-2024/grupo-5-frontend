@@ -125,7 +125,9 @@ export const LoginPage = () => {
           <Link to="/registro">
             <button>Registrarme</button>
           </Link>
+          <Link to ="/registro-invitado">
           <button>Continuar como invitado</button>
+          </Link>
         </div>
       </div>
     </MainLayout>
