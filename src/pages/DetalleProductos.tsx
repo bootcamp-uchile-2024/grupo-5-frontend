@@ -24,11 +24,19 @@ export const DetalleProductos = () => {
   const [error, setError] = useState<string | null>(null);
   const dispatch = useDispatch();
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+  if (!apiUrl) {
+    throw new Error(
+      "La URL de la API no está definida en las variables de entorno"
+    );
+  }
+
   useEffect(() => {
     const getProducto = async () => {
       try {
         if (!id) return;
-        const response = await fetch(`/api/productos/${id}`);
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const response = await fetch(`${apiUrl}/productos/${id}`);
         if (!response.ok) {
           const errorText = await response.text();
           throw new Error(`Error ${response.status}: ${errorText}`);
