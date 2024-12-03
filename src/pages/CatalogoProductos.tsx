@@ -12,10 +12,18 @@ export const CatalogoProductos = () => {
   const [productos, setProductos] = useState<CatalogoProductoDto[]>([]);
   const dispatch = useDispatch();
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+  if (!apiUrl) {
+    throw new Error(
+      "La URL de la API no está definida en las variables de entorno"
+    );
+  }
+
   useEffect(() => {
     async function getProductos() {
       try {
-        const response = await fetch("/api/productos", {
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const response = await fetch(`${apiUrl}/productos`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

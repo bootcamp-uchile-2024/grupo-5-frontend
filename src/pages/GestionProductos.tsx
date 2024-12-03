@@ -1,16 +1,26 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { MainLayout } from "../layout/MainLayout";
 import Table from "react-bootstrap/Table";
-import { GetProductoDto } from "../states/ProductSlice";
-import { RootState } from "../states/store";
 
 export const GestionProductos = () => {
-  const dispatch = useDispatch();
-  const products = useSelector((state: RootState) => state.products);
+  interface Product {
+    id: number;
+    NombreProducto: string;
+    PrecioProducto: number;
+    descripcion: string;
+  }
+
+  const [products, setProducts] = useState<Product[]>([]);
+
+  const apiUrl = import.meta.env.VITE_API_URL;
+  if (!apiUrl) {
+    throw new Error(
+      "La URL de la API no está definida en las variables de entorno"
+    );
+  }
 
   const fetchProducts = async () => {
-    const response = await fetch("/api/productos", {
+    const response = await fetch(`${apiUrl}/productos/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -23,40 +33,35 @@ export const GestionProductos = () => {
 
     const data = await response.json();
     console.log("Productos obtenidos de la API:", data);
-    dispatch({ type: "products/setProducts", payload: data });
+    setProducts(data);
   };
 
   useEffect(() => {
     fetchProducts();
-  }, [dispatch]);
-
-  useEffect(() => {
-    console.log("Productos en el estado de Redux:", products);
-  }, [products]);
+  }, []);
 
   return (
     <MainLayout>
-      <div className="container mt-4">
-        <h2>Gestión de Productos</h2>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>ID Producto</th>
-              <th>Nombre del Producto</th>
-              <th>Descripción</th>
-              <th>Precio</th>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Descripcion</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((product) => (
+            <tr key={product.id}>
+              <td>{product.id}</td>
+              <td>{product.NombreProducto}</td>
+              <td>{product.PrecioProducto}</td>
+              <td>{product.descripcion}</td>
             </tr>
-          </thead>
-          <tbody>
-            {products.map((product: GetProductoDto) => (
-              <tr key={product.id}>
-                <td>{product.id}</td>
-                <td>{product.NombreProducto}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </div>
+          ))}
+        </tbody>
+      </Table>
     </MainLayout>
   );
 };
