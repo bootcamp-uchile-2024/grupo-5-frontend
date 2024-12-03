@@ -149,3 +149,51 @@ const nuevoProducto: CreateProductoDto = {
 2. **Componente de Resumen del Carrito (ResumenCarrito.tsx):**
    - Se creó un componente para mostrar los productos en el carrito, el total y un botón para volver al home.
    - Se implementó la lógica para aumentar, disminuir y eliminar productos del carrito.
+
+   Cambios Implementados
+Actualización de la Página Home
+Diseño Mejorado:
+
+Se implementaron cambios en el diseño para alinearse con las especificaciones entregadas por el equipo de diseño.
+Se actualizaron los colores, tipografía, y distribución de elementos para mejorar la experiencia del usuario (UX/UI).
+Elementos Nuevos:
+
+Banner Promocional: Se añadió un banner dinámico en la parte superior, destacando ofertas y novedades.
+Sección de Productos Destacados: Se incluyó una sección para productos recomendados, categorizados por popularidad y ofertas.
+Navegación Mejorada: La barra de navegación ahora incluye accesos rápidos a categorías y búsqueda avanzada.
+
+Cambios en Redux
+Persistencia Mejorada del Carrito:
+
+La lógica del cartSlice fue optimizada para garantizar la sincronización con localStorage en cada acción.
+Nueva Acción:
+
+Filtrar por Categoría: Permite filtrar productos en el carrito por categoría.
+Configuración de la Tienda:
+
+Los reducers adicionales fueron integrados para manejar el estado de la página home y el catálogo de productos.
+
+Nuevas Páginas y Componentes
+Página de Inicio (HomePage.tsx):
+
+Se rediseñó la página inicial para reflejar los cambios solicitados por diseño.
+Se añadieron nuevas secciones: banner promocional, productos destacados y categorías.
+Página de Catálogo (CatalogoPage.tsx):
+
+Se añadieron filtros dinámicos para categoría, precio y popularidad.
+Componente de Producto Destacado (ProductoDestacado.tsx):
+
+Componente que muestra productos en una tarjeta con información básica (nombre, precio y enlace a detalles).
+
+Frameworks y Herramientas Utilizadas
+Bootstrap:
+Utilizado para garantizar un diseño responsivo y profesional en todo el sitio.
+
+Uso: Componentes predefinidos (botones, formularios, modales).
+Versión: Bootstrap 5.x.
+Docker:
+Todo el entorno del proyecto se encuentra contenido en Docker para facilitar el desarrollo y la integración continua.
+
+Archivos clave:
+Dockerfile: Define la configuración del contenedor de la aplicación.
+docker-compose.yml: Orquestación de contenedores (backend, frontend y base de datos).
