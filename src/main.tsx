@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { AboutPage } from "./pages/AboutPage";
 import { CatalogoProductos } from "./pages/CatalogoProductos";
-import { LoginPage } from "./pages/LoginPage";
+import {LoginPage} from "./pages/LoginPage";
 import { DetalleProductos } from "./pages/DetalleProductos";
 import { PrivateRoute } from "./layout/protected/PrivateRoute";
 import { ResumenPage } from "./pages/ResumenPage";
@@ -19,6 +19,7 @@ import { GestionProductos } from "./pages/GestionProductos";
 import { CategoriaPerros } from "./pages/CategoriaPerros";
 import { AlimentosPerros } from "./pages/AlimentosPerros";
 import { RegistrodeUsuario } from "./pages/RegistrodeUsuario";
+import { RegistroInvitado } from "./pages/RegistroInvitado";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -36,6 +37,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/categoria-perro" element={<CategoriaPerros />} />
           <Route path="/alimentos-perro" element={<AlimentosPerros />} />
           <Route path="/registro" element={<RegistrodeUsuario />} />
+          <Route path="/registro-invitado" element={<RegistroInvitado />} />
           <Route
             path="/admin"
             element={

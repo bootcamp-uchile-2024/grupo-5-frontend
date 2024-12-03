@@ -1,3 +1,22 @@
+.linkVolver {
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+  color: #404040;
+  display: flex;
+  align-items: center;
+}  
+
+.titulo {
+  color: #535353;
+  font-size: 48px;
+  font-weight: 900;
+  font-family: "Montserrat", serif;
+  text-align: center;
+  padding-bottom: 30px;
+}
+
 /* Contenedor principal */
 .loginContainer {
   display: flex;
