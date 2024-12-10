@@ -11,7 +11,15 @@ export const PrivateRoute = (props: PrivateRouteProps) => {
   const auth = isAuth();
   const hasRole = userHasRole(props.roles);
 
-  return <>{auth && hasRole ? props.children : <MainLayout><h1>Acceso denegado</h1></MainLayout>}</>;
+  return (
+    <>
+      {auth && hasRole ? (
+        props.children
+      ) : (
+        <MainLayout>
+          <h1>Acceso denegado</h1>
+        </MainLayout>
+      )}
+    </>
+  );
 };
-
-

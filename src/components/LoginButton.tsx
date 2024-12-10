@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { isAuth, logout } from "../services/loginService";
+import { del } from "../states/loggedUserSlice";
 import styles from "./css/LoginButton.module.css";
 
 export const LoginButton = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
     logout();
+    dispatch(del());
     setIsLoggedIn(false);
     navigate("/");
   };
@@ -30,10 +34,10 @@ export const LoginButton = () => {
       ) : (
         <button
           type="button"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/login")}
           className={styles.textButton}
         >
-          Login
+          Iniciar Sesión
         </button>
       )}
     </div>

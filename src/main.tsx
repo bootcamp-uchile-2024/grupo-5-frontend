@@ -26,23 +26,23 @@ createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
+            {/* Rutas accesibles para todos los usuarios */}
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/about" element={<AboutPage />} />
-          <Route path="/users" element={<GestionUsuarios />} />
-          <Route path="/products" element={<GestionProductos />} />
           <Route path="/catalogo-productos" element={<CatalogoProductos />} />
           <Route path="/detalle-productos/:id" element={<DetalleProductos />} />
-          <Route path="/carrito" element={<ResumenPage />} />
           <Route path="/categoria-perro" element={<CategoriaPerros />} />
           <Route path="/alimentos-perro" element={<AlimentosPerros />} />
           <Route path="/registro" element={<RegistrodeUsuario />} />
-          <Route path="/registro-invitado" element={<RegistroInvitado />} />
+          <Route path="/registro-invitado" element={<RegistroInvitado />} />        
+
+          {/* Rutas accesibles solo para usuarios registrados */}
           <Route
-            path="/admin"
+            path="/carrito"
             element={
-              <PrivateRoute roles={["admin"]}>
-                <AdminPage />
+              <PrivateRoute roles={["user", "admin"]}>
+                <ResumenPage />
               </PrivateRoute>
             }
           />
@@ -60,6 +60,33 @@ createRoot(document.getElementById("root")!).render(
               element={<div>Contenido detalle del dashboard</div>}
             />
           </Route>
+          
+           {/* Rutas accesibles solo para administradores */}
+        
+           <Route
+            path="/admin"
+            element={
+              <PrivateRoute roles={["admin"]}>
+                <AdminPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/users"
+            element={
+              <PrivateRoute roles={["admin"]}>
+                <GestionUsuarios />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/products"
+            element={
+              <PrivateRoute roles={["admin"]}>
+                <GestionProductos />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </Provider>

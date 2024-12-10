@@ -8,7 +8,7 @@ import { save } from "../states/loggedUserSlice";
 import { Row } from "react-bootstrap";
 
 interface IForm {
-  user: string;
+  rut: string;
   password: string;
 }
 
@@ -19,79 +19,65 @@ export const LoginPage = () => {
   const [error, setError] = useState<boolean>(false);
   const [validCredentials, setValidCredentials] = useState<boolean>(true);
   const [form, setForm] = useState<IForm>({
-    user: "",
+    rut: "",
     password: "",
   });
 
-  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
-    if (form.user === "" || form.password === "") {
-      setError(true);
-      return;
-    }
-
-    const isAuthenticated = login(form);
-
-    if (isAuthenticated) {
-      const storedUser = localStorage.getItem("user");
-
-      if (storedUser) {
-        const parsedUser = JSON.parse(storedUser);
-        const roles = parsedUser.roles;
-        dispatch(save({ user: form.user }));
-
-        if (roles.includes("admin")) {
-          navigate("/admin");
-        } else if (roles.includes("user")) {
-          navigate("/carrito");
-        }
-      }
-    } else {
-      setValidCredentials(false);
-    }
-  };
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setError(false);
-    setValidCredentials(true);
     setForm({
       ...form,
       [name]: value,
     });
   };
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (form.rut === "" || form.password === "") {
+      setError(true);
+      return;
+    }
+
+    const usuario = await login(form.rut, form.password);
+
+    if (usuario) {
+      dispatch(save({ user: usuario.rutUsuario, nombre: usuario.nombre }));
+      navigate("/registro-invitado"); // Redirige al usuario a la página de RegistroInvitado
+    } else {
+      setValidCredentials(false);
+    }
+  };
+
   return (
     <MainLayout>
       <Row className="mb-5 pt-5">
-          <Link to="/" className={styles.linkVolver}>
-            <span
-              aria-hidden="true"
-              className="carousel-control-prev-icon"
-              style={{
-                width: "24px",
-                height: "24px",
-                filter: "invert(1)",
-                marginRight: "8px",
-                marginLeft: "30px",
-              }}
-            />
-            Volver
-          </Link>
-        </Row>
+        <Link to="/" className={styles.linkVolver}>
+          <span
+            aria-hidden="true"
+            className="carousel-control-prev-icon"
+            style={{
+              width: "24px",
+              height: "24px",
+              filter: "invert(1)",
+              marginRight: "8px",
+              marginLeft: "30px",
+            }}
+          />
+          Volver
+        </Link>
+      </Row>
       <h1 className={styles.titulo}>Continuar comprando como...</h1>
       <div className={styles.loginContainer}>
-        
         <div className={styles.loginCard}>
           <h1>Iniciar sesión</h1>
-          <form>
+          <form onSubmit={handleSubmit}>
             <input
               type="text"
-              placeholder="Usuario"
-              name="user"
+              placeholder="RUT"
+              name="rut"
               onChange={handleChange}
-              value={form.user}
+              value={form.rut}
             />
             <input
               type="password"
@@ -103,7 +89,7 @@ export const LoginPage = () => {
             <div className={styles.forgotPassword}>
               <a href="#">¿Olvidaste tu contraseña?</a>
             </div>
-            <button type="submit" onClick={handleSubmit}>
+            <button type="submit">
               Iniciar sesión
             </button>
           </form>
@@ -125,8 +111,8 @@ export const LoginPage = () => {
           <Link to="/registro">
             <button>Registrarme</button>
           </Link>
-          <Link to ="/registro-invitado">
-          <button>Continuar como invitado</button>
+          <Link to="/registro-invitado">
+            <button>Continuar como invitado</button>
           </Link>
         </div>
       </div>
