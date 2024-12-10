@@ -1,7 +1,7 @@
 export interface UsuarioDto{
-    rut: string;
+    rutUsuario: string;
     contrasena: string;
-    nombreUsuario: string;
+    nombre: string;
     apePaterno: string;
     apeMaterno: string;
     correoElectronico: string;

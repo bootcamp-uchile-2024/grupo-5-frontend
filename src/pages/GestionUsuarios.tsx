@@ -2,15 +2,15 @@ import { useState } from "react";
 import { MainLayout } from "../layout/MainLayout";
 import { useDispatch } from "react-redux";
 import { addUser } from "../states/usersSlice";
-import { UsuarioDto, UserRole } from "../interface/Usuarios/read-usuario.dto";
+import { UsuarioDto, UserRole } from "../interface/Usuarios/dto/UsuarioDto";
 
 export const GestionUsuarios = () => {
   const dispatch = useDispatch();
 
   const [form, setForm] = useState<UsuarioDto>({
-    rut: "",
+    rutUsuario: "",
     contrasena: "",
-    nombreUsuario: "",
+    nombre: "",
     apePaterno: "",
     apeMaterno: "",
     correoElectronico: "",
@@ -67,11 +67,11 @@ export const GestionUsuarios = () => {
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    if (form.nombreUsuario === "") {
+    if (form.nombre === "") {
       alert("El campo nombre es obligatorio");
       return;
     }
-    if (form.rut === "") {
+    if (form.rutUsuario === "") {
       alert("El campo RUT Usuario es obligatorio");
       return;
     }
@@ -104,9 +104,9 @@ export const GestionUsuarios = () => {
       const newUser = await addUserToAPI(form);
       dispatch(addUser(newUser));
       setForm({
-        rut: "",
+        rutUsuario: "",
         contrasena: "",
-        nombreUsuario: "",
+        nombre: "",
         apePaterno: "",
         apeMaterno: "",
         correoElectronico: "",
@@ -135,7 +135,7 @@ export const GestionUsuarios = () => {
       <form>
         <div>
           <label>RUT Usuario</label>
-          <input name="rutUsuario" value={form.rut} onChange={handleChange} />
+          <input name="rutUsuario" value={form.rutUsuario} onChange={handleChange} />
         </div>
         <div>
           <label>Contraseña</label>
@@ -150,7 +150,7 @@ export const GestionUsuarios = () => {
           <label>Nombre</label>
           <input
             name="nombre"
-            value={form.nombreUsuario}
+            value={form.nombre}
             onChange={handleChange}
           />
         </div>
@@ -211,8 +211,8 @@ export const GestionUsuarios = () => {
         {searchResult && (
           <div>
             <h3>Resultado de la búsqueda:</h3>
-            <p>Nombre: {searchResult.nombreUsuario}</p>
-            <p>RUT: {searchResult.rut}</p>
+            <p>Nombre: {searchResult.nombre}</p>
+            <p>RUT: {searchResult.rutUsuario}</p>
             <p>Email: {searchResult.correoElectronico}</p>
             <p>Teléfono: {searchResult.telefono}</p>
             <p>Rol: {searchResult.rolUsuario}</p>

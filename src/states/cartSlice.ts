@@ -1,9 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CatalogoProductoDto } from '../interface/Productos/read-catalogo-productos.dto';
+import { CatalogoProductoDto } from '../interface/Productos/dto/CatalogoProductoDto';
+import { GetProductoDto } from '../interface/Productos/dto/GetProductoDto';
+
 export interface CartState {
   idUsuario: number;
-  productos: CatalogoProductoDto[];
+  productos: (CatalogoProductoDto | GetProductoDto)[];
 }
+
 const loadCartFromLocalStorage = (): CartState => {
   try {
     const savedCart = localStorage.getItem('__redux__cart__');
@@ -14,6 +17,7 @@ const loadCartFromLocalStorage = (): CartState => {
     return { idUsuario: 1, productos: [] };
   }
 };
+
 const saveCartToLocalStorage = (state: CartState) => {
   try {
     console.log('Guardando en localStorage:', state);
@@ -23,15 +27,17 @@ const saveCartToLocalStorage = (state: CartState) => {
     console.error('Error al guardar el carrito de compras', error);
   }
 };
+
 const initialState: CartState = loadCartFromLocalStorage();
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart(state, action: PayloadAction<CatalogoProductoDto>) {
+    addToCart(state, action: PayloadAction<CatalogoProductoDto | GetProductoDto>) {
       const existingItem = state.productos.find(item => item.id === action.payload.id);
       if (existingItem) {
-        existingItem.stock += action.payload.stock;
+        existingItem.stockProducto += action.payload.stockProducto;
       } else {
         state.productos.push({ ...action.payload });
       }
@@ -49,14 +55,15 @@ const cartSlice = createSlice({
       const { id, cantidad } = action.payload;
       const item = state.productos.find(item => item.id === id);
       if (item) {
-        item.stock += cantidad;
-        if (item.stock < 1) {
-          item.stock = 1;
+        item.stockProducto += cantidad;
+        if (item.stockProducto < 1) {
+          item.stockProducto = 1;
         }
       }
       saveCartToLocalStorage(state);
     },
   },
 });
+
 export const { addToCart, removeFromCart, clearCart, updateQuantity } = cartSlice.actions;
 export default cartSlice.reducer;

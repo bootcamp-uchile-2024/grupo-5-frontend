@@ -35,7 +35,7 @@ export const ModalCarrito = forwardRef((_props, ref) => {
   };
 
   const total = cart.reduce(
-    (acc, producto) => acc + producto.PrecioProducto * producto.stock,
+    (acc, producto) => acc + producto.precioProducto * producto.stockProducto,
     0
   );
 
@@ -79,19 +79,19 @@ export const ModalCarrito = forwardRef((_props, ref) => {
                 <Row noGutters>
                   <Col md={4}>
                     <div className="img-container">
-                      {producto.ImagenesProducto &&
-                      producto.ImagenesProducto.length > 0 ? (
+                      {producto.imagenesProducto &&
+                      producto.imagenesProducto.length > 0 ? (
                         <Carousel
                           slide={false}
                           controls={false}
                           indicators={false}
                         >
-                          {producto.ImagenesProducto.map((imagen, index) => (
+                          {producto.imagenesProducto.map((imagen, index) => (
                             <Carousel.Item key={index}>
                               <img
                                 src={imagen.pathImagenProducto}
                                 className="d-block img-fluid"
-                                alt={`${producto.NombreProducto} imagen ${
+                                alt={`${producto.nombreProducto} imagen ${
                                   index + 1
                                 }`}
                               />
@@ -113,7 +113,7 @@ export const ModalCarrito = forwardRef((_props, ref) => {
                           fontWeight: "500",
                         }}
                       >
-                        {producto.NombreProducto}
+                        {producto.nombreProducto}
                       </Card.Title>
                       <Card.Text
                         style={{
@@ -123,7 +123,7 @@ export const ModalCarrito = forwardRef((_props, ref) => {
                           fontWeight: "700",
                         }}
                       >
-                        ${producto.PrecioProducto}
+                        ${producto.precioProducto}
                       </Card.Text>
                       <div className="d-flex justify-content-end align-items-center">
                         <div className="button-container">
@@ -132,7 +132,7 @@ export const ModalCarrito = forwardRef((_props, ref) => {
                             size="sm"
                             className="btn-trash"
                             onClick={() => {
-                              if (producto.stock > 1) {
+                              if (producto.stockProducto > 1) {
                                 handleDecrease(producto.id);
                               } else {
                                 handleRemove(producto.id);
@@ -141,7 +141,7 @@ export const ModalCarrito = forwardRef((_props, ref) => {
                           >
                             <img src={trash} alt="trash" />
                           </Button>
-                          <span className="mx-2">{producto.stock}</span>
+                          <span className="mx-2">{producto.stockProducto}</span>
                           <Button
                             variant="outline-secondary"
                             size="sm"

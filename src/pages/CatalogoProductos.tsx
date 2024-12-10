@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CatalogoProductoDto } from "../interface/Productos/read-catalogo-productos.dto";
+import { CatalogoProductoDto } from "../interface/Productos/dto/CatalogoProductoDto";
 import styles from "./css/Catalogo.module.css";
 import { addToCart } from "../states/cartSlice";
 import { useDispatch } from "react-redux";
@@ -47,7 +47,7 @@ export const CatalogoProductos = () => {
   }, []);
 
   const handleAddToCart = (producto: CatalogoProductoDto) => {
-    dispatch(addToCart({ ...producto, stock: 1 }));
+    dispatch(addToCart({ ...producto, stockProducto: 1 }));
   };
 
   const chunkSize = 4;
@@ -97,20 +97,20 @@ export const CatalogoProductos = () => {
                 >
                   <div className={styles.cardProducto}>
                     <div className={styles.imgContainer}>
-                      {producto.ImagenesProducto &&
-                      producto.ImagenesProducto.length > 0 ? (
+                      {producto.imagenesProducto &&
+                      producto.imagenesProducto.length > 0 ? (
                         <Carousel
                           slide={false}
                           controls={false}
                           indicators={false}
                         >
-                          {producto.ImagenesProducto.map((imagen, index) => (
+                          {producto.imagenesProducto.map((imagen, index) => (
                             <Carousel.Item key={index}>
                               <Link to={`/detalle-productos/${producto.id}`}>
                                 <img
                                   src={imagen.pathImagenProducto}
                                   className="d-block img-fluid"
-                                  alt={`${producto.NombreProducto} imagen ${
+                                  alt={`${producto.nombreProducto} imagen ${
                                     index + 1
                                   }`}
                                 />
@@ -123,10 +123,10 @@ export const CatalogoProductos = () => {
                       )}
                     </div>
                     <p className={styles.nom_producto}>
-                      {producto.NombreProducto}
+                      {producto.nombreProducto}
                     </p>
                     <p className={styles.nom_precio}>
-                      ${producto.PrecioProducto}
+                      ${producto.precioProducto}
                     </p>
                     <div className={styles.buttonContainer}>
                       <Button

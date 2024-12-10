@@ -21,7 +21,7 @@ export const Header = () => {
   const userState = useSelector((state: RootState) => state.loggedUser);
   const cart = useSelector((state: RootState) => state.cart.productos);
   const totalItems = cart.reduce(
-    (total, producto) => total + producto.stock,
+    (total, producto) => total + producto.stockProducto,
     0
   );
 

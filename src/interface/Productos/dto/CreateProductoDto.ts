@@ -1,3 +1,4 @@
+
 export interface CreateProductoDto {
   nombreProducto: string;
   idMarca: number;
@@ -9,11 +10,7 @@ export interface CreateProductoDto {
   tamanio: string;
   ingredientes: string;
   material: string;
-  imagenes: ImagenProducto[];
+  imagenes: string[];
   idCategoria: number;
-}
-
-export interface ImagenProducto {
-  idImagen: number;
-  pathImagenProducto: string;
+  activo: number;
 }

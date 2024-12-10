@@ -1,5 +1,5 @@
 export interface CreateUsuarioDto{
-    idUsuario?: number;
+    idUsuario?: number; 
     rutUsuario: string;
     contrasena: string;
     nombre: string;
@@ -10,6 +10,6 @@ export interface CreateUsuarioDto{
     rolUsuario: number;
     chkOfertas: boolean;
     chkTerminos: boolean; 
-    activo: boolean;
+    activo: boolean; 
     idAvatar: number;
 }
