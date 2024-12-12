@@ -2,28 +2,35 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserState {
   user: string;
-  nombre: string;
+  nombres: string;
+  avatar: number;
 }
 
 const initialState: UserState = {
   user: "",
-  nombre: "",
+  nombres: "",
+  avatar: 1,
 };
+
+const persistedUser = localStorage.getItem("__redux__user__");
+const initialUserState = persistedUser ? JSON.parse(persistedUser) : initialState;
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState,    
+  initialState: initialUserState,    
   reducers: {
     save: (state: UserState, action: PayloadAction<UserState>) => {
-      console.log("llamando al reducer save");
-      const { user, nombre } = action.payload;
+      const { user, nombres, avatar } = action.payload;
       state.user = user;
-      state.nombre = nombre;
-      return state;
+      state.nombres = nombres;
+      state.avatar = avatar;
+      localStorage.setItem("__redux__user__", JSON.stringify(state));
     },
     del: (state: UserState) => {
-      state = { ...initialState };
-      return state;
+      state.user = "";
+      state.nombres = "";
+      state.avatar = 1;
+      localStorage.removeItem("__redux__user__");
     },
   },
 });

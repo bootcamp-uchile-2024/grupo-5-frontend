@@ -42,8 +42,14 @@ export const LoginPage = () => {
     const usuario = await login(form.rut, form.password);
 
     if (usuario) {
-      dispatch(save({ user: usuario.rutUsuario, nombre: usuario.nombre }));
-      navigate("/registro-invitado"); // Redirige al usuario a la página de RegistroInvitado
+      dispatch(
+        save({
+          user: usuario.rut,
+          nombres: usuario.nombres,
+          avatar: usuario.avatar,
+        })
+      );
+      navigate("/registro-invitado");
     } else {
       setValidCredentials(false);
     }
@@ -89,9 +95,7 @@ export const LoginPage = () => {
             <div className={styles.forgotPassword}>
               <a href="#">¿Olvidaste tu contraseña?</a>
             </div>
-            <button type="submit">
-              Iniciar sesión
-            </button>
+            <button type="submit">Iniciar sesión</button>
           </form>
           {error && (
             <div className={styles.errorMessage}>
@@ -103,10 +107,8 @@ export const LoginPage = () => {
           )}
         </div>
 
-        {/* Rectángulo Azul */}
         <div className={styles.rectangle}></div>
 
-        {/* Botones a la derecha */}
         <div className={styles.sideOptions}>
           <Link to="/registro">
             <button>Registrarme</button>

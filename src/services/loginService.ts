@@ -22,13 +22,12 @@ export const login = async (rut: string, contrasena: string): Promise<UsuarioDto
 };
 
 export const logout = () => localStorage.removeItem('user');
-export const isAuth = () => localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null;
+export const isAuth = () => {
+  const user = localStorage.getItem('user');
+  return user ? JSON.parse(user) : null;
+};
 
 export const userHasRole = (roles: string[]) => {
-    const user = localStorage.getItem('user');
-    if (user) {
-        const userResponse: UsuarioDto = JSON.parse(user);
-        return roles.some(role => userResponse.rolUsuario === role);
-    }
-    return false;
-}
+  const user = isAuth();
+  return user ? roles.includes(user.rolUsuario) : false;
+};

@@ -1,18 +1,18 @@
 export interface UsuarioDto{
-    rutUsuario: string;
-    contrasena: string;
-    nombre: string;
-    apePaterno: string;
-    apeMaterno: string;
-    correoElectronico: string;
+    idUsuario: number;
+    rut: string;
+    nombres: string;
+    apellidos: string;
+    email: string;
     telefono: string;
-    rolUsuario: UserRole;
+    contrasena: string;
+    chkTerminos: boolean;
+    chkOfertas: boolean;
+    activo: boolean;
+    avatar: number;
+    
+    
+    
+    
 
 }
-
-export enum UserRole {
-    ADMINISTRADOR = 'Administrador',
-    MANAGER = 'Manager',
-    USUARIO = 'Usuario',
-    INVITADO = 'Inivitado',
-  }

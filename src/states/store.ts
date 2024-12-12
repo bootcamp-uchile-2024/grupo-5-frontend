@@ -7,10 +7,6 @@ import  productsSlice  from "./ProductSlice";
 import filtersReducer from "./filtersSlice";
 
 const persistedState: Middleware = store => next => action => {
-
-  //en refencia al estado pre cambio
-
-
   next(action);
 
   console.log(action)
