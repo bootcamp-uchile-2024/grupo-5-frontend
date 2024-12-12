@@ -25,7 +25,7 @@ export const ResumenCarrito = () => {
   };
 
   const total = cart.reduce(
-    (acc, producto) => acc + producto.PrecioProducto * producto.stock,
+    (acc, producto) => acc + producto.precioProducto * producto.stockProducto,
     0
   );
 
@@ -56,15 +56,15 @@ export const ResumenCarrito = () => {
               <div key={producto.id} className="card mb-3">
                 <div className="row g-0">
                   <div className="col-md-4">
-                    {producto.ImagenesProducto &&
-                    producto.ImagenesProducto.length > 0 ? (
+                    {producto.imagenesProducto &&
+                    producto.imagenesProducto.length > 0 ? (
                       <Carousel slide={false}>
-                        {producto.ImagenesProducto.map((imagen, index) => (
+                        {producto.imagenesProducto.map((imagen, index) => (
                           <Carousel.Item key={index}>
                             <img
                               src={imagen.pathImagenProducto}
                               className="d-block w-100"
-                              alt={`${producto.NombreProducto} imagen ${
+                              alt={`${producto.nombreProducto} imagen ${
                                 index + 1
                               }`}
                             />
@@ -77,9 +77,9 @@ export const ResumenCarrito = () => {
                   </div>
                   <div className="col-md-8">
                     <div className="card-body">
-                      <h5 className="card-title">{producto.NombreProducto}</h5>
+                      <h5 className="card-title">{producto.nombreProducto}</h5>
                       <p className="card-text">
-                        Precio: ${producto.PrecioProducto * producto.stock}
+                        Precio: ${producto.precioProducto * producto.stockProducto}
                       </p>
                       <div className="d-flex align-items-center">
                         <button
@@ -88,7 +88,7 @@ export const ResumenCarrito = () => {
                         >
                           -
                         </button>
-                        <span>{producto.stock}</span>
+                        <span>{producto.stockProducto}</span>
                         <button
                           className="btn btn-outline-secondary ms-2"
                           onClick={() => handleIncrease(producto.id)}

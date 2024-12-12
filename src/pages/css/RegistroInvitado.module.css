@@ -2,6 +2,7 @@
     max-width: 800px;
     margin: 15px auto;
     padding: 0 15px;
+    height: 100%;
   }
 
 .titulo {
@@ -45,8 +46,47 @@
     height: 47px;
 }
 
+.parrafo2{
+    color: #404040;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: "Montserrat", serif;
+    line-height: 1.2;
+}
+
+.parrafo5{
+    color: #404040;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: "Montserrat", serif;
+    line-height: 1.2;
+}
+
+.contenedorParrafo{
+    width: 310px;
+    height: 122px;    
+}
+
+.datos{
+    color: #000000;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: "Montserrat", serif;
+    display: flex;
+    justify-content: center;   
+    padding-top: 10px;
+}
+
 .verticalLine {
-    border-left: 1px solid #82E3F8;
-    height: 100px; /* Ajusta la altura según sea necesario */
-    margin: 0 auto; /* Centra la línea vertical */
+    border-left: 7px solid #82E3F8;    
+    height: 100%;
+    margin: 0 auto; 
+  }
+  
+  .gatoRegistro {
+    position: absolute;
+    bottom: -70px; 
+    right: -25px;
+    width: 234px;
+    height: 225px;
   }

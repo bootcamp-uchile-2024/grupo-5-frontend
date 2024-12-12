@@ -47,6 +47,7 @@ export const Header = () => {
     logout();
     dispatch(del());
     setIsLoggedIn(false);
+    navigate("/");
   };
 
   return (
