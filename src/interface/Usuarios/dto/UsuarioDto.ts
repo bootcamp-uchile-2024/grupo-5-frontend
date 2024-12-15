@@ -9,10 +9,5 @@ export interface UsuarioDto{
     chkTerminos: boolean;
     chkOfertas: boolean;
     activo: boolean;
-    avatar: number;
-    
-    
-    
-    
-
+    avatar: number;  
 }

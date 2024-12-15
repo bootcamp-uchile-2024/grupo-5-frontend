@@ -9,7 +9,7 @@ interface UserState {
 const initialState: UserState = {
   user: "",
   nombres: "",
-  avatar: 1,
+  avatar: 0,
 };
 
 const persistedUser = localStorage.getItem("__redux__user__");

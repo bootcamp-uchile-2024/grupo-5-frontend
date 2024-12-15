@@ -74,12 +74,8 @@ export const Header = () => {
             <div className={styles.cartContainer}>
               {isLoggedIn ? (
                 <>
-                  <NavDropdown
-                    title={`Hola, ${userState.nombres}`}
-                  >
-                    <NavDropdown.Item
-                      onClick={handleLogout}
-                    >
+                  <NavDropdown title={`Hola ${userState.nombres}`}>
+                    <NavDropdown.Item onClick={handleLogout}>
                       Logout
                     </NavDropdown.Item>
                   </NavDropdown>

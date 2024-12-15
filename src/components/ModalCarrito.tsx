@@ -179,36 +179,31 @@ export const ModalCarrito = forwardRef((_props, ref) => {
           )}
         </Offcanvas.Body>
         {cart.length > 0 && (
-          <div className="offcanvas-footer" style={{ width: "100%" }}>
+          <div>
             <Row className="justify-content-center">
               <Col
-                xs="auto"
+                xs={6}
                 style={{
                   backgroundColor: "#EEF8FD",
-                  width: "235px",
+                  width: "250px",
                   height: " 79px",
                 }}
               >
                 <h5 className="titulo_total">TOTAL</h5>
                 <p className="texto_total">${total}</p>
               </Col>
-              <Col xs="auto" className="d-flex align-items-center">
-                <Button
-                  style={{
-                    backgroundColor: "#05C7F2",
-                    border: "none",
-                    width: "232px",
-                    height: "79px",
-                    color: "white",
-                    fontSize: "24px",
-                    fontFamily: "Montserrat",
-                    fontWeight: "700",
-                  }}
-                >
-                  <Link to={"/login"} className="link-custom">
-                    Ir a Comprar
-                  </Link>
-                </Button>
+              <Col
+                xs={6}
+                className="d-flex justify-content-center align-items-center"
+                style={{
+                  backgroundColor: "#05C7F2",
+                  width: "250px",
+                  height: " 79px",
+                }}
+              >
+                <Link to={"/login"} className="link-custom">
+                  Ir a Comprar
+                </Link>
               </Col>
             </Row>
             <Row className="justify-content-center mt-3">
