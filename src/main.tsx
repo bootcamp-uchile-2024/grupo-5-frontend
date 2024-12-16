@@ -20,6 +20,7 @@ import { CategoriaPerros } from "./pages/CategoriaPerros";
 import { AlimentosPerros } from "./pages/AlimentosPerros";
 import { RegistrodeUsuario } from "./pages/RegistrodeUsuario";
 import { RegistroInvitado } from "./pages/RegistroInvitado";
+import { PagoPage } from "./pages/PagoPage";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -37,6 +38,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/registro" element={<RegistrodeUsuario />} />
           <Route path="/registro-invitado" element={<RegistroInvitado />} />
           <Route path="/resumen-carrito" element={<ResumenPage />} />
+          <Route path="/pago"  element={<PagoPage/>}></Route>
 
           {/* Rutas accesibles solo para usuarios registrados */}
           <Route

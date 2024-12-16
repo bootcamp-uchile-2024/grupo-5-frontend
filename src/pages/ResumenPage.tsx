@@ -17,7 +17,7 @@ import { Button, Card, Carousel, Col, Container, Row } from "react-bootstrap";
 import { MainLayout } from "../layout/MainLayout";
 import { formatPrice } from "../utils/formatPrice";
 import { useState } from "react";
-import { ModalForm } from "../components/modalForm";
+import { ModalForm } from "../components/ModalForm";
 import { useNavigate } from "react-router-dom";
 
 export const ResumenPage = () => {
@@ -276,7 +276,7 @@ export const ResumenPage = () => {
                   fontWeight: "700",
                   marginTop: "10px",
                 }}
-                onClick={() => navigate("/resumen-carrito")}
+                onClick={() => navigate("/pago")}
               >
                 Pagar
               </Button>

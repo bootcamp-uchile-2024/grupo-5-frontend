@@ -1,0 +1,75 @@
+.customContainer {
+    max-width: 800px;
+    margin: 15px auto;
+    padding: 0 15px;
+    height: 100%;
+  }
+  
+  .titulo {
+    color: #535353;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: "Montserrat", serif;
+    text-align: center;
+    padding-bottom: 25px;
+    padding-top: 30px;
+  }
+  
+  .iconContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .iconText {
+    line-height: 1.2;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .icons {
+    border-radius: 50%;
+    background-color: #c0f1fc;
+    width: 88px;
+    height: 88px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .iconPago {
+    border-radius: 50%;
+    background-color: #05c7f2;
+    width: 88px;
+    height: 88px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .icons img,
+  .iconLocation img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  
+  .chevron {
+    width: 46px;
+    height: 47px;
+  }
+
+  .formContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
+  }
+
+  .parrafo1{
+    font-size: 24px;
+    font-weight: 700;
+    font-family: "Montserrat", serif;
+    text-align: center;
+    color: #000000;
+  }
