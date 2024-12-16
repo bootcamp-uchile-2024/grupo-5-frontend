@@ -425,7 +425,6 @@ export const RegistroInvitado = () => {
                         isInvalid={!!errors.region}
                         style={{
                           borderRadius: "32px",
-                          border: " 1px solid #000000",
                         }}
                       >
                         <option value="">Seleccionar</option>
@@ -464,12 +463,11 @@ export const RegistroInvitado = () => {
                         isInvalid={!!errors.comuna}
                         style={{
                           borderRadius: "32px",
-                          border: " 1px solid #000000",
                         }}
                       >
                         <option value="">Seleccionar</option>
                         {comunas.map((comuna) => (
-                          <option key={comuna.idComuna} value={comuna.idComuna}>
+                          <option key={comuna.idComuna} value={comuna.nombreComuna}>
                             {comuna.nombreComuna}
                           </option>
                         ))}
@@ -562,6 +560,8 @@ export const RegistroInvitado = () => {
                       <Form.Control
                         type="text"
                         name="referencias"
+                        value={values.referencias}
+                        onChange={handleChange}
                         style={{
                           borderRadius: "32px",
                         }}

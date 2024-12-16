@@ -7,10 +7,20 @@ import productsSlice from "./ProductSlice";
 import filtersReducer from "./filtersSlice";
 import formReducer from "./formSlice";
 
+const loadState = () => {
+  try {
+    const serializedState = localStorage.getItem("__redux__form__");
+    if (serializedState === null) {
+      return undefined;
+    }
+    return JSON.parse(serializedState);
+  } catch (err) {
+    return undefined;
+  }
+};
+
 const persistedState: Middleware = (store) => (next) => (action) => {
   next(action);
-
-  console.log(action);
 
   const estado = store.getState();
 
@@ -22,6 +32,10 @@ const persistedState: Middleware = (store) => (next) => (action) => {
 
   const formAsJson = JSON.stringify(estado.form);
   localStorage.setItem("__redux__form__", formAsJson);
+};
+
+const preloadedState = {
+  form: loadState(),
 };
 
 export const store = configureStore({
@@ -36,6 +50,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(persistedState),
+  preloadedState,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

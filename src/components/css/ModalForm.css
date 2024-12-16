@@ -1,0 +1,23 @@
+.contenedor-header{
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+    gap: 10px;
+}
+
+.titulo{
+    color: #535353;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: "Montserrat", serif;
+    text-align: center;
+   margin-top: 15px;   
+}
+
+.modal-content {    
+    background-color: #F2FAFD;
+}
+
+.modal-header {
+    border-bottom: none;
+}

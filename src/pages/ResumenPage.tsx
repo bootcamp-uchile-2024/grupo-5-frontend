@@ -7,33 +7,33 @@ import Location2 from "../assets/icons/Location2.svg";
 import Caja from "../assets/icons/Caja_white.svg";
 import Pago from "../assets/icons/dollar-alt.svg";
 import Chevron from "../assets/icons/chevron-right.svg";
+import Pencil from "../assets/icons/Pencil.svg";
+import Truck from "../assets/icons/truck_white.svg";
+import img from "../assets/resumen_perro.png";
 import { removeFromCart, updateQuantity } from "../states/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../states/store";
-import {
-  Button,
-  Card,
-  Carousel,
-  Col,
-  Container,
-  Form,
-  Row,
-} from "react-bootstrap";
+import { Button, Card, Carousel, Col, Container, Row } from "react-bootstrap";
 import { MainLayout } from "../layout/MainLayout";
 import { formatPrice } from "../utils/formatPrice";
-import Pencil from "../assets/icons/Pencil.svg";
+import { useState } from "react";
+import { ModalForm } from "../components/modalForm";
+import { useNavigate } from "react-router-dom";
 
 export const ResumenPage = () => {
   const cart = useSelector((state: RootState) => state.cart.productos);
   const dispatch = useDispatch();
-  const direccion = useSelector((state: RootState) => state.form.direccion);
-  const numero = useSelector((state: RootState) => state.form.numero);
-  const comuna = useSelector((state: RootState) => state.form.comuna);
+  const { direccion, numero, comuna } = useSelector(
+    (state: RootState) => state.form
+  );
+  const [modalShow, setModalShow] = useState(false);
 
   const total = cart.reduce(
     (acc, producto) => acc + producto.precioProducto * producto.stockProducto,
     0
   );
+
+  const navigate = useNavigate();
 
   return (
     <MainLayout>
@@ -227,18 +227,102 @@ export const ResumenPage = () => {
               ))}
             </div>
           </Col>
-          <Col md={2}>
-            <div className={styles.contenedorDireccion}>
-              <img src={Location2} alt="Location2" />
-              <p
-                className={styles.direccionTitle}
-              >{`${direccion} ${numero}`}</p>
-              <p className={styles.comunaText}>{`${comuna}`}</p>
-              <img
-                src={Pencil}
-                alt="editar"
-                style={{ cursor: "pointer", paddingLeft: "10px" }}
-              />
+          <Col
+            md={3}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "10px",
+              flexDirection: "column",
+            }}
+          >
+            <div className={styles.contenedorSection}>
+              <div className={styles.contenedor}>
+                <img src={Location2} alt="Location2" />
+                <div>
+                  <p
+                    className={styles.direccionTitle}
+                  >{`${direccion} ${numero}`}</p>
+                  <p className={styles.comunaText}>{comuna}</p>
+                </div>
+                <img
+                  src={Pencil}
+                  alt="editar"
+                  style={{
+                    cursor: "pointer",
+                    paddingLeft: "10px",
+                  }}
+                  onClick={() => setModalShow(true)}
+                />
+              </div>
+              <div className={styles.contenedorPrecio}>
+                <p className={styles.totalText}>TOTAL {formatPrice(total)}</p>
+              </div>
+              <div className={styles.contenedorTruck}>
+                <img src={Truck} alt="Truck" />
+                <p className={styles.envioText}>Envío gratis</p>
+              </div>
+              <Button
+                type="submit"
+                variant="warning"
+                style={{
+                  width: "178px",
+                  height: "56px",
+                  borderRadius: "32px",
+                  color: "#363636",
+                  fontSize: "24px",
+                  fontFamily: "Montserrat",
+                  fontWeight: "700",
+                  marginTop: "10px",
+                }}
+                onClick={() => navigate("/resumen-carrito")}
+              >
+                Pagar
+              </Button>
+            </div>
+          </Col>
+          <ModalForm show={modalShow} onHide={() => setModalShow(false)} />
+        </Row>
+        <Row
+          className="d-flex justify-content-center"
+          style={{ paddingTop: "100px", paddingBottom: "70px" }}
+        >
+          <Col md={9} className="d-flex justify-content-center">
+            <div className={styles.contenedorFooter}>
+              <div className={styles.contenedorParafo}>
+                <p className={styles.parrafo2}>
+                  ¡Tus compras, siempre a un clic de distancia!
+                </p>
+                <p className={styles.parrafo5}>
+                  Al registrarte, podrás ver tu historial de pedidos y repetir
+                  tus compras favoritas en segundos. Haz tus próximas compras
+                  aún más rápidas y cómodas.
+                </p>
+              </div>
+              <Col md={1}>
+                <Button
+                  style={{
+                    backgroundColor: "#7FD54D",
+                    color: "#363636",
+                    fontSize: "16px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "500",
+                    borderRadius: "32px",
+                    width: "197px",
+                    height: "40px",
+                    border: "none",
+                  }}
+                  onClick={() => navigate("/registro")}
+                >
+                  Registrarme
+                </Button>
+              </Col>
+              <Col md={4}>
+                <div className={styles.imgPerro}>
+                  <img src={img} alt="Perro" />
+                </div>
+              </Col>
             </div>
           </Col>
         </Row>

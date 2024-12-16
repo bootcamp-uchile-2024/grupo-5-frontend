@@ -91,22 +91,14 @@
   padding-left: 20px;
 }
 
-.contenedorDireccion {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 300px;
-  height: 81px;
-}
-
 .direccionTitle {
-  flex-grow: 1;
-  text-align: center;
   color: #404040;
   font-size: 20px;
   font-family: "Montserrat", serif;
   font-weight: 700;
-  width: 166px;
+  width: 100%;
+  margin-bottom: 0px;
+  margin-top: 25px;
 }
 
 .comunaText {
@@ -114,4 +106,96 @@
   font-size: 14px;
   font-family: "Montserrat", serif;
   font-weight: 400;
+  width: 100%;
+}
+
+.contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.contenedorSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.contenedorPrecio {
+  width: 273px;
+  height: 50px;
+  background-color: #dff4d2;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.totalText {
+  color: #404040;
+  font-size: 24px;
+  font-family: "Montserrat", serif;
+  font-weight: 700;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.contenedorTruck {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.envioText{
+  color: #404040;
+  font-size: 20px;
+  font-family: "Montserrat", serif;
+  font-weight: 500;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.contenedorFooter{
+  background-color: #DFF4D2;
+  width: 85%;
+  height: 120px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contenedorParafo{
+  width:500px;
+  height: 75px;
+  color: #404040;
+  margin-left: 30px;
+}
+
+.parrafo2{
+  font-size: 20px;
+  font-family: "Montserrat", serif;
+  font-weight: 700;  
+}
+
+.parrafo5{
+  font-size: 12px;
+  font-family: "Montserrat", serif;
+  font-weight: 500;
+  margin: 0px;
+  padding: 0px;
+  line-height: 1.2;
+}
+
+.imgPerro{
+  width: 332px;
+  height: 312px;
+margin-left: 20px;  
 }
