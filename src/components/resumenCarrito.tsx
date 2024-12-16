@@ -79,7 +79,8 @@ export const ResumenCarrito = () => {
                     <div className="card-body">
                       <h5 className="card-title">{producto.nombreProducto}</h5>
                       <p className="card-text">
-                        Precio: ${producto.precioProducto * producto.stockProducto}
+                        Precio: $
+                        {producto.precioProducto * producto.stockProducto}
                       </p>
                       <div className="d-flex align-items-center">
                         <button

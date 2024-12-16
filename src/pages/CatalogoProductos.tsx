@@ -7,6 +7,7 @@ import Carousel from "react-bootstrap/Carousel";
 import addIcon from "../assets/icons/icono_carrito.svg";
 import { Row, Col, Container, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { formatPrice } from "../utils/formatPrice";
 
 export const CatalogoProductos = () => {
   const [productos, setProductos] = useState<CatalogoProductoDto[]>([]);
@@ -126,7 +127,7 @@ export const CatalogoProductos = () => {
                       {producto.nombreProducto}
                     </p>
                     <p className={styles.nom_precio}>
-                      ${producto.precioProducto}
+                      <span>{formatPrice(producto.precioProducto)}</span>
                     </p>
                     <div className={styles.buttonContainer}>
                       <Button

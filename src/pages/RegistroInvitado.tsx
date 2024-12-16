@@ -83,10 +83,15 @@ export const RegistroInvitado = () => {
         <div className={styles.customContainer}>
           <h1 className={styles.titulo}>Dirección</h1>
           <Row className="d-flex justify-content-center">
-            <Col xs={6} md={2} className="d-flex justify-content-center mb-3">
+            <Col
+              xs={6}
+              md={2}
+              className={`${styles.iconContainer} d-flex justify-content-center `}
+            >
               <div className={styles.icons}>
                 <img src={ShoppingCart} alt="shopping-cart-img" />
               </div>
+              <span className={styles.iconText}>Carrito de compra</span>
             </Col>
             <Col
               xs={6}
@@ -99,10 +104,15 @@ export const RegistroInvitado = () => {
                 className={styles.chevron}
               />
             </Col>
-            <Col xs={6} md={2} className="d-flex justify-content-center mb-3">
+            <Col
+              xs={6}
+              md={2}
+              className={`${styles.iconContainer} d-flex justify-content-center mb-3`}
+            >
               <div className={styles.iconLocation}>
                 <img src={Location} alt="Location-img" />
               </div>
+              <span className={styles.iconText}>Dirección</span>
             </Col>
             <Col
               xs={6}
@@ -115,10 +125,15 @@ export const RegistroInvitado = () => {
                 className={styles.chevron}
               />
             </Col>
-            <Col xs={6} md={2} className="d-flex justify-content-center mb-3">
+            <Col
+              xs={6}
+              md={2}
+              className={`${styles.iconContainer} d-flex justify-content-center mb-3`}
+            >
               <div className={styles.icons}>
                 <img src={Caja} alt="Caja-img" />
               </div>
+              <span className={styles.iconText}>Resumen</span>
             </Col>
             <Col
               xs={6}
@@ -131,15 +146,20 @@ export const RegistroInvitado = () => {
                 className={styles.chevron}
               />
             </Col>
-            <Col xs={6} md={2} className="d-flex justify-content-center mb-3">
+            <Col
+              xs={6}
+              md={2}
+              className={`${styles.iconContainer} d-flex justify-content-center mb-3`}
+            >
               <div className={styles.icons}>
                 <img src={Pago} alt="Pago-img" />
               </div>
+              <span className={styles.iconText}>Pago</span>
             </Col>
           </Row>
         </div>
 
-        <Row className="d-flex justify-content-center py-4">
+        <Row className="d-flex justify-content-center pb-4">
           <Col
             xs={10}
             md={10}

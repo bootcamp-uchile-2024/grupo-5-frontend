@@ -37,7 +37,7 @@
   align-items: center;
 }
 
-.iconLocation {
+.iconCaja {
   border-radius: 50%;
   background-color: #05c7f2;
   width: 88px;
@@ -58,47 +58,60 @@
   height: 47px;
 }
 
-.parrafo2 {
-  color: #404040;
-  font-size: 20px;
-  font-weight: 700;
+.cardTitle {
+  color: #363636;
+  font-size: 16px;
   font-family: "Montserrat", serif;
-  line-height: 1.2;
-}
-
-.parrafo5 {
-  color: #404040;
-  font-size: 12px;
   font-weight: 500;
-  font-family: "Montserrat", serif;
-  line-height: 1.2;
 }
 
-.contenedorParrafo {
-  width: 310px;
-  height: 122px;
-}
-
-.datos {
-  color: #000000;
+.cardText {
+  color: #363636;
   font-size: 24px;
-  font-weight: 700;
   font-family: "Montserrat", serif;
+  font-weight: 700;
+  border-bottom: 1px solid #888888;
+  padding-right: 20px;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #f2b705;
+  border-radius: 20px;
+  padding: 12px;
+  margin-left: 20px;
+}
+
+.contenedorProducto {
+  width: 190px;
+  height: 150px;
+  justify-items: center;
+  justify-content: center;
+  padding-left: 20px;
+}
+
+.contenedorDireccion {
   display: flex;
   justify-content: center;
-  padding-top: 10px;
+  align-items: center;
+  width: 300px;
+  height: 81px;
 }
 
-.verticalLine {
-  border-left: 7px solid #82e3f8;
-  height: 100%;
-  margin: 0 auto;
+.direccionTitle {
+  flex-grow: 1;
+  text-align: center;
+  color: #404040;
+  font-size: 20px;
+  font-family: "Montserrat", serif;
+  font-weight: 700;
+  width: 166px;
 }
 
-.gatoRegistro {
-  position: absolute;
-  bottom: -70px;
-  right: -25px;
-  width: 234px;
-  height: 225px;
+.comunaText {
+  color: #404040;
+  font-size: 14px;
+  font-family: "Montserrat", serif;
+  font-weight: 400;
 }

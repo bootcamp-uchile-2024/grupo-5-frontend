@@ -9,6 +9,7 @@ import { RootState } from "../states/store";
 import { Link } from "react-router-dom";
 import { Offcanvas, Button, Carousel, Card, Row, Col } from "react-bootstrap";
 import { useState, forwardRef, useImperativeHandle } from "react";
+import { formatPrice } from "../utils/formatPrice";
 
 export const ModalCarrito = forwardRef((_props, ref) => {
   const cart = useSelector((state: RootState) => state.cart.productos);
@@ -78,7 +79,14 @@ export const ModalCarrito = forwardRef((_props, ref) => {
               <Card key={producto.id} className="mb-3">
                 <Row noGutters>
                   <Col md={4}>
-                    <div className="img-container">
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "100%",
+                      }}
+                    >
                       {producto.imagenesProducto &&
                       producto.imagenesProducto.length > 0 ? (
                         <Carousel
@@ -89,6 +97,11 @@ export const ModalCarrito = forwardRef((_props, ref) => {
                           {producto.imagenesProducto.map((imagen, index) => (
                             <Carousel.Item key={index}>
                               <img
+                                style={{
+                                  width: "110px",
+                                  height: "120px",
+                                  paddingLeft: "20px",
+                                }}
                                 src={imagen.pathImagenProducto}
                                 className="d-block img-fluid"
                                 alt={`${producto.nombreProducto} imagen ${
@@ -123,14 +136,23 @@ export const ModalCarrito = forwardRef((_props, ref) => {
                           fontWeight: "700",
                         }}
                       >
-                        ${producto.precioProducto}
+                        <span>
+                          {formatPrice(
+                            producto.precioProducto * producto.stockProducto
+                          )}
+                        </span>
                       </Card.Text>
                       <div className="d-flex justify-content-end align-items-center">
                         <div className="button-container">
                           <Button
-                            variant="danger"
                             size="sm"
                             className="btn-trash"
+                            style={{
+                              backgroundColor: "transparent",
+                              borderColor: "transparent",
+                              color: "inherit",
+                              boxShadow: "none",
+                            }}
                             onClick={() => {
                               if (producto.stockProducto > 1) {
                                 handleDecrease(producto.id);
@@ -143,9 +165,14 @@ export const ModalCarrito = forwardRef((_props, ref) => {
                           </Button>
                           <span className="mx-2">{producto.stockProducto}</span>
                           <Button
-                            variant="outline-secondary"
                             size="sm"
                             className="btn-plus"
+                            style={{
+                              backgroundColor: "transparent",
+                              borderColor: "transparent",
+                              color: "inherit",
+                              boxShadow: "none",
+                            }}
                             onClick={() => handleIncrease(producto.id)}
                           >
                             <img src={plus} alt="" />
