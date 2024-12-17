@@ -1,6 +1,7 @@
-import { Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Carousel, Col, Container, Form, Row } from "react-bootstrap";
 import { MainLayout } from "../layout/MainLayout";
 import styles from "./css/PagoPage.module.css";
+import "./css/PagoPage.css";
 import ShoppingCart from "../assets/icons/shopping-cart.svg";
 import Location from "../assets/icons/Location_blue.svg";
 import Caja from "../assets/icons/Caja.svg";
@@ -8,8 +9,43 @@ import Pago from "../assets/icons/pago_white.svg";
 import Chevron from "../assets/icons/chevron-right.svg";
 import Transbank from "../assets/icons/transbank.svg";
 import MercadoPago from "../assets/icons/mercadopago.svg";
+import { useSelector } from "react-redux";
+import { RootState } from "../states/store";
+import { useNavigate } from "react-router-dom";
+import {  useState } from "react";
+import {ModalPago} from "../components/ModalPago";
 
 export const PagoPage = () => {
+  const [selectedPago, setSelectedPago] = useState<string | null>(null);
+  const cart = useSelector((state: RootState) => state.cart.productos);
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
+
+  const total = cart.reduce(
+    (acc, producto) => acc + producto.precioProducto,
+    0
+  );
+
+  const formatPrice = (price: number) => {
+    return price.toLocaleString("es-CL", {
+      style: "currency",
+      currency: "CLP",
+    });
+  };
+
+  const handlePago = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedPago(event.target.id);
+  };
+
+  const handlePagarClick = () => {
+    if (selectedPago) {
+      setShowModal(true);
+      setTimeout(() => {
+        navigate("/");
+      }, 5000);
+    }
+  };
+
   return (
     <MainLayout>
       <Container fluid>
@@ -92,52 +128,174 @@ export const PagoPage = () => {
           </Row>
         </div>
 
-        <Row className="d-flex justify-content-center mt-5">
-          <Col xs={12} md={3} className="d-flex justify-content-center">
+        <Row className="d-flex justify-content-center mt-5 pt-5">
+          <Col xs={12} md={5} className="d-flex justify-content-center">
             <div className={styles.formContainer}>
               <p className={styles.parrafo1}>Selecciona tu método de pago</p>
               <Form>
-                <Form.Group as={Row} className="mb-3">                  
-                    <Form.Check
-                    style={{borderBottom: '1px solid #808080', paddingBottom: '10px'}}
-                      type="radio"
-                      label={<span style={{ fontSize: '20px', fontWeight: '700', color: '#535353', paddingLeft: '10px', marginBottom: '10px' }}>Tarjeta de Débito</span>}
-                      name="formHorizontalRadios"
-                      id="formHorizontalRadios1"
-                    />
-                    <Form.Check
-                     style={{borderBottom: '1px solid #808080', paddingBottom: '10px',  paddingTop: '10px'}}
-                      type="radio"
-                      label={<span style={{ fontSize: '20px', fontWeight: '700', color: '#535353', paddingLeft: '10px', marginBottom: '10px' }}>Tarejta de Crédito</span>}
-                      name="formHorizontalRadios"
-                      id="formHorizontalRadios2"
-                    />
-                    <Form.Check
-                    style={{borderBottom: '1px solid #808080', paddingBottom: '10px'}}
-                      type="radio"
-                      label={<img src={Transbank} alt="Descripción de la imagen" style={{ width: '158px', height: '79px', marginBottom: '10px' }}/>}
-                      name="formHorizontalRadios"
-                      id="formHorizontalRadios3"
-                    />
-                    <Form.Check
-                    style={{borderBottom: '1px solid #808080', paddingBottom: '10px'}}
-                      type="radio"
-                      label={<img src={MercadoPago} alt="Descripción de la imagen" style={{ width: '158px', height: '79px' }} />}
-                      name="formHorizontalRadios"
-                      id="formHorizontalRadios3"
-                    />
-                  
+                <Form.Group as={Row} className="mb-3">
+                  <Form.Check
+                    style={{
+                      borderBottom: "1px solid #808080",
+                      paddingBottom: "10px",
+                    }}
+                    type="radio"
+                    label={
+                      <span
+                        style={{
+                          fontSize: "20px",
+                          fontWeight: "700",
+                          color: "#535353",
+                          paddingLeft: "10px",
+                          marginBottom: "10px",
+                        }}
+                      >
+                        Tarjeta de Débito
+                      </span>
+                    }
+                    name="formHorizontalRadios"
+                    id="formHorizontalRadios1"
+                    onChange={handlePago}
+                  />
+                  <Form.Check
+                    style={{
+                      borderBottom: "1px solid #808080",
+                      paddingBottom: "10px",
+                      paddingTop: "10px",
+                    }}
+                    type="radio"
+                    label={
+                      <span
+                        style={{
+                          fontSize: "20px",
+                          fontWeight: "700",
+                          color: "#535353",
+                          paddingLeft: "10px",
+                          marginBottom: "10px",
+                        }}
+                      >
+                        Tarejta de Crédito
+                      </span>
+                    }
+                    name="formHorizontalRadios"
+                    id="formHorizontalRadios2"
+                    onChange={handlePago}
+                  />
+                  <Form.Check
+                    style={{
+                      borderBottom: "1px solid #808080",
+                      paddingBottom: "10px",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                    type="radio"
+                    label={
+                      <img
+                        src={Transbank}
+                        alt="Descripción de la imagen"
+                        style={{ width: "150px", height: "79px" }}
+                      />
+                    }
+                    name="formHorizontalRadios"
+                    id="formHorizontalRadios3"
+                    onChange={handlePago}
+                  />
+                  <Form.Check
+                    style={{
+                      borderBottom: "1px solid #808080",
+                      paddingBottom: "10px",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                    type="radio"
+                    label={
+                      <img
+                        src={MercadoPago}
+                        alt="Descripción de la imagen"
+                        style={{ width: "150px", height: "79px" }}
+                      />
+                    }
+                    name="formHorizontalRadios"
+                    id="formHorizontalRadios3"
+                    onChange={handlePago}
+                  />
                 </Form.Group>
               </Form>
             </div>
           </Col>
-          <Col xs={12} md={3} className="d-flex justify-content-center">
-            <div>
-              <p>Resumen de tu compra</p>
+          <Col xs={12} md={4} className="d-flex justify-content-end">
+            <div className={styles.containerResumen}>
+              <div className={styles.container1}>
+                <p className={styles.resumen}>Resumen de tu compra</p>
+                {cart.map((producto) => (
+                  <div key={producto.id} className={styles.producto}>
+                    <Carousel slide={false} indicators={false}>
+                      {producto.imagenesProducto.map((imagen, index) => (
+                        <Carousel.Item key={index}>
+                          <img
+                            src={imagen.pathImagenProducto}
+                            alt={`${producto.nombreProducto} imagen ${
+                              index + 1
+                            }`}
+                          />
+                        </Carousel.Item>
+                      ))}
+                    </Carousel>
+                    <div className={styles.detalle}>
+                      <p className={styles.nombre}>{producto.nombreProducto}</p>
+                    </div>
+                    <div className={styles.detalle}>
+                      <p className={styles.precio}>
+                        {formatPrice(producto.precioProducto)}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className={styles.container2}>
+                <div className={styles.containerTotal}>
+                  <p className={styles.total}>Total</p>
+                  <p className={styles.precio}>{formatPrice(total)}</p>
+                </div>
+                <div className={styles.containerEnvio}>
+                  <p className={styles.envio}>Envío </p>
+                  <p className={styles.gratis}>Gratis</p>
+                </div>
+              </div>
+              <div className={styles.container3}>
+                <div className={styles.containerTotal}>
+                  <p className={styles.totalTitulo}>Total</p>
+                  <p className={styles.resumen}>{formatPrice(total)}</p>
+                </div>
+              </div>
             </div>
           </Col>
         </Row>
+
+        <Row className="d-flex justify-content-center pb-5">
+          <Col xs={12} className="d-flex justify-content-center mt-5 pb-5">
+            <Button
+              type="submit"
+              variant="warning"
+              style={{
+                width: "178px",
+                height: "56px",
+                borderRadius: "32px",
+                color: "#363636",
+                fontSize: "24px",
+                fontFamily: "Montserrat",
+                fontWeight: "700",
+                marginTop: "10px",
+              }}
+              onClick={handlePagarClick}
+              disabled={!selectedPago}
+            >
+              Pagar
+            </Button>
+          </Col>
+        </Row>
       </Container>
+      <ModalPago show={showModal} onHide={() => setShowModal(false)} />
     </MainLayout>
   );
 };

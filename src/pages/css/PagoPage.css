@@ -1,0 +1,4 @@
+.form-check-input[type=radio] {
+    border-radius: 50%;
+    transform: scale(0.7);
+}
