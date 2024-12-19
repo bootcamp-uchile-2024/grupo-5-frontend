@@ -21,6 +21,7 @@ import { AlimentosPerros } from "./pages/AlimentosPerros";
 import { RegistrodeUsuario } from "./pages/RegistrodeUsuario";
 import { RegistroInvitado } from "./pages/RegistroInvitado";
 import { PerfildeUsuario } from "./pages/PerfildeUsuario";
+import { DireccionPage } from "./pages/DireccionPage";
 
 
 createRoot(document.getElementById("root")!).render(
@@ -41,6 +42,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/registro" element={<RegistrodeUsuario />} />
           <Route path="/registro-invitado" element={<RegistroInvitado />} />
           <Route path="/perfil-usuario" element={<PerfildeUsuario />} />
+          <Route path="/DireccionPage" element={< DireccionPage/>} />
           <Route
             path="/admin"
             element={

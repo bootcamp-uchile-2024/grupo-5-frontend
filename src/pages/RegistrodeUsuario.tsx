@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
 import { MainLayout } from "../layout/MainLayout";
-import { useNavigate } from "react-router-dom";  
+import { useNavigate, Link } from "react-router-dom";  
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -11,20 +11,16 @@ if (!apiUrl) {
 
 export const RegistrodeUsuario = () => {
   const [formData, setFormData] = useState({
-    idUsuario: 0,
     rutUsuario: "",
     contrasena: "",
-    nombre: "",
-    apePaterno: "",
-    apeMaterno: "",
+    nombres: "",
+    apellidos: "",
     correoElectronico: "",
     telefono: "",
-    rolUsuario: 1,
-    chkOfertas: true,
-    chkTerminos: true,
-    activo: true,
-    idAvatar: 0,
+    chkOfertas: false,
+    chkTerminos: false,
   });
+  
 
   const [feedback, setFeedback] = useState({
     error: null as string | null,
@@ -64,31 +60,49 @@ export const RegistrodeUsuario = () => {
     setFeedback({ ...feedback, loading: true, error: null, success: null });
 
     try {
-      const urlWithRut = `${apiUrl}/usuarios/${formData.rutUsuario}`;
-      
-      const response = await fetch(urlWithRut, {
+      const response = await fetch(`${apiUrl}/usuarios`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...formData,
-          rutUsuario: formData.rutUsuario, 
+          rutUsuario: formData.rutUsuario,
+          contrasena: formData.contrasena,
+          nombres: formData.nombres,
+          apellidos: formData.apellidos,
+          correoElectronico: formData.correoElectronico,
+          telefono: formData.telefono,
+          chkOfertas: formData.chkOfertas,
         }),
       });
 
       if (!response.ok) throw new Error("Error en el registro. Intenta de nuevo.");
 
       setFeedback({ ...feedback, success: "Registro exitoso", loading: false });
-      
       navigate("/perfil-usuario");
-
     } catch (error: any) {
       setFeedback({ ...feedback, error: error.message, loading: false });
     }
   };
 
+
   return (
     <MainLayout>
-      <Container className="mt-4">
+      <Container className="mt-3">
+        {/* Botón Volver */}
+        <Row className="mb-0">
+          <Col>
+            <Link
+              to="/"
+              style={{
+                color: "#404040",
+                textDecoration: "none",
+                fontSize: "18px",
+                fontWeight: "bold",
+              }}
+            >
+              <span style={{ marginRight: "8px" }}>&lt;</span> Volver
+            </Link>
+          </Col>      
+        </Row>
         <Row className="align-items-center text-center">
           <Col md={12}>
             <h1
@@ -139,10 +153,19 @@ export const RegistrodeUsuario = () => {
               <FormInput
                 label="Nombre"
                 type="text"
-                name="nombre"
-                value={formData.nombre}
+                name="nombres"
+                value={formData.nombres}
                 onChange={handleInputChange}
                 placeholder="Nombre"
+                required
+              />
+              <FormInput
+                label="Apellido"
+                type="text"
+                name="apellidos"
+                value={formData.apellidos}
+                onChange={handleInputChange}
+                placeholder="Apellido"
                 required
               />
               <FormInput
@@ -347,6 +370,7 @@ const FormInput = ({
       </Col>
       <Col xs={12} sm={8} className="p-0">
         <Form.Control
+          className="rounded"
           style={{ width }}
           type={type}
           name={name}
