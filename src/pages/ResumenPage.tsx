@@ -27,13 +27,22 @@ export const ResumenPage = () => {
     (state: RootState) => state.form
   );
   const [modalShow, setModalShow] = useState(false);
+  const navigate = useNavigate();
 
   const total = cart.reduce(
     (acc, producto) => acc + producto.precioProducto * producto.stockProducto,
     0
   );
 
-  const navigate = useNavigate();
+  const getFormattedDate = () => {
+    const today = new Date();
+    today.setDate(today.getDate() + 2);
+    const options: Intl.DateTimeFormatOptions = {
+      day: "numeric",
+      month: "long",
+    };
+    return today.toLocaleDateString("es-ES", options);
+  };
 
   return (
     <MainLayout>
@@ -255,6 +264,11 @@ export const ResumenPage = () => {
                   }}
                   onClick={() => setModalShow(true)}
                 />
+              </div>
+              <div className={styles.contenedorFecha}>
+                <p className={styles.fechaText}>Fecha estimada de entrega:</p>
+                <p className={styles.fecha}>{getFormattedDate()}</p>
+                <p className={styles.hora}>entre 09:00 a 21:00 hrs.</p>
               </div>
               <div className={styles.contenedorPrecio}>
                 <p className={styles.totalText}>TOTAL {formatPrice(total)}</p>

@@ -119,7 +119,7 @@
 .contenedorSection {
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
 }
 
 .contenedorPrecio {
@@ -152,7 +152,7 @@
   margin-top: 10px;
 }
 
-.envioText{
+.envioText {
   color: #404040;
   font-size: 20px;
   font-family: "Montserrat", serif;
@@ -162,8 +162,8 @@
   padding: 0px;
 }
 
-.contenedorFooter{
-  background-color: #DFF4D2;
+.contenedorFooter {
+  background-color: #dff4d2;
   width: 85%;
   height: 120px;
   border-radius: 20px;
@@ -172,20 +172,20 @@
   align-items: center;
 }
 
-.contenedorParafo{
-  width:500px;
+.contenedorParafo {
+  width: 500px;
   height: 75px;
   color: #404040;
   margin-left: 30px;
 }
 
-.parrafo2{
+.parrafo2 {
   font-size: 20px;
   font-family: "Montserrat", serif;
-  font-weight: 700;  
+  font-weight: 700;
 }
 
-.parrafo5{
+.parrafo5 {
   font-size: 12px;
   font-family: "Montserrat", serif;
   font-weight: 500;
@@ -194,8 +194,42 @@
   line-height: 1.2;
 }
 
-.imgPerro{
+.imgPerro {
   width: 332px;
   height: 312px;
-margin-left: 20px;  
+  margin-left: 20px;
+}
+
+.contenedorFecha {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5px;
+}
+
+.fechaText {
+  color: #404040;
+  font-size: 16px;
+  font-family: "Montserrat", serif;
+  font-weight: 500;
+  margin: 0px;
+  padding: 0px;
+}
+
+.fecha {
+  color: #404040;
+  font-size: 24px;
+  font-family: "Montserrat", serif;
+  font-weight: 700;
+  margin: 0px;
+  padding: 0px;
+}
+
+.hora {
+  color: #404040;
+  font-size: 24px;
+  font-family: "Montserrat", serif;
+  font-weight: 500;
+  margin: 0px;
+  padding: 0px;
 }

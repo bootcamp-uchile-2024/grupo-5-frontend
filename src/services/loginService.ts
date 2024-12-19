@@ -2,7 +2,10 @@ import { UsuarioDto } from "../interface/Usuarios/dto/UsuarioDto";
 
 const apiUrl = "http://107.21.145.167:5001/usuarios";
 
-export const login = async (rut: string, contrasena: string): Promise<UsuarioDto | null> => {
+export const login = async (
+  rut: string,
+  contrasena: string
+): Promise<UsuarioDto | null> => {
   try {
     const response = await fetch(`${apiUrl}/${rut}`);
     if (!response.ok) {
@@ -21,9 +24,9 @@ export const login = async (rut: string, contrasena: string): Promise<UsuarioDto
   }
 };
 
-export const logout = () => localStorage.removeItem('user');
+export const logout = () => localStorage.removeItem("user");
 export const isAuth = () => {
-  const user = localStorage.getItem('user');
+  const user = localStorage.getItem("user");
   return user ? JSON.parse(user) : null;
 };
 

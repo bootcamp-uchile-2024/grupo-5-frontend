@@ -13,11 +13,13 @@ const initialState: UserState = {
 };
 
 const persistedUser = localStorage.getItem("__redux__user__");
-const initialUserState = persistedUser ? JSON.parse(persistedUser) : initialState;
+const initialUserState = persistedUser
+  ? JSON.parse(persistedUser)
+  : initialState;
 
 export const userSlice = createSlice({
-  name: 'user',
-  initialState: initialUserState,    
+  name: "user",
+  initialState: initialUserState,
   reducers: {
     save: (state: UserState, action: PayloadAction<UserState>) => {
       const { user, nombres, avatar } = action.payload;

@@ -12,8 +12,9 @@ import MercadoPago from "../assets/icons/mercadopago.svg";
 import { useSelector } from "react-redux";
 import { RootState } from "../states/store";
 import { useNavigate } from "react-router-dom";
-import {  useState } from "react";
-import {ModalPago} from "../components/ModalPago";
+import { useState } from "react";
+import { ModalPago } from "../components/ModalPago";
+import { formatPrice } from "../utils/formatPrice";
 
 export const PagoPage = () => {
   const [selectedPago, setSelectedPago] = useState<string | null>(null);
@@ -25,13 +26,6 @@ export const PagoPage = () => {
     (acc, producto) => acc + producto.precioProducto,
     0
   );
-
-  const formatPrice = (price: number) => {
-    return price.toLocaleString("es-CL", {
-      style: "currency",
-      currency: "CLP",
-    });
-  };
 
   const handlePago = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPago(event.target.id);
@@ -134,7 +128,7 @@ export const PagoPage = () => {
               <p className={styles.parrafo1}>Selecciona tu método de pago</p>
               <Form>
                 <Form.Group as={Row} className="mb-3">
-                  <Form.Check
+                  {/* <Form.Check
                     style={{
                       borderBottom: "1px solid #808080",
                       paddingBottom: "10px",
@@ -180,7 +174,7 @@ export const PagoPage = () => {
                     name="formHorizontalRadios"
                     id="formHorizontalRadios2"
                     onChange={handlePago}
-                  />
+                  /> */}
                   <Form.Check
                     style={{
                       borderBottom: "1px solid #808080",
