@@ -1,8 +1,7 @@
 import { configureStore, Middleware } from "@reduxjs/toolkit";
 import counterReducer from "./counterSlice";
 import cartReducer from "./cartSlice";
-import loggedUser from "./loggedUserSlice";
-import usersSlices from "./usersSlice";
+import userReducer from "./loggedUserSlice";
 import productsSlice from "./ProductSlice";
 import filtersReducer from "./filtersSlice";
 import formReducer from "./formSlice";
@@ -24,8 +23,8 @@ const persistedState: Middleware = (store) => (next) => (action) => {
 
   const estado = store.getState();
 
-  const estadoAsJson = JSON.stringify(estado.users);
-  localStorage.setItem("__redux__users__", estadoAsJson);
+  const estadoAsJson = JSON.stringify(estado.user);
+  localStorage.setItem("__redux__user__", estadoAsJson);
 
   const productsAsJson = JSON.stringify(estado.products);
   localStorage.setItem("__redux__products__", productsAsJson);
@@ -42,8 +41,7 @@ export const store = configureStore({
   reducer: {
     counter: counterReducer,
     cart: cartReducer,
-    loggedUser: loggedUser,
-    users: usersSlices,
+    user: userReducer,
     products: productsSlice,
     filters: filtersReducer,
     form: formReducer,

@@ -6,18 +6,19 @@ import CarritoVacio from "../assets/Carrito/Carro_vacio.png";
 import { removeFromCart, updateQuantity } from "../states/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../states/store";
-import { Link } from "react-router-dom";
 import { Offcanvas, Button, Carousel, Card, Row, Col } from "react-bootstrap";
 import { useState, forwardRef, useImperativeHandle } from "react";
 import { formatPrice } from "../utils/formatPrice";
+import { useNavigate } from "react-router-dom";
 
 export const ModalCarrito = forwardRef((_props, ref) => {
   const cart = useSelector((state: RootState) => state.cart.productos);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const usuario = useSelector((state: RootState) => state.user);
+  const navigate = useNavigate();
 
   useImperativeHandle(ref, () => ({
     openModal: handleShow,
@@ -39,6 +40,14 @@ export const ModalCarrito = forwardRef((_props, ref) => {
     (acc, producto) => acc + producto.precioProducto * producto.stockProducto,
     0
   );
+
+  const handleNavigate = () => {
+    if (usuario.idUsuario !== 0) {
+      navigate("/direccion");
+    } else {
+      navigate("/login");
+    }
+  };
 
   return (
     <>
@@ -228,9 +237,9 @@ export const ModalCarrito = forwardRef((_props, ref) => {
                   height: " 79px",
                 }}
               >
-                <Link to={"/login"} className="link-custom">
+                <button onClick={handleNavigate} className="link-custom">
                   Ir a Comprar
-                </Link>
+                </button>
               </Col>
             </Row>
             <Row className="justify-content-center mt-3">

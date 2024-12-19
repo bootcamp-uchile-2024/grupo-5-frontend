@@ -8,6 +8,7 @@ import { Col, Row } from "react-bootstrap";
 import Message from "../assets/icons/Buttons_message.svg";
 import View from "../assets/icons/View.svg";
 import { login } from "../services/loginService";
+import { UsuarioDto } from "../interface/Usuarios/dto/UsuarioDto";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -36,16 +37,10 @@ export const LoginPage = () => {
     }
 
     try {
-      const usuario = await login(form.rut, form.password);
+      const usuario: UsuarioDto | null = await login(form.rut, form.password);
 
       if (usuario) {
-        dispatch(
-          save({
-            user: usuario.rut,
-            nombres: usuario.nombres,
-            avatar: usuario.avatar,
-          })
-        );
+        dispatch(save(usuario));
         navigate("/direccion");
       } else {
         setValidated({ rut: true, password: false });

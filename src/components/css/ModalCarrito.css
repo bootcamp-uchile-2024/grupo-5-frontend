@@ -97,4 +97,11 @@
   font-size: 24px;
   font-family: "Montserrat", serif;
   font-weight: 700;
+  background-color: transparent;
+  border: none;
+}
+
+.link-custom:hover {
+  text-decoration: none;
+  background-color: transparent;
 }

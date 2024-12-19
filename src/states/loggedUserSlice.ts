@@ -1,14 +1,31 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UsuarioDto } from "../interface/Usuarios/dto/UsuarioDto";
 
 interface UserState {
-  user: string;
+  idUsuario: number;
+  rut: string;
   nombres: string;
+  apellidos: string;
+  email: string;
+  telefono: string;
+  contrasena: string;
+  chkTerminos: boolean;
+  chkOfertas: boolean;
+  activo: boolean;
   avatar: number;
 }
 
 const initialState: UserState = {
-  user: "",
+  idUsuario: 0,
+  rut: "",
   nombres: "",
+  apellidos: "",
+  email: "",
+  telefono: "",
+  contrasena: "",
+  chkTerminos: false,
+  chkOfertas: false,
+  activo: false,
   avatar: 0,
 };
 
@@ -21,18 +38,11 @@ export const userSlice = createSlice({
   name: "user",
   initialState: initialUserState,
   reducers: {
-    save: (state: UserState, action: PayloadAction<UserState>) => {
-      const { user, nombres, avatar } = action.payload;
-      state.user = user;
-      state.nombres = nombres;
-      state.avatar = avatar;
-      localStorage.setItem("__redux__user__", JSON.stringify(state));
+    save: (state: UserState, action: PayloadAction<UsuarioDto>) => {
+      return { ...state, ...action.payload };
     },
     del: (state: UserState) => {
-      state.user = "";
-      state.nombres = "";
-      state.avatar = 1;
-      localStorage.removeItem("__redux__user__");
+      return initialState;
     },
   },
 });

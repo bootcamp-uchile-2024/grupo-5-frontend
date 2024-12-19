@@ -18,7 +18,7 @@ import { Navbar } from "./Navbar";
 export const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const navigate = useNavigate();
-  const userState = useSelector((state: RootState) => state.loggedUser);
+  const userState = useSelector((state: RootState) => state.user);
   const cart = useSelector((state: RootState) => state.cart.productos);
   const totalItems = cart.reduce(
     (total, producto) => total + producto.stockProducto,

@@ -14,7 +14,7 @@ import "./index.css";
 import { DashboardPage } from "./pages/DashboardPage";
 import { Provider } from "react-redux";
 import { store } from "./states/store";
-import { GestionUsuarios } from "./pages/GestionUsuarios";
+// import { GestionUsuarios } from "./pages/GestionUsuarios";
 import { GestionProductos } from "./pages/GestionProductos";
 import { CategoriaPerros } from "./pages/CategoriaPerros";
 import { AlimentosPerros } from "./pages/AlimentosPerros";
@@ -40,16 +40,10 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/registro-invitado" element={<RegistroInvitado />} />
           <Route path="/resumen-carrito" element={<ResumenPage />} />
           <Route path="/pago" element={<PagoPage />}></Route>
+          <Route path="/direccion" element={<DireccionPage />} />
 
           {/* Rutas accesibles solo para usuarios registrados */}
-          <Route
-            path="/direccion"
-            element={
-              <PrivateRoute roles={["user"]}>
-                <DireccionPage />
-              </PrivateRoute>
-            }
-          />
+
           <Route
             path="/dashboard"
             element={
@@ -75,14 +69,14 @@ createRoot(document.getElementById("root")!).render(
               </PrivateRoute>
             }
           />
-          <Route
+          {/* <Route
             path="/users"
             element={
               <PrivateRoute roles={["admin"]}>
                 <GestionUsuarios />
               </PrivateRoute>
             }
-          />
+          /> */}
           <Route
             path="/products"
             element={
