@@ -247,7 +247,6 @@ export const DireccionPage = () => {
             <p>{direccion.referencia}</p>
 
             <div className="d-flex justify-content-end mt-3">
-              {/* Botón amarillo */}
               <Button
                 style={{
                   width: "60px",
@@ -265,8 +264,6 @@ export const DireccionPage = () => {
                   style={{ width: "24px", height: "24px" }}
                 />
               </Button>
-
-              {/* Botón con borde */}
               <Button
                 style={{
                   width: "60px",

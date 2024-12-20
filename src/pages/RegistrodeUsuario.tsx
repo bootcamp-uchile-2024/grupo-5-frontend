@@ -87,7 +87,6 @@ export const RegistrodeUsuario = () => {
   return (
     <MainLayout>
       <Container className="mt-3">
-        {/* Botón Volver */}
         <Row className="mb-0">
           <Col>
             <Link
