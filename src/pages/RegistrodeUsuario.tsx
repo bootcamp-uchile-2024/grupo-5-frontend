@@ -17,8 +17,8 @@ export const RegistrodeUsuario = () => {
     apellidos: "",
     correoElectronico: "",
     telefono: "",
-    chkOfertas: false,
-    chkTerminos: false,
+    chkOfertas: true,
+    chkTerminos: true,
   });
   
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { MainLayout } from "../layout/MainLayout";
-import { Container, Row, Col, Button, Form, Modal } from "react-bootstrap";
+import { Container, Row, Col, Button, Form, Modal, Carousel, Image } from "react-bootstrap";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -245,44 +245,44 @@ export const DireccionPage = () => {
             <p>{direccion.region}</p>
             <p>{direccion.numero}</p>
             <p>{direccion.referencia}</p>
-
-            <div className="d-flex justify-content-end mt-3">
-              <Button
-                style={{
-                  width: "60px",
-                  height: "60px",
-                  padding: "8px 16px",
-                  gap: "8px",
-                  borderRadius: "32px",
-                  backgroundColor: "#F2B705",
-                  marginRight: "10px", 
-                }}
-              >
-                <img
-                  src="src/assets/icons/LapizVector.svg"
-                  alt="Botón amarillo"
-                  style={{ width: "24px", height: "24px" }}
-                />
-              </Button>
-              <Button
-                style={{
-                  width: "60px",
-                  height: "60px",
-                  padding: "8px 16px",
-                  gap: "8px",
-                  borderRadius: "32px",
-                  border: "none solid",
-                }}
-              >
-                <img
-                  src="src/assets/icons/trash.svg"
-                  alt="Botón con borde"
-                  style={{ width: "24px", height: "24px" }}
-                />
-              </Button>
-            </div>
           </div>
         ))}
+      </div>
+
+      <div style={{ marginTop: "40px" }}>
+        <Carousel indicators={false}
+          prevIcon={
+            <span
+              aria-hidden="true"
+              className="carousel-control-prev-icon"
+              style={{ width: "66px", height: "66px", filter: "invert(1)" }}
+            />
+          }
+          nextIcon={
+            <span
+              aria-hidden="true"
+              className="carousel-control-next-icon"
+              style={{ width: "66px", height: "66px", filter: "invert(1)" }}
+            />
+          }
+        >
+          <Carousel.Item>
+            <Image
+              src="src/assets/Carousels/Carousels1.png"
+              alt="Primera imagen"
+              fluid
+              style={{ width: "100%", height: "auto", objectFit: "cover" }}
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <Image
+              src="src/assets/Carousels/Carousels2.png"
+              alt="Segunda imagen"
+              fluid
+              style={{ width: "100%", height: "auto", objectFit: "cover" }}
+            />
+          </Carousel.Item>
+        </Carousel>
       </div>
     </MainLayout>
   );
