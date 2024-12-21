@@ -17,16 +17,26 @@ import { Button, Card, Carousel, Col, Container, Row } from "react-bootstrap";
 import { MainLayout } from "../layout/MainLayout";
 import { formatPrice } from "../utils/formatPrice";
 import { useState } from "react";
-import { ModalForm } from "../components/ModalForm";
-import { useNavigate } from "react-router-dom";
+import { ModalMisDirecciones } from "../components/Direccion/MisDirecciones";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const ResumenPage = () => {
+  const location = useLocation();
+  const [selectedDireccion, setSelectedDireccion] = useState(
+    location.state?.selectedDireccion || null
+  );
+  const [showMisDireccionesModal, setShowMisDireccionesModal] = useState(false);
+
+  const handleShowMisDireccionesModal = () => setShowMisDireccionesModal(true);
+  const handleCloseMisDireccionesModal = () =>
+    setShowMisDireccionesModal(false);
+
+  const handleDireccionSelect = (direccion: any) => {
+    setSelectedDireccion(direccion);
+  };
+
   const cart = useSelector((state: RootState) => state.cart.productos);
   const dispatch = useDispatch();
-  const { direccion, numero, comuna } = useSelector(
-    (state: RootState) => state.form
-  );
-  const [modalShow, setModalShow] = useState(false);
   const navigate = useNavigate();
 
   const total = cart.reduce(
@@ -249,12 +259,18 @@ export const ResumenPage = () => {
             <div className={styles.contenedorSection}>
               <div className={styles.contenedor}>
                 <img src={Location2} alt="Location2" />
-                <div>
-                  <p
-                    className={styles.direccionTitle}
-                  >{`${direccion} ${numero}`}</p>
-                  <p className={styles.comunaText}>{comuna}</p>
-                </div>
+                {selectedDireccion ? (
+                  <div>
+                    <p
+                      className={styles.direccionTitle}
+                    >{`${selectedDireccion.calle} ${selectedDireccion.numero}`}</p>
+                    <p className={styles.comunaText}>
+                      {selectedDireccion.comuna.nombreComuna}
+                    </p>
+                  </div>
+                ) : (
+                  <p>No se ha seleccionado ninguna dirección.</p>
+                )}
                 <img
                   src={Pencil}
                   alt="editar"
@@ -262,7 +278,7 @@ export const ResumenPage = () => {
                     cursor: "pointer",
                     paddingLeft: "10px",
                   }}
-                  onClick={() => setModalShow(true)}
+                  onClick={handleShowMisDireccionesModal}
                 />
               </div>
               <div className={styles.contenedorFecha}>
@@ -296,7 +312,11 @@ export const ResumenPage = () => {
               </Button>
             </div>
           </Col>
-          <ModalForm show={modalShow} onHide={() => setModalShow(false)} />
+          <ModalMisDirecciones
+            show={showMisDireccionesModal}
+            onHide={handleCloseMisDireccionesModal}
+            onDireccionSelect={handleDireccionSelect}
+          />
         </Row>
         <Row
           className="d-flex justify-content-center"

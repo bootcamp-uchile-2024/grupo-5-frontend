@@ -1,4 +1,5 @@
-import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { MainLayout } from "../layout/MainLayout";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./css/DireccionPage.module.css";
@@ -13,12 +14,11 @@ import Edit from "../assets/icons/Edit.svg";
 import Trash from "../assets/icons/Trash_direccion.svg";
 import ImgMas from "../assets/icons/SignoMas.svg";
 import { RootState } from "../states/store";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { getDireccion } from "../utils/getDireccion";
-import { updateForm } from "../states/formSlice";
-import ModalNuevaDireccion from "../components/ModalNuevaDireccion";
-
+import { useSelector } from "react-redux";
+import { getDireccion } from "../services/Direccion";
+import { ModalNuevaDireccion } from "../components/Direccion/NuevaDireccion";
+import { ModalEliminarDireccion } from "../components/Direccion/EliminarDireccion";
+import { ModalEditarDireccion } from "../components/Direccion/EditarDireccion";
 
 interface Direccion {
   idDireccion: number;
@@ -26,24 +26,49 @@ interface Direccion {
   calle: string;
   numero: string;
   comuna: {
+    idComuna: number;
     nombreComuna: string;
   };
   referencias?: string;
+  personaContacto?: string;
+  telefonoContacto?: string;
 }
 
 export const DireccionPage = () => {
   const [direcciones, setDirecciones] = useState<Direccion[]>([]);
-  const [selectedDireccion, setSelectedDireccion] = useState<Direccion | null>(null);
+  const [selectedDireccion, setSelectedDireccion] = useState<Direccion | null>(
+    null
+  );
   const [showModal, setShowModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [direccionToDelete, setDireccionToDelete] = useState<Direccion | null>(
+    null
+  );
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [direccionToEdit, setDireccionToEdit] = useState<Direccion | null>(
+    null
+  );
   const idUsuario = useSelector((state: RootState) => state.user.idUsuario);
-  const usuario = useSelector((state: RootState) => state.user);
-  const dispatch = useDispatch();
+
   const navigate = useNavigate();
+
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
+  const handleShowConfirmModal = (direccion: Direccion) => {
+    setDireccionToDelete(direccion);
+    setShowConfirmModal(true);
+  };
+  const handleCloseConfirmModal = () => setShowConfirmModal(false);
+
+  const handleShowEditModal = (direccion: Direccion) => {
+    setDireccionToEdit(direccion);
+    setShowEditModal(true);
+  };
+  const handleCloseEditModal = () => setShowEditModal(false);
 
   useEffect(() => {
     const fetchDireccion = async () => {
+      console.log("ID Usuario:", idUsuario);
       if (idUsuario) {
         const data = await getDireccion(idUsuario);
         if (data.length > 0) {
@@ -60,21 +85,32 @@ export const DireccionPage = () => {
 
   const handleNavigate = () => {
     if (selectedDireccion) {
-      dispatch(updateForm({
-        nombre: usuario.nombres,
-        rut: usuario.rut,
-        telefono: usuario.telefono,
-        correo: usuario.email,
-        region: "",
-        comuna: selectedDireccion.comuna.nombreComuna,
-        direccion: selectedDireccion.calle,
-        numero: selectedDireccion.numero,
-        referencias: selectedDireccion.referencias || "",
-      }));
-      navigate("/resumen-carrito");
+      navigate("/resumen-carrito", { state: { selectedDireccion } });
     } else {
       console.log("No se ha seleccionado ninguna dirección.");
     }
+  };
+
+  const handleDeleteSuccess = () => {
+    setDirecciones(
+      direcciones.filter(
+        (direccion) => direccion.idDireccion !== direccionToDelete?.idDireccion
+      )
+    );
+    setShowConfirmModal(false);
+    window.location.reload();
+  };
+
+  const handleAddSuccess = async () => {
+    const data = await getDireccion(idUsuario);
+    setDirecciones(data);
+    setShowModal(false);
+  };
+
+  const handleEditSuccess = async () => {
+    const data = await getDireccion(idUsuario);
+    setDirecciones(data);
+    handleCloseEditModal();
   };
 
   return (
@@ -193,18 +229,28 @@ export const DireccionPage = () => {
         <Row className="d-flex justify-content-center pb-4">
           <Col md={5}>
             <Form>
-            <Form.Group as={Row} className="mb-3">
+              <Form.Group as={Row} className="mb-3">
                 {direcciones.length > 0 ? (
                   direcciones.map((direccion) => (
                     <Form.Check
                       key={direccion.idDireccion}
                       style={{
-                        border: "1px solid #BFBFBF",
+                        border:
+                          direccion.idDireccion ===
+                          selectedDireccion?.idDireccion
+                            ? "1px solid #F2B705"
+                            : "1px solid #BFBFBF",
+                        backgroundColor:
+                          direccion.idDireccion ===
+                          selectedDireccion?.idDireccion
+                            ? "#FCEDC0"
+                            : "transparent",
                         display: "flex",
                         alignItems: "center",
                         width: "100%",
-                        padding: "10px",
-                        marginBottom: "10px", 
+                        marginBottom: "10px",
+                        borderRadius: "8px",
+                        padding: "15px 25px",
                       }}
                       type="radio"
                       label={
@@ -219,8 +265,16 @@ export const DireccionPage = () => {
                             </p>
                           </div>
                           <div className={styles.editTrash}>
-                            <img src={Edit} alt="Descripción de la imagen" />
-                            <img src={Trash} alt="Trash" />
+                            <img
+                              src={Edit}
+                              alt="Edit"
+                              onClick={() => handleShowEditModal(direccion)}
+                            />
+                            <img
+                              src={Trash}
+                              alt="Trash"
+                              onClick={() => handleShowConfirmModal(direccion)}
+                            />
                           </div>
                         </>
                       }
@@ -239,19 +293,37 @@ export const DireccionPage = () => {
 
         <Row>
           <Col className="d-flex justify-content-center">
-          <img className={styles.SignoMas} src={ImgMas} alt="Sigo-Más" onClick={handleShowModal} />
-          <p className={styles.agregarDireccion} onClick={handleShowModal}>Agregar otra dirección</p>
+            <img
+              className={styles.SignoMas}
+              src={ImgMas}
+              alt="Sigo-Más"
+              onClick={handleShowModal}
+            />
+            <p className={styles.agregarDireccion} onClick={handleShowModal}>
+              Agregar otra dirección
+            </p>
           </Col>
         </Row>
 
-        <Modal show={showModal} onHide={handleCloseModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>Agregar Nueva Dirección</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <ModalNuevaDireccion handleClose={handleCloseModal} />
-          </Modal.Body>
-        </Modal>
+        <ModalNuevaDireccion
+          show={showModal}
+          onHide={handleCloseModal}
+          onSuccess={handleAddSuccess}
+        />
+
+        <ModalEliminarDireccion
+          show={showConfirmModal}
+          onHide={handleCloseConfirmModal}
+          direccion={direccionToDelete}
+          onDelete={handleDeleteSuccess}
+        />
+
+        <ModalEditarDireccion
+          show={showEditModal}
+          onHide={handleCloseEditModal}
+          direccion={direccionToEdit}
+          onSuccess={handleEditSuccess}
+        />
 
         <Row className="d-flex justify-content-center pb-4 pt-4">
           <Col
@@ -272,9 +344,10 @@ export const DireccionPage = () => {
               color: "#363636",
               fontSize: "16px",
               fontWeight: "500",
-              fontFamily: "Montserrat , serif"
+              fontFamily: "Montserrat , serif",
             }}
             onClick={handleNavigate}
+            disabled={!selectedDireccion}
           >
             Continuar
           </Button>

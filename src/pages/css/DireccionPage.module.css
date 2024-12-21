@@ -96,50 +96,51 @@
   width: 100%;
 }
 
-.direccionContainer p{
+.direccionContainer p {
   margin: 0px;
   padding: 0px;
 }
 
-.editTrash{  
+.editTrash {
   width: 64px;
   display: flex;
   align-items: center;
 }
 
-.editTrash img{
+.editTrash img {
   width: 100%;
   padding-right: 16px;
+  cursor: pointer;
 }
 
-.alias{
+.alias {
   color: #404040;
   font-size: 14px;
   font-weight: 700;
   font-family: "Montserrat", serif;
 }
 
-.direccionUsuario{
+.direccionUsuario {
   color: #404040;
   font-size: 16px;
   font-weight: 400;
   font-family: "Montserrat", serif;
 }
 
-.comuna{
+.comuna {
   color: #404040;
   font-size: 12px;
   font-weight: 400;
   font-family: "Montserrat", serif;
 }
 
-.SignoMas{
+.SignoMas {
   width: 33px;
   height: 33px;
   cursor: pointer;
 }
 
-.agregarDireccion{
+.agregarDireccion {
   color: #000000;
   font-size: 20px;
   font-weight: 400;
@@ -147,4 +148,3 @@
   padding-left: 10px;
   cursor: pointer;
 }
-

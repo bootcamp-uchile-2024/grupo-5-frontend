@@ -31,7 +31,7 @@ const initialState: UserState = {
 
 const persistedUser = localStorage.getItem("__redux__user__");
 const initialUserState = persistedUser
-  ? JSON.parse(persistedUser)
+  ? { ...initialState, ...JSON.parse(persistedUser) }
   : initialState;
 
 export const userSlice = createSlice({
