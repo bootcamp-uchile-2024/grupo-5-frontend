@@ -22,6 +22,7 @@ import { RegistrodeUsuario } from "./pages/RegistrodeUsuario";
 import { RegistroInvitado } from "./pages/RegistroInvitado";
 import { PagoPage } from "./pages/PagoPage";
 import { DireccionPage } from "./pages/DireccionPage";
+import { PerfildeUsuario } from "./pages/PerfildeUsuario";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -41,7 +42,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/resumen-carrito" element={<ResumenPage />} />
           <Route path="/pago" element={<PagoPage />}></Route>
           <Route path="/direccion" element={<DireccionPage />} />
-
+          <Route path="/perfil-usuario" element={<PerfildeUsuario />} />
           {/* Rutas accesibles solo para usuarios registrados */}
 
           <Route
