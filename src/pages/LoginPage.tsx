@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MainLayout } from "../layout/MainLayout";
 import styles from "./css/LoginPage.module.css";
@@ -13,12 +13,13 @@ import { UsuarioDto } from "../interface/Usuarios/dto/UsuarioDto";
 export const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [form, setForm] = useState({ rut: "", password: "" });
+  const [form, setForm] = useState({ email: "", password: "" });
   const [validated, setValidated] = useState<{
-    rut: boolean | null;
+    email: boolean | null;
     password: boolean | null;
-  }>({ rut: null, password: null });
+  }>({ email: null, password: null });
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -27,27 +28,27 @@ export const LoginPage = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const isRutValid = form.rut !== "";
+    const isEmailValid = form.email !== "";
     const isPasswordValid = form.password !== "";
 
-    setValidated({ rut: isRutValid, password: isPasswordValid });
+    setValidated({ email: isEmailValid, password: isPasswordValid });
 
-    if (!isRutValid || !isPasswordValid) {
+    if (!isEmailValid || !isPasswordValid) {
       return;
     }
 
     try {
-      const usuario: UsuarioDto | null = await login(form.rut, form.password);
+      const user: UsuarioDto | null = await login(form.email, form.password);
 
-      if (usuario) {
-        dispatch(save(usuario));
-        navigate("/direccion");
+      if (user) {
+        dispatch(save(user));
+        navigate("/perfil-usuario");
       } else {
-        setValidated({ rut: true, password: false });
+        setError("Credenciales inválidas");
       }
     } catch (error) {
       console.error("Error:", error);
-      setValidated({ rut: false, password: false });
+      setError("Error al iniciar sesión");
     }
   };
 
@@ -85,14 +86,14 @@ export const LoginPage = () => {
                 <div className={styles.inputContainer}>
                   <input
                     type="text"
-                    name="rut"
-                    placeholder="Usuario"
+                    name="email"
+                    placeholder="Email"
                     onChange={handleChange}
-                    value={form.rut}
+                    value={form.email}
                     className={
-                      validated.rut === null
+                      validated.email === null
                         ? ""
-                        : validated.rut
+                        : validated.email
                         ? styles.validInput
                         : styles.invalidInput
                     }
@@ -129,6 +130,7 @@ export const LoginPage = () => {
                   <button type="submit">Iniciar sesión</button>
                 </div>
               </form>
+              {error && <p className={styles.error}>{error}</p>}
             </div>
           </Col>
 

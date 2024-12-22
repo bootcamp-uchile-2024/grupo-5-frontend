@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../states/cartSlice";
-import { CatalogoProductoDto } from "../interface/Productos/read-catalogo-productos.dto";
+import { CatalogoProductoDto } from "../interface/Productos/dto/CatalogoProductoDto";
 import styles from "./css/AlimentosPerros.module.css";
 import addIcon from "../assets/icons/icono_carrito.svg";
 import BannerPerro from "../assets/Banner/perros.png";
@@ -39,7 +39,7 @@ export const AlimentosPerros = () => {
   useEffect(() => {
     async function getProductos() {
       try {
-        const response = await fetch("/api/productos", {
+        const response = await fetch("http://107.21.145.167:5001/productos", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -71,7 +71,7 @@ export const AlimentosPerros = () => {
 
     if (filters.marca.length > 0) {
       filtered = filtered.filter((producto) =>
-        filters.marca.includes(producto.MarcaProducto)
+        filters.marca.includes(producto.marcaProducto)
       );
     }
 
@@ -91,22 +91,22 @@ export const AlimentosPerros = () => {
       switch (filters.ordenar) {
         case "A-Z":
           filtered = filtered.sort((a, b) =>
-            a.NombreProducto.localeCompare(b.NombreProducto)
+            a.nombreProducto.localeCompare(b.nombreProducto)
           );
           break;
         case "Z-A":
           filtered = filtered.sort((a, b) =>
-            b.NombreProducto.localeCompare(a.NombreProducto)
+            b.nombreProducto.localeCompare(a.nombreProducto)
           );
           break;
         case "PrecioMenor":
           filtered = filtered.sort(
-            (a, b) => a.PrecioProducto - b.PrecioProducto
+            (a, b) => a.precioProducto - b.precioProducto
           );
           break;
         case "PrecioMayor":
           filtered = filtered.sort(
-            (a, b) => b.PrecioProducto - a.PrecioProducto
+            (a, b) => b.precioProducto - a.precioProducto
           );
           break;
         default:
@@ -166,7 +166,7 @@ export const AlimentosPerros = () => {
   };
 
   const handleAddToCart = (producto: CatalogoProductoDto) => {
-    dispatch(addToCart({ ...producto, stock: 1 }));
+    dispatch(addToCart({ ...producto, stockProducto: 1 }));
   };
 
   const indexOfLastProducto = currentPage * productosPerPage;
@@ -414,15 +414,15 @@ export const AlimentosPerros = () => {
                 >
                   <div className={styles.cardProducto}>
                     <div className={styles.imgContainer}>
-                      {producto.ImagenesProducto &&
-                      producto.ImagenesProducto.length > 0 ? (
+                      {producto.imagenesProducto &&
+                      producto.imagenesProducto.length > 0 ? (
                         <Link to={`/detalle-productos/${producto.id}`}>
                           <img
                             src={
-                              producto.ImagenesProducto[0].pathImagenProducto
+                              producto.imagenesProducto[0].pathImagenProducto
                             }
                             className="d-block img-fluid"
-                            alt={`${producto.NombreProducto} imagen 1`}
+                            alt={`${producto.nombreProducto} imagen 1`}
                           />
                         </Link>
                       ) : (
@@ -430,10 +430,10 @@ export const AlimentosPerros = () => {
                       )}
                     </div>
                     <p className={styles.nom_producto}>
-                      {producto.NombreProducto}
+                      {producto.nombreProducto}
                     </p>
                     <p className={styles.nom_precio}>
-                      ${producto.PrecioProducto}
+                      ${producto.precioProducto}
                     </p>
                     <div className={styles.buttonContainer}>
                       <Button

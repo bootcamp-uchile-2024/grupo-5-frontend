@@ -4,6 +4,7 @@ import { MainLayout } from "../layout/MainLayout";
 import { useNavigate, Link } from "react-router-dom";
 import ViewHideIcon from "../assets/icons/View_hide.svg";
 import ViewIcon from "../assets/icons/View.svg";
+import { hashPassword } from "../services/hashPassword";
 import "./css/registro.css";
 
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -46,62 +47,62 @@ export const RegistrodeUsuario = () => {
     });
   };
 
-  const validarContrasena = (contrasena: string) => {
-    const minLength = 8;
-    const hasUpperCase = /[A-Z]/.test(contrasena);
-    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(contrasena);
-    return contrasena.length >= minLength && hasUpperCase && hasSpecialChar;
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (!validarContrasena(formData.contrasena)) {
-      setFeedback({
-        ...feedback,
-        error: "La contraseña no cumple con los requisitos de seguridad",
-        success: null,
-      });
-      return;
-    }
+    setFeedback({ error: null, success: null, loading: true });
 
     if (formData.contrasena !== formData.repetirContrasena) {
       setFeedback({
-        ...feedback,
         error: "Las contraseñas no coinciden",
         success: null,
+        loading: false,
       });
       return;
     }
 
-    setFeedback({ ...feedback, loading: true, error: null, success: null });
-
     try {
-      const requestData = {
-        rutUsuario: formData.rutUsuario,
-        contrasena: formData.contrasena,
-        nombres: formData.nombres,
-        apellidos: formData.apellidos,
-        correoElectronico: formData.correoElectronico,
-        telefono: formData.telefono,
-        chkOfertas: formData.chkOfertas,
-      };
-
-      console.log("Datos enviados a la API:", requestData);
-
+      // Enviar los datos del usuario a la API de registro
       const response = await fetch(`${apiUrl}/usuarios/registrar/cliente`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          rutUsuario: formData.rutUsuario,
+          contrasena: formData.contrasena,
+          nombres: formData.nombres,
+          apellidos: formData.apellidos,
+          correoElectronico: formData.correoElectronico,
+          telefono: formData.telefono,
+          chkOfertas: formData.chkOfertas,
+          chkTerminos: formData.chkTerminos,
+        }),
       });
 
-      if (!response.ok)
-        throw new Error("Error en el registro. Intenta de nuevo.");
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
 
-      setFeedback({ ...feedback, success: "Registro exitoso", loading: false });
-      navigate("/perfil-usuario");
-    } catch (error: any) {
-      setFeedback({ ...feedback, error: error.message, loading: false });
+      // Hacer hash a la contraseña
+      const hashedPassword = await hashPassword(formData.contrasena);
+      if (!hashedPassword) {
+        setFeedback({
+          error: "Error al hashear la contraseña",
+          success: null,
+          loading: false,
+        });
+        return;
+      }
+
+      setFeedback({ error: null, success: "Registro exitoso", loading: false });
+      navigate("/login");
+    } catch (error) {
+      console.error("Error al registrar el usuario:", error);
+      setFeedback({
+        error: "Error al registrar el usuario",
+        success: null,
+        loading: false,
+      });
     }
   };
 
@@ -608,35 +609,3 @@ export const RegistrodeUsuario = () => {
     </MainLayout>
   );
 };
-
-// const FormInput = ({
-//   label,
-//   type,
-//   name,
-//   value,
-//   onChange,
-//   placeholder,
-//   required,
-//   width = "100%",
-//   moveStyle = {},
-// }: any) => (
-//   <Form.Group className="mb-1" style={moveStyle}>
-//     <Row className="align-items-center g-0">
-//       <Col xs={12} sm={4} className="p-0">
-//         <Form.Label className="mb-0">{label}</Form.Label>
-//       </Col>
-//       <Col xs={12} sm={8} className="p-0">
-//         <Form.Control
-//           className="rounded"
-//           style={{ width }}
-//           type={type}
-//           name={name}
-//           value={value}
-//           onChange={onChange}
-//           placeholder={placeholder}
-//           required={required}
-//         />
-//       </Col>
-//     </Row>
-//   </Form.Group>
-// );

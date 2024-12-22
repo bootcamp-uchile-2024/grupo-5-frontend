@@ -31,7 +31,7 @@ const initialState: UserState = {
 
 const persistedUser = localStorage.getItem("__redux__user__");
 const initialUserState = persistedUser
-  ? { ...initialState, ...JSON.parse(persistedUser) }
+  ? JSON.parse(persistedUser)
   : initialState;
 
 export const userSlice = createSlice({
@@ -41,7 +41,7 @@ export const userSlice = createSlice({
     save: (state: UserState, action: PayloadAction<UsuarioDto>) => {
       return { ...state, ...action.payload };
     },
-    del: (state: UserState) => {
+    del: () => {
       return initialState;
     },
   },

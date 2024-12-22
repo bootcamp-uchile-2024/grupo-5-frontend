@@ -9,18 +9,20 @@ import Pago from "../assets/icons/pago_white.svg";
 import Chevron from "../assets/icons/chevron-right.svg";
 import Transbank from "../assets/icons/transbank.svg";
 import MercadoPago from "../assets/icons/mercadopago.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../states/store";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ModalPago } from "../components/ModalPago";
 import { formatPrice } from "../utils/formatPrice";
+import { clearCartAndLocalStorage } from "../states/cartSlice";
 
 export const PagoPage = () => {
   const [selectedPago, setSelectedPago] = useState<string | null>(null);
   const cart = useSelector((state: RootState) => state.cart.productos);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const total = cart.reduce(
     (acc, producto) => acc + producto.precioProducto,
@@ -34,9 +36,10 @@ export const PagoPage = () => {
   const handlePagarClick = () => {
     if (selectedPago) {
       setShowModal(true);
+      dispatch(clearCartAndLocalStorage());
       setTimeout(() => {
         navigate("/");
-      }, 5000);
+      }, 10000);
     }
   };
 
@@ -128,53 +131,6 @@ export const PagoPage = () => {
               <p className={styles.parrafo1}>Selecciona tu método de pago</p>
               <Form>
                 <Form.Group as={Row} className="mb-3">
-                  {/* <Form.Check
-                    style={{
-                      borderBottom: "1px solid #808080",
-                      paddingBottom: "10px",
-                    }}
-                    type="radio"
-                    label={
-                      <span
-                        style={{
-                          fontSize: "20px",
-                          fontWeight: "700",
-                          color: "#535353",
-                          paddingLeft: "10px",
-                          marginBottom: "10px",
-                        }}
-                      >
-                        Tarjeta de Débito
-                      </span>
-                    }
-                    name="formHorizontalRadios"
-                    id="formHorizontalRadios1"
-                    onChange={handlePago}
-                  />
-                  <Form.Check
-                    style={{
-                      borderBottom: "1px solid #808080",
-                      paddingBottom: "10px",
-                      paddingTop: "10px",
-                    }}
-                    type="radio"
-                    label={
-                      <span
-                        style={{
-                          fontSize: "20px",
-                          fontWeight: "700",
-                          color: "#535353",
-                          paddingLeft: "10px",
-                          marginBottom: "10px",
-                        }}
-                      >
-                        Tarejta de Crédito
-                      </span>
-                    }
-                    name="formHorizontalRadios"
-                    id="formHorizontalRadios2"
-                    onChange={handlePago}
-                  /> */}
                   <Form.Check
                     style={{
                       borderBottom: "1px solid #808080",

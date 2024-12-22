@@ -77,7 +77,7 @@ export const PerfildeUsuario = () => {
   };
 
   const irADireccionPage = () => {
-    navigate("/DireccionPage");
+    navigate("");
   };
 
   const irAPerfil = () => {

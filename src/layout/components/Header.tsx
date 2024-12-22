@@ -50,6 +50,10 @@ export const Header = () => {
     navigate("/");
   };
 
+  const getUsernameFromEmail = (email: string) => {
+    return email.split("@")[0];
+  };
+
   return (
     <header className={styles.header}>
       <Container fluid>
@@ -74,7 +78,9 @@ export const Header = () => {
             <div className={styles.cartContainer}>
               {isLoggedIn ? (
                 <>
-                  <NavDropdown title={`Hola ${userState.nombres}`}>
+                  <NavDropdown
+                    title={`Hola, ${getUsernameFromEmail(userState.email)}`}
+                  >
                     <NavDropdown.Item onClick={handleLogout}>
                       Logout
                     </NavDropdown.Item>
@@ -102,7 +108,11 @@ export const Header = () => {
               )}
 
               <div className={styles.CarritoClick} onClick={handleCarritoClick}>
-                <span className={`mr-3 ${styles.cartCount}`}>{totalItems}</span>
+                {totalItems > 0 && (
+                  <span className={`mr-3 ${styles.cartCount}`}>
+                    {totalItems}
+                  </span>
+                )}
                 <img className={styles.cartIcon} src={Carrito} alt="Carrito" />
               </div>
             </div>

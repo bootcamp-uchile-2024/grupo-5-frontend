@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../states/cartSlice";
-import { CatalogoProductoDto } from "../interface/Productos/read-catalogo-productos.dto";
+import { CatalogoProductoDto } from "../interface/Productos/dto/CatalogoProductoDto";
 import styles from "./css/CategoriaPerros.module.css";
 import addIcon from "../assets/icons/icono_carrito.svg";
 import BannerPerro from "../assets/Banner/perros.png";
@@ -22,7 +22,7 @@ export const CategoriaPerros = () => {
   useEffect(() => {
     async function getProductos() {
       try {
-        const response = await fetch("/api/productos", {
+        const response = await fetch("http://107.21.145.167:5001/productos", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -45,7 +45,7 @@ export const CategoriaPerros = () => {
   }, []);
 
   const handleAddToCart = (producto: CatalogoProductoDto) => {
-    dispatch(addToCart({ ...producto, stock: 1 }));
+    dispatch(addToCart({ ...producto, stockProducto: 1 }));
   };
 
   const indexOfLastProducto = currentPage * productosPerPage;
@@ -108,21 +108,21 @@ export const CategoriaPerros = () => {
             >
               <div className={styles.cardProducto}>
                 <div className={styles.imgContainer}>
-                  {producto.ImagenesProducto &&
-                  producto.ImagenesProducto.length > 0 ? (
+                  {producto.imagenesProducto &&
+                  producto.imagenesProducto.length > 0 ? (
                     <Link to={`/detalle-productos/${producto.id}`}>
                       <img
-                        src={producto.ImagenesProducto[0].pathImagenProducto}
+                        src={producto.imagenesProducto[0].pathImagenProducto}
                         className="d-block img-fluid"
-                        alt={`${producto.NombreProducto} imagen 1`}
+                        alt={`${producto.nombreProducto} imagen 1`}
                       />
                     </Link>
                   ) : (
                     <p>Imagen no disponible</p>
                   )}
                 </div>
-                <p className={styles.nom_producto}>{producto.NombreProducto}</p>
-                <p className={styles.nom_precio}>${producto.PrecioProducto}</p>
+                <p className={styles.nom_producto}>{producto.nombreProducto}</p>
+                <p className={styles.nom_precio}>${producto.precioProducto}</p>
                 <div className={styles.buttonContainer}>
                   <Button
                     style={{

@@ -5,7 +5,7 @@ import { AboutPage } from "./pages/AboutPage";
 import { CatalogoProductos } from "./pages/CatalogoProductos";
 import { LoginPage } from "./pages/LoginPage";
 import { DetalleProductos } from "./pages/DetalleProductos";
-import { PrivateRoute } from "./layout/protected/PrivateRoute";
+import PrivateRoute from "./layout/protected/PrivateRoute";
 import { ResumenPage } from "./pages/ResumenPage";
 import { AdminPage } from "./pages/AdminPage";
 import { StrictMode } from "react";
@@ -42,8 +42,16 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/resumen-carrito" element={<ResumenPage />} />
           <Route path="/pago" element={<PagoPage />}></Route>
           <Route path="/direccion" element={<DireccionPage />} />
-          <Route path="/perfil-usuario" element={<PerfildeUsuario />} />
+
           {/* Rutas accesibles solo para usuarios registrados */}
+          <Route
+            path="/perfil-usuario"
+            element={
+              <PrivateRoute roles={["user"]}>
+                <PerfildeUsuario />
+              </PrivateRoute>
+            }
+          ></Route>
 
           <Route
             path="/dashboard"
