@@ -85,7 +85,9 @@ export const DireccionPage = () => {
 
   const handleNavigate = () => {
     if (selectedDireccion) {
-      navigate("/resumen-carrito", { state: { selectedDireccion } });
+      navigate("/resumen-carrito", {
+        state: { selectedDireccion, source: "DireccionPage" },
+      });
     } else {
       console.log("No se ha seleccionado ninguna dirección.");
     }
@@ -323,6 +325,8 @@ export const DireccionPage = () => {
           onHide={handleCloseEditModal}
           direccion={direccionToEdit}
           onSuccess={handleEditSuccess}
+          source="DireccionPage"
+          userData={idUsuario}
         />
 
         <Row className="d-flex justify-content-center pb-4 pt-4">

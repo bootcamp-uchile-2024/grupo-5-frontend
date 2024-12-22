@@ -9,6 +9,8 @@ interface ModalEditarDireccionProps {
   onHide: () => void;
   direccion: Direccion | null;
   onSuccess: () => void;
+  source: string | null;
+  userData: any;
 }
 
 interface Direccion {
@@ -30,6 +32,8 @@ export const ModalEditarDireccion = ({
   onHide,
   direccion,
   onSuccess,
+  source,
+  userData,
 }: ModalEditarDireccionProps) => {
   const [formState, setFormState] = useState({
     idComuna: direccion?.comuna.idComuna || "",
@@ -55,6 +59,20 @@ export const ModalEditarDireccion = ({
       });
     }
   }, [direccion]);
+
+  useEffect(() => {
+    if (source === "RegistroInvitado" && userData) {
+      setFormState({
+        idComuna: userData.comuna,
+        alias: userData.alias,
+        calle: userData.direccion,
+        numero: userData.numero,
+        referencias: userData.referencias || "",
+        personaContacto: userData.personaContacto || "",
+        telefonoContacto: userData.telefonoContacto || "",
+      });
+    }
+  }, [source, userData]);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -118,6 +136,7 @@ export const ModalEditarDireccion = ({
             display: "flex",
             justifyContent: "center",
             gap: "10px",
+            marginBottom: "30px",
           }}
         >
           <img src={ImgMas} alt="Icono" />

@@ -16,20 +16,53 @@ import { RootState } from "../states/store";
 import { Button, Card, Carousel, Col, Container, Row } from "react-bootstrap";
 import { MainLayout } from "../layout/MainLayout";
 import { formatPrice } from "../utils/formatPrice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalMisDirecciones } from "../components/Direccion/MisDirecciones";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ModalEditarDireccion } from "../components/Direccion/EditarDireccion";
 
 export const ResumenPage = () => {
   const location = useLocation();
   const [selectedDireccion, setSelectedDireccion] = useState(
     location.state?.selectedDireccion || null
   );
+  const userData = location.state || {};
+  const [comunaNombre, setComunaNombre] = useState("");
   const [showMisDireccionesModal, setShowMisDireccionesModal] = useState(false);
+  const [showEditarDireccionModal, setShowEditarDireccionModal] =
+    useState(false);
+
+  const source = location.state?.source;
+
+  useEffect(() => {
+    const fetchComunaNombre = async (idComuna: number) => {
+      try {
+        const response = await fetch(
+          `http://107.21.145.167:5001/comuna/${idComuna}`
+        );
+        if (!response.ok) {
+          throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+        const data = await response.json();
+        setComunaNombre(data.nombreComuna);
+      } catch (error) {
+        console.error("Error al obtener la comuna:", error);
+      }
+    };
+
+    if (userData && userData.comuna) {
+      fetchComunaNombre(userData.comuna);
+    }
+  }, [userData]);
 
   const handleShowMisDireccionesModal = () => setShowMisDireccionesModal(true);
   const handleCloseMisDireccionesModal = () =>
     setShowMisDireccionesModal(false);
+
+  const handleShowEditarDireccionModal = () =>
+    setShowEditarDireccionModal(true);
+  const handleCloseEditarDireccionModal = () =>
+    setShowEditarDireccionModal(false);
 
   const handleDireccionSelect = (direccion: any) => {
     setSelectedDireccion(direccion);
@@ -56,7 +89,30 @@ export const ResumenPage = () => {
 
   return (
     <MainLayout>
-      <Container fluid>
+      <Container className="mt-3" fluid>
+        <Row className="mb-5 pt-5">
+          <Link
+            to={
+              source === "RegistroInvitado"
+                ? "/registro-invitado"
+                : "/direccion"
+            }
+            className={styles.linkVolver}
+          >
+            <span
+              aria-hidden="true"
+              className="carousel-control-prev-icon"
+              style={{
+                width: "24px",
+                height: "24px",
+                filter: "invert(1)",
+                marginRight: "8px",
+                marginLeft: "30px",
+              }}
+            />
+            Volver
+          </Link>
+        </Row>
         <div className={styles.customContainer}>
           <h1 className={styles.titulo}>Resumen de Compra</h1>
           <Row className="d-flex justify-content-center">
@@ -259,7 +315,7 @@ export const ResumenPage = () => {
             <div className={styles.contenedorSection}>
               <div className={styles.contenedor}>
                 <img src={Location2} alt="Location2" />
-                {selectedDireccion ? (
+                {source === "DireccionPage" && selectedDireccion ? (
                   <div>
                     <p
                       className={styles.direccionTitle}
@@ -268,8 +324,15 @@ export const ResumenPage = () => {
                       {selectedDireccion.comuna.nombreComuna}
                     </p>
                   </div>
+                ) : source === "RegistroInvitado" && userData ? (
+                  <div>
+                    <p
+                      className={styles.direccionTitle}
+                    >{`${userData.direccion} ${userData.numero}`}</p>
+                    <p className={styles.comunaText}>{comunaNombre}</p>
+                  </div>
                 ) : (
-                  <p>No se ha seleccionado ninguna dirección.</p>
+                  <p>No hay datos disponibles.</p>
                 )}
                 <img
                   src={Pencil}
@@ -278,7 +341,11 @@ export const ResumenPage = () => {
                     cursor: "pointer",
                     paddingLeft: "10px",
                   }}
-                  onClick={handleShowMisDireccionesModal}
+                  onClick={
+                    source === "DireccionPage"
+                      ? handleShowMisDireccionesModal
+                      : handleShowEditarDireccionModal
+                  }
                 />
               </div>
               <div className={styles.contenedorFecha}>
@@ -316,6 +383,14 @@ export const ResumenPage = () => {
             show={showMisDireccionesModal}
             onHide={handleCloseMisDireccionesModal}
             onDireccionSelect={handleDireccionSelect}
+          />
+          <ModalEditarDireccion
+            show={showEditarDireccionModal}
+            onHide={handleCloseEditarDireccionModal}
+            direccion={selectedDireccion}
+            onSuccess={() => {}}
+            source={source}
+            userData={userData}
           />
         </Row>
         <Row

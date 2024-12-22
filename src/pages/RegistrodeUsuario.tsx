@@ -530,10 +530,7 @@ export const RegistrodeUsuario = () => {
 
               <Row className="d-flex justify-content-center ">
                 <Col sm={8}>
-                  <Form.Group
-                    className="mb-2 mt-3"
-                    style={{ paddingLeft: "80px" }}
-                  >
+                  <Form.Group className="mb-2 mt-3">
                     <Form.Check
                       type="checkbox"
                       name="chkTerminos"
@@ -548,7 +545,7 @@ export const RegistrodeUsuario = () => {
                       className="custom-checkbox"
                     />
                   </Form.Group>
-                  <Form.Group className="mb-5" style={{ paddingLeft: "80px" }}>
+                  <Form.Group className="mb-5">
                     <Form.Check
                       type="checkbox"
                       name="chkOfertas"

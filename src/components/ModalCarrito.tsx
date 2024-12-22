@@ -86,7 +86,7 @@ export const ModalCarrito = forwardRef((_props, ref) => {
           ) : (
             cart.map((producto) => (
               <Card key={producto.id} className="mb-3">
-                <Row noGutters>
+                <Row>
                   <Col md={4}>
                     <div
                       style={{

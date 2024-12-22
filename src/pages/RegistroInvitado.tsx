@@ -21,6 +21,7 @@ const { Formik } = formik;
 
 const schema = yup.object().shape({
   nombre: yup.string().required(),
+  apellidos: yup.string().required(),
   rut: yup.string().required(),
   correo: yup.string().email("Correo inválido").required(),
   telefono: yup.string().required(),
@@ -28,6 +29,7 @@ const schema = yup.object().shape({
   comuna: yup.string().required(),
   direccion: yup.string().required(),
   numero: yup.string().required(),
+  alias: yup.string().required(),
 });
 
 export const RegistroInvitado = () => {
@@ -39,7 +41,7 @@ export const RegistroInvitado = () => {
   useEffect(() => {
     const fetchRegiones = async () => {
       try {
-        const response = await fetch("http://107.21.145.167:5001/region");
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/region`);
         if (!response.ok) {
           throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
@@ -62,7 +64,7 @@ export const RegistroInvitado = () => {
     if (value) {
       try {
         const response = await fetch(
-          `http://107.21.145.167:5001/comuna/region/${value}`
+          `${import.meta.env.VITE_API_URL}/comuna/region/${value}`
         );
         if (!response.ok) {
           throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -74,6 +76,74 @@ export const RegistroInvitado = () => {
       }
     } else {
       setComunas([]);
+    }
+  };
+
+  const handleSubmit = async (values: any) => {
+    try {
+      const response1 = await fetch(
+        `${import.meta.env.VITE_API_URL}/usuarios/registrar/invitado`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            rutUsuario: values.rut,
+            nombres: values.nombre,
+            apellidos: values.apellidos,
+            correoElectronico: values.correo,
+            telefono: values.telefono,
+          }),
+        }
+      );
+
+      if (!response1.ok) {
+        throw new Error("Error en el registro del usuario invitado");
+      }
+
+      const data1 = await response1.json();
+      const idUsuario = data1.idUsuario;
+      console.log("ID Usuario:", idUsuario);
+
+      const direccionData = {
+        idUsuario: idUsuario,
+        idComuna: Number(values.comuna),
+        calle: values.direccion,
+        numero: values.numero,
+        referencias: values.referencias,
+        alias: values.alias,
+      };
+
+      console.log("Datos enviados a la API de dirección:", direccionData);
+
+      const response2 = await fetch(
+        `${import.meta.env.VITE_API_URL}/direccion`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(direccionData),
+        }
+      );
+
+      if (!response2.ok) {
+        const errorData = await response2.json();
+        throw new Error(
+          `Error en el registro de la dirección: ${errorData.message}`
+        );
+      }
+
+      dispatch(saveForm({ ...values, idUsuario }));
+
+      navigate("/resumen-carrito", {
+        state: { ...values, idUsuario, source: "RegistroInvitado" },
+      });
+
+      console.log("Registro exitoso");
+    } catch (error) {
+      console.error("Error al registrar el usuario invitado:", error);
     }
   };
 
@@ -169,27 +239,25 @@ export const RegistroInvitado = () => {
 
         <Formik
           validationSchema={schema}
-          onSubmit={(values) => {
-            dispatch(saveForm(values));
-            console.log(values);
-            navigate("/resumen-carrito");
-          }}
+          onSubmit={handleSubmit}
           initialValues={{
-            firstName: "",
             nombre: "",
             rut: "",
             correo: "",
+            apellidos: "",
             telefono: "",
             region: "",
             comuna: "",
             direccion: "",
             numero: "",
             referencias: "",
+            alias: "",
           }}
         >
           {({
             handleSubmit,
             handleChange,
+            setFieldValue,
             touched,
             values,
             errors,
@@ -238,6 +306,7 @@ export const RegistroInvitado = () => {
                           fontFamily: "Montserrat",
                           fontWeight: "bold",
                           marginLeft: "30%",
+                          marginTop: "5px",
                         }}
                       >
                         Registrate
@@ -274,6 +343,38 @@ export const RegistroInvitado = () => {
                         type="text"
                         name="nombre"
                         value={values.nombre}
+                        onChange={handleChange}
+                        isValid={touched.nombre && !errors.nombre}
+                        isInvalid={!!errors.nombre}
+                        style={{
+                          borderRadius: "32px",
+                        }}
+                      />
+                    </Col>
+                  </Form.Group>
+
+                  <Form.Group
+                    as={Row}
+                    controlId="formApellidos"
+                    className="d-flex justify-content-center align-items-center"
+                  >
+                    <Form.Label
+                      column
+                      sm={3}
+                      style={{
+                        color: "#000000",
+                        fontSize: "16px",
+                        fontFamily: "Montserrat",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Apellidos
+                    </Form.Label>
+                    <Col sm={9} className="position-relative">
+                      <Form.Control
+                        type="text"
+                        name="apellidos"
+                        value={values.apellidos}
                         onChange={handleChange}
                         isValid={touched.nombre && !errors.nombre}
                         isInvalid={!!errors.nombre}
@@ -458,7 +559,17 @@ export const RegistroInvitado = () => {
                       <Form.Select
                         name="comuna"
                         value={values.comuna}
-                        onChange={handleChange}
+                        onChange={(e) => {
+                          const selectedComuna = comunas.find(
+                            (comuna) =>
+                              comuna.idComuna === parseInt(e.target.value)
+                          );
+                          setFieldValue(
+                            "comuna",
+                            selectedComuna ? selectedComuna.idComuna : ""
+                          );
+                          handleChange(e);
+                        }}
                         isValid={touched.comuna && !errors.comuna}
                         isInvalid={!!errors.comuna}
                         style={{
@@ -467,7 +578,7 @@ export const RegistroInvitado = () => {
                       >
                         <option value="">Seleccionar</option>
                         {comunas.map((comuna) => (
-                          <option key={comuna.idComuna} value={comuna.nombreComuna}>
+                          <option key={comuna.idComuna} value={comuna.idComuna}>
                             {comuna.nombreComuna}
                           </option>
                         ))}
@@ -561,6 +672,36 @@ export const RegistroInvitado = () => {
                         type="text"
                         name="referencias"
                         value={values.referencias}
+                        onChange={handleChange}
+                        style={{
+                          borderRadius: "32px",
+                        }}
+                      />
+                    </Col>
+                  </Form.Group>
+
+                  <Form.Group
+                    as={Row}
+                    className="d-flex justify-content-center align-items-center"
+                    controlId="formHorizontalAlias"
+                  >
+                    <Form.Label
+                      column
+                      sm={3}
+                      style={{
+                        color: "#000000",
+                        fontSize: "16px",
+                        fontFamily: "Montserrat",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Alias
+                    </Form.Label>
+                    <Col sm={9}>
+                      <Form.Control
+                        type="text"
+                        name="alias"
+                        value={values.alias}
                         onChange={handleChange}
                         style={{
                           borderRadius: "32px",

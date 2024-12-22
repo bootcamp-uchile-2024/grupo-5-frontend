@@ -1,14 +1,24 @@
 import { MainLayout } from "../layout/MainLayout";
 import { useState, useEffect } from "react";
-import { Container, Row, Col, Button, Image, Carousel, Modal } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Image,
+  Carousel,
+  Modal,
+} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 export const PerfildeUsuario = () => {
   const [perfiles, setPerfiles] = useState<string[]>([]);
-  const [avatar, setAvatar] = useState<string>("https://via.placeholder.com/240");
-  const [, setError] = useState<string>(""); 
+  const [avatar, setAvatar] = useState<string>(
+    "https://via.placeholder.com/240"
+  );
+  const [, setError] = useState<string>("");
   const [showMessage, setShowMessage] = useState<boolean>(true);
   const navigate = useNavigate();
 
@@ -22,7 +32,7 @@ export const PerfildeUsuario = () => {
   }, []);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setError(""); 
+    setError("");
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
 
@@ -71,17 +81,20 @@ export const PerfildeUsuario = () => {
   };
 
   const irAPerfil = () => {
-    setShowMessage(false); 
+    setShowMessage(false);
   };
 
   return (
     <MainLayout>
-      <Container className="d-flex flex-column align-items-center mt-5" style={{ position: "relative" }}>
+      <Container
+        className="d-flex flex-column align-items-center mt-5"
+        style={{ position: "relative" }}
+      >
         <Modal show={showMessage} onHide={irAPerfil} centered>
-          <Modal.Body> 
+          <Modal.Body>
             <div style={{ textAlign: "center", padding: "30px" }}>
               <img
-                src="src/assets/PerfilUsuarios/CONFETI.png" 
+                src="src/assets/PerfilUsuarios/CONFETI.png"
                 alt="Fondo del popup"
                 style={{
                   position: "fixed",
@@ -98,59 +111,102 @@ export const PerfildeUsuario = () => {
                 alt="Imagen sobre el popup"
                 style={{
                   position: "absolute",
-                  top: "-80px", 
-                  left: "5%",   
-                  width: "150px", 
+                  top: "-80px",
+                  left: "5%",
+                  width: "150px",
                   height: "auto",
-                  zIndex: "10"
+                  zIndex: "10",
                 }}
               />
-              <div style={{
-                fontFamily: "Montserrat", fontSize: "40px", fontWeight: "900", lineHeight: "48px",
-                textAlign: "center", textUnderlinePosition: "from-font", textDecorationSkipInk: "none"
-              }}>
+              <div
+                style={{
+                  fontFamily: "Montserrat",
+                  fontSize: "40px",
+                  fontWeight: "900",
+                  lineHeight: "48px",
+                  textAlign: "center",
+                  textUnderlinePosition: "from-font",
+                  textDecorationSkipInk: "none",
+                }}
+              >
                 ¡Felicitaciones!
               </div>
-              <div style={{
-                fontFamily: "Montserrat", fontSize: "40px", fontWeight: "900", lineHeight: "48px",
-                textAlign: "center", textUnderlinePosition: "from-font", textDecorationSkipInk: "none", whiteSpace: "nowrap"
-              }}>
+              <div
+                style={{
+                  fontFamily: "Montserrat",
+                  fontSize: "40px",
+                  fontWeight: "900",
+                  lineHeight: "48px",
+                  textAlign: "center",
+                  textUnderlinePosition: "from-font",
+                  textDecorationSkipInk: "none",
+                  whiteSpace: "nowrap",
+                }}
+              >
                 Ya estás registrado
               </div>
-              <div style={{
-                fontFamily: "Montserrat", fontSize: "32px", fontWeight: "700", lineHeight: "39px",
-                textAlign: "center", textUnderlinePosition: "from-font", textDecorationSkipInk: "none"
-              }}>
+              <div
+                style={{
+                  fontFamily: "Montserrat",
+                  fontSize: "32px",
+                  fontWeight: "700",
+                  lineHeight: "39px",
+                  textAlign: "center",
+                  textUnderlinePosition: "from-font",
+                  textDecorationSkipInk: "none",
+                }}
+              >
                 Bienvenido a Petropolis
               </div>
-              <div style={{
-                fontFamily: "Montserrat", fontSize: "16px", fontWeight: "500", lineHeight: "19.2px",
-                textAlign: "center", textUnderlinePosition: "from-font", textDecorationSkipInk: "none"
-              }}>
-                Ahora puedes completar tus datos y rellenar las fichas de tus mascotas para disfrutar de todas nuestras recomendaciones y beneficios.
+              <div
+                style={{
+                  fontFamily: "Montserrat",
+                  fontSize: "16px",
+                  fontWeight: "500",
+                  lineHeight: "19.2px",
+                  textAlign: "center",
+                  textUnderlinePosition: "from-font",
+                  textDecorationSkipInk: "none",
+                }}
+              >
+                Ahora puedes completar tus datos y rellenar las fichas de tus
+                mascotas para disfrutar de todas nuestras recomendaciones y
+                beneficios.
               </div>
-              <Button onClick={irAPerfil} style={{ marginTop: "20px", backgroundColor: "#FFD700", borderColor: "#FFD700", padding: "5px 10px", borderRadius: "15px",width: "120px", color: "#363636",  }}>
+              <Button
+                onClick={irAPerfil}
+                style={{
+                  marginTop: "20px",
+                  backgroundColor: "#FFD700",
+                  borderColor: "#FFD700",
+                  padding: "5px 10px",
+                  borderRadius: "15px",
+                  width: "120px",
+                  color: "#363636",
+                }}
+              >
                 Ir a mi perfil
               </Button>
-              <div style={{
-                width: "546px",
-                height: "237px",
-                gap: "0px",
-                opacity: "0px",
-                marginTop: "px", 
-                position: "relative",
-              }}>
+              <div
+                style={{
+                  width: "546px",
+                  height: "237px",
+                  gap: "0px",
+                  opacity: "0px",
+                  marginTop: "px",
+                  position: "relative",
+                }}
+              >
                 <img
-                  src="src\assets\PerfilUsuarios\MascotasRegExitoso.png"  
+                  src="src\assets\PerfilUsuarios\MascotasRegExitoso.png"
                   alt="Imagen de ejemplo"
                   style={{
                     width: "100%",
                     height: "100%",
-                    objectFit: "cover", 
-                    opacity: "1", 
+                    objectFit: "cover",
+                    opacity: "1",
                     marginLeft: "-110px",
                   }}
-                  
                 />
               </div>
             </div>
@@ -182,7 +238,6 @@ export const PerfildeUsuario = () => {
           />
         </Button>
 
-
         <input
           id="avatar-upload"
           type="file"
@@ -195,7 +250,7 @@ export const PerfildeUsuario = () => {
           {perfiles.map((perfil, index) => (
             <Col key={index} xs="auto">
               <Button
-                onClick={index === 0 ? irADireccionPage : undefined} 
+                onClick={index === 0 ? irADireccionPage : undefined}
                 style={{
                   width: "245px",
                   height: "152px",
