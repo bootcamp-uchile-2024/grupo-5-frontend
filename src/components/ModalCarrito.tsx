@@ -6,17 +6,19 @@ import CarritoVacio from "../assets/Carrito/Carro_vacio.png";
 import { removeFromCart, updateQuantity } from "../states/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../states/store";
-import { Link } from "react-router-dom";
 import { Offcanvas, Button, Carousel, Card, Row, Col } from "react-bootstrap";
 import { useState, forwardRef, useImperativeHandle } from "react";
+import { formatPrice } from "../utils/formatPrice";
+import { useNavigate } from "react-router-dom";
 
 export const ModalCarrito = forwardRef((_props, ref) => {
   const cart = useSelector((state: RootState) => state.cart.productos);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const usuario = useSelector((state: RootState) => state.user);
+  const navigate = useNavigate();
 
   useImperativeHandle(ref, () => ({
     openModal: handleShow,
@@ -35,9 +37,17 @@ export const ModalCarrito = forwardRef((_props, ref) => {
   };
 
   const total = cart.reduce(
-    (acc, producto) => acc + producto.PrecioProducto * producto.stock,
+    (acc, producto) => acc + producto.precioProducto * producto.stockProducto,
     0
   );
+
+  const handleNavigate = () => {
+    if (usuario.idUsuario !== 0) {
+      navigate("/direccion");
+    } else {
+      navigate("/login");
+    }
+  };
 
   return (
     <>
@@ -76,22 +86,34 @@ export const ModalCarrito = forwardRef((_props, ref) => {
           ) : (
             cart.map((producto) => (
               <Card key={producto.id} className="mb-3">
-                <Row noGutters>
+                <Row>
                   <Col md={4}>
-                    <div className="img-container">
-                      {producto.ImagenesProducto &&
-                      producto.ImagenesProducto.length > 0 ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "100%",
+                      }}
+                    >
+                      {producto.imagenesProducto &&
+                      producto.imagenesProducto.length > 0 ? (
                         <Carousel
                           slide={false}
                           controls={false}
                           indicators={false}
                         >
-                          {producto.ImagenesProducto.map((imagen, index) => (
+                          {producto.imagenesProducto.map((imagen, index) => (
                             <Carousel.Item key={index}>
                               <img
+                                style={{
+                                  width: "110px",
+                                  height: "120px",
+                                  paddingLeft: "20px",
+                                }}
                                 src={imagen.pathImagenProducto}
                                 className="d-block img-fluid"
-                                alt={`${producto.NombreProducto} imagen ${
+                                alt={`${producto.nombreProducto} imagen ${
                                   index + 1
                                 }`}
                               />
@@ -113,7 +135,7 @@ export const ModalCarrito = forwardRef((_props, ref) => {
                           fontWeight: "500",
                         }}
                       >
-                        {producto.NombreProducto}
+                        {producto.nombreProducto}
                       </Card.Title>
                       <Card.Text
                         style={{
@@ -123,16 +145,25 @@ export const ModalCarrito = forwardRef((_props, ref) => {
                           fontWeight: "700",
                         }}
                       >
-                        ${producto.PrecioProducto}
+                        <span>
+                          {formatPrice(
+                            producto.precioProducto * producto.stockProducto
+                          )}
+                        </span>
                       </Card.Text>
                       <div className="d-flex justify-content-end align-items-center">
                         <div className="button-container">
                           <Button
-                            variant="danger"
                             size="sm"
                             className="btn-trash"
+                            style={{
+                              backgroundColor: "transparent",
+                              borderColor: "transparent",
+                              color: "inherit",
+                              boxShadow: "none",
+                            }}
                             onClick={() => {
-                              if (producto.stock > 1) {
+                              if (producto.stockProducto > 1) {
                                 handleDecrease(producto.id);
                               } else {
                                 handleRemove(producto.id);
@@ -141,11 +172,16 @@ export const ModalCarrito = forwardRef((_props, ref) => {
                           >
                             <img src={trash} alt="trash" />
                           </Button>
-                          <span className="mx-2">{producto.stock}</span>
+                          <span className="mx-2">{producto.stockProducto}</span>
                           <Button
-                            variant="outline-secondary"
                             size="sm"
                             className="btn-plus"
+                            style={{
+                              backgroundColor: "transparent",
+                              borderColor: "transparent",
+                              color: "inherit",
+                              boxShadow: "none",
+                            }}
                             onClick={() => handleIncrease(producto.id)}
                           >
                             <img src={plus} alt="" />
@@ -179,36 +215,31 @@ export const ModalCarrito = forwardRef((_props, ref) => {
           )}
         </Offcanvas.Body>
         {cart.length > 0 && (
-          <div className="offcanvas-footer" style={{ width: "100%" }}>
+          <div>
             <Row className="justify-content-center">
               <Col
-                xs="auto"
+                xs={6}
                 style={{
                   backgroundColor: "#EEF8FD",
-                  width: "235px",
+                  width: "250px",
                   height: " 79px",
                 }}
               >
                 <h5 className="titulo_total">TOTAL</h5>
                 <p className="texto_total">${total}</p>
               </Col>
-              <Col xs="auto" className="d-flex align-items-center">
-                <Button
-                  style={{
-                    backgroundColor: "#05C7F2",
-                    border: "none",
-                    width: "232px",
-                    height: "79px",
-                    color: "white",
-                    fontSize: "24px",
-                    fontFamily: "Montserrat",
-                    fontWeight: "700",
-                  }}
-                >
-                  <Link to={"/login"} className="link-custom">
-                    Ir a Comprar
-                  </Link>
-                </Button>
+              <Col
+                xs={6}
+                className="d-flex justify-content-center align-items-center"
+                style={{
+                  backgroundColor: "#05C7F2",
+                  width: "250px",
+                  height: " 79px",
+                }}
+              >
+                <button onClick={handleNavigate} className="link-custom">
+                  Ir a Comprar
+                </button>
               </Col>
             </Row>
             <Row className="justify-content-center mt-3">

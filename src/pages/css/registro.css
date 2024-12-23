@@ -1,0 +1,45 @@
+.info-text {
+  color: #000000;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Montserrat", serif;
+  width: 465px;
+  text-align: center;
+}
+
+.password-title {
+  color: #000000;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Montserrat", serif;
+}
+
+.password-texto {
+  color: #404040;
+  font-size: 24px;
+  font-weight: 900;
+  font-family: "Montserrat", serif;
+}
+
+.requirements-texto {
+  color: #000000;
+  font-size: 12px;
+  font-weight: 300;
+  font-family: "Montserrat", serif;
+  width: 100px;
+  text-align: center;
+}
+
+.custom-checkbox .form-check-input {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.custom-checkbox .form-check-label {
+  margin-bottom: 0;
+  color: #000000;
+  font-size: 12px;
+  font-weight: 300;
+  font-family: "Montserrat", serif;
+}

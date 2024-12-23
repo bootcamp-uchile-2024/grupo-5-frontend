@@ -1,0 +1,177 @@
+.customContainer {
+  max-width: 800px;
+  margin: 15px auto;
+  padding: 0 15px;
+  height: 100%;
+}
+
+.titulo {
+  color: #535353;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+  text-align: center;
+  padding-bottom: 25px;
+  padding-top: 30px;
+}
+
+.iconContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.iconText {
+  line-height: 1.2;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.icons {
+  border-radius: 50%;
+  background-color: #c0f1fc;
+  width: 88px;
+  height: 88px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconPago {
+  border-radius: 50%;
+  background-color: #05c7f2;
+  width: 88px;
+  height: 88px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icons img,
+.iconLocation img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.chevron {
+  width: 46px;
+  height: 47px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  width: 65%;
+}
+
+.parrafo1 {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+  text-align: center;
+  color: #000000;
+  padding-bottom: 20px;
+}
+
+.containerResumen {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.container1,
+.container2,
+.container3 {
+  background-color: #dff4d2;
+  border-bottom: 5px solid white;
+  padding: 20px 20px;
+}
+
+.resumen {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+  color: #000000;
+}
+
+.producto {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+
+.producto img {
+  width: 70px;
+  height: 70px;
+  justify-content: center;
+}
+
+.detalle {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.nombre {
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Montserrat", serif;
+  color: #363636;
+  width: 95%;
+  white-space: normal;
+  margin: 0;
+  padding-left: 15px;
+}
+
+.precio {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+  color: #404040;
+  margin-left: auto;
+}
+
+.container1 {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.containerTotal,
+.containerEnvio {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 20px 0 20px;
+}
+
+.container3{
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.total,
+.envio {
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Montserrat", serif;
+  color: #363636;
+  padding: 0;
+}
+
+.precio,
+.gratis {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+  color: #000000;
+}
+
+.totalTitulo {
+    font-size: 24px;
+    font-weight: 700;
+    font-family: "Montserrat", serif;
+    color: #363636;
+  }

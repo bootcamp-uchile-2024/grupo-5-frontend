@@ -1,35 +1,124 @@
-import { Link } from "react-router-dom";
-import styles from "/src/layout/components/Nav.module.css";
+import { Nav } from "react-bootstrap";
 
 export const Navbar = () => {
   return (
-    <nav className={styles.Navbar}>
-      <ul>
-        <li>
-          <Link to="">Perro</Link>
-        </li>
-        <li>
-          <Link to="">Gato</Link>
-        </li>
-        <li>
-          <Link to="">Exotico</Link>
-        </li>
-        <li>
-        <Link to="">Ofertas</Link>
-        </li>
-        <li>
-        <Link to="">Marcas</Link>
-        </li>
-        <li>
-        <Link to="">Ayuda</Link>
-        </li>
-        <li>
-        <Link to="">Blog</Link>
-        </li>
-        <li>
-        <Link to="">Nosotros</Link>
-        </li>
-      </ul>
-    </nav>
+    <Nav
+      className="d-flex justify-content-between"
+      variant="underline"
+      defaultActiveKey="/"
+    >
+      <Nav.Item>
+        <Nav.Link
+          style={{
+            color: "white",
+            fontSize: "16px",
+            fontFamily: "Montserrat",
+            fontWeight: "700",
+            borderBottom: "none",
+          }}
+          href=""
+        >
+          Gatos
+        </Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link
+          style={{
+            color: "white",
+            fontSize: "16px",
+            fontFamily: "Montserrat",
+            fontWeight: "700",
+            borderBottom: "none",
+          }}
+          href="/categoria-perro"
+        >
+          Perros
+        </Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link
+          style={{
+            color: "white",
+            fontSize: "16px",
+            fontFamily: "Montserrat",
+            fontWeight: "700",
+            borderBottom: "none",
+          }}
+          href=""
+        >
+          Exóticos
+        </Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link
+          style={{
+            color: "white",
+            fontSize: "16px",
+            fontFamily: "Montserrat",
+            fontWeight: "700",
+            borderBottom: "none",
+          }}
+          href=""
+        >
+          Ofertas
+        </Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link
+          style={{
+            color: "white",
+            fontSize: "16px",
+            fontFamily: "Montserrat",
+            fontWeight: "700",
+            borderBottom: "none",
+          }}
+          href=""
+        >
+          Marcas
+        </Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link
+          style={{
+            color: "white",
+            fontSize: "16px",
+            fontFamily: "Montserrat",
+            fontWeight: "700",
+            borderBottom: "none",
+          }}
+          href=""
+        >
+          Nosotros
+        </Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link
+          style={{
+            color: "white",
+            fontSize: "16px",
+            fontFamily: "Montserrat",
+            fontWeight: "700",
+            borderBottom: "none",
+          }}
+          href=""
+        >
+          Blog
+        </Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link
+          style={{
+            color: "white",
+            fontSize: "16px",
+            fontFamily: "Montserrat",
+            fontWeight: "700",
+            borderBottom: "none",
+          }}
+          href=""
+        >
+          Ayuda
+        </Nav.Link>
+      </Nav.Item>
+    </Nav>
   );
-}
+};

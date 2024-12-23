@@ -1,0 +1,150 @@
+.linkVolver {
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+  color: #404040;
+  display: flex;
+  align-items: center;
+}
+
+.customContainer {
+  max-width: 800px;
+  margin: 15px auto;
+  padding: 0 15px;
+  height: 100%;
+}
+
+.titulo {
+  color: #535353;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+  text-align: center;
+  padding-bottom: 25px;
+  padding-top: 30px;
+}
+
+.iconContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.iconText {
+  line-height: 1.2;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.icons {
+  border-radius: 50%;
+  background-color: #c0f1fc;
+  width: 88px;
+  height: 88px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconLocation {
+  border-radius: 50%;
+  background-color: #05c7f2;
+  width: 88px;
+  height: 88px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icons img,
+.iconLocation img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.chevron {
+  width: 46px;
+  height: 47px;
+}
+
+.direccion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.direccion img {
+  width: 102px;
+  height: 102px;
+}
+
+.direccion p {
+  color: #000000;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+  padding-left: 17px;
+}
+
+.direccionContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 16px;
+  margin: 0px;
+  width: 100%;
+}
+
+.direccionContainer p {
+  margin: 0px;
+  padding: 0px;
+}
+
+.editTrash {
+  width: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.editTrash img {
+  width: 100%;
+  padding-right: 16px;
+  cursor: pointer;
+}
+
+.alias {
+  color: #404040;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+}
+
+.direccionUsuario {
+  color: #404040;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Montserrat", serif;
+}
+
+.comuna {
+  color: #404040;
+  font-size: 12px;
+  font-weight: 400;
+  font-family: "Montserrat", serif;
+}
+
+.SignoMas {
+  width: 33px;
+  height: 33px;
+  cursor: pointer;
+}
+
+.agregarDireccion {
+  color: #000000;
+  font-size: 20px;
+  font-weight: 400;
+  font-family: "Montserrat", serif;
+  padding-left: 10px;
+  cursor: pointer;
+}

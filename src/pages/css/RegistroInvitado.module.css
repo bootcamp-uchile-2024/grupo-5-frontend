@@ -1,52 +1,104 @@
 .customContainer {
-    max-width: 800px;
-    margin: 15px auto;
-    padding: 0 15px;
-  }
+  max-width: 800px;
+  margin: 15px auto;
+  padding: 0 15px;
+  height: 100%;
+}
 
 .titulo {
-    color: #535353;
-    font-size: 24px;
-    font-weight: 700;
-    font-family: "Montserrat", serif;
-    text-align: center;
-    padding-bottom: 25px;
-    padding-top: 30px;
+  color: #535353;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+  text-align: center;
+  padding-bottom: 25px;
+  padding-top: 30px;
+}
+
+.iconContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.iconText {
+  line-height: 1.2;
+  margin-top: 10px;
+  text-align: center;
 }
 
 .icons {
-    border-radius: 50%;
-    background-color: #C0F1FC;
-    width: 88px;
-    height: 88px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  border-radius: 50%;
+  background-color: #c0f1fc;
+  width: 88px;
+  height: 88px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .iconLocation {
-    border-radius: 50%;
-    background-color: #05C7F2;
-    width: 88px;
-    height: 88px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  border-radius: 50%;
+  background-color: #05c7f2;
+  width: 88px;
+  height: 88px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .icons img,
 .iconLocation img {
-    max-width: 100%;
-    max-height: 100%;
+  max-width: 100%;
+  max-height: 100%;
 }
 
-.chevron{
-    width: 46px;
-    height: 47px;
+.chevron {
+  width: 46px;
+  height: 47px;
+}
+
+.parrafo2 {
+  color: #404040;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+  line-height: 1.2;
+}
+
+.parrafo5 {
+  color: #404040;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Montserrat", serif;
+  line-height: 1.2;
+}
+
+.contenedorParrafo {
+  width: 310px;
+  height: 122px;
+}
+
+.datos {
+  color: #000000;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
 }
 
 .verticalLine {
-    border-left: 1px solid #82E3F8;
-    height: 100px; /* Ajusta la altura según sea necesario */
-    margin: 0 auto; /* Centra la línea vertical */
-  }
+  border-left: 7px solid #82e3f8;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.gatoRegistro {
+  position: absolute;
+  bottom: -70px;
+  right: -25px;
+  width: 234px;
+  height: 225px;
+}

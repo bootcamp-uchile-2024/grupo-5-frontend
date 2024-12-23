@@ -2,19 +2,12 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../states/cartSlice";
-import { GetProductoDto } from "../interface/Productos/read-producto.dto";
+import { GetProductoDto } from "../interface/Productos/dto/GetProductoDto";
 import styles from "./css/DetalleProductos.module.css";
 import { MainLayout } from "../layout/MainLayout";
 import addIcon from "../assets/icons/icono_carrito.svg";
+import { Carousel, Col, Container, Row, Accordion, Button } from "react-bootstrap";
 import carouselImage from "../assets/Carousels/Carousels2.png";
-import {
-  Carousel,
-  Col,
-  Container,
-  Row,
-  Accordion,
-  Button,
-} from "react-bootstrap";
 import { CatalogoProductos } from "./CatalogoProductos";
 
 export const DetalleProductos = () => {
@@ -26,16 +19,13 @@ export const DetalleProductos = () => {
 
   const apiUrl = import.meta.env.VITE_API_URL;
   if (!apiUrl) {
-    throw new Error(
-      "La URL de la API no está definida en las variables de entorno"
-    );
+    throw new Error("La URL de la API no está definida en las variables de entorno");
   }
 
   useEffect(() => {
     const getProducto = async () => {
       try {
         if (!id) return;
-        const apiUrl = import.meta.env.VITE_API_URL;
         const response = await fetch(`${apiUrl}/productos/${id}`);
         if (!response.ok) {
           const errorText = await response.text();
@@ -62,11 +52,7 @@ export const DetalleProductos = () => {
       dispatch(
         addToCart({
           ...producto,
-          stock: 1,
-          NombreProducto: "",
-          MarcaProducto: "",
-          PrecioProducto: 0,
-          ImagenesProducto: [],
+          stockProducto: 1,
         })
       );
     }
@@ -97,7 +83,7 @@ export const DetalleProductos = () => {
         {producto && (
           <Row className="d-flex justify-content-center align-items-center">
             <Col xs={2} sm={3} md={3} className={styles.productoIzquierda}>
-              {producto.imagenes && producto.imagenes.length > 0 ? (
+              {producto.imagenesProducto && producto.imagenesProducto.length > 0 ? (
                 <Carousel
                   slide={false}
                   indicators={false}
@@ -128,7 +114,7 @@ export const DetalleProductos = () => {
                     borderRadius: "32px",
                   }}
                 >
-                  {producto.imagenes.map((imagen, index) => (
+                  {producto.imagenesProducto.map((imagen, index) => (
                     <Carousel.Item
                       key={index}
                       className="d-flex justify-content-center "
@@ -147,8 +133,8 @@ export const DetalleProductos = () => {
             </Col>
             <Col xs={3} sm={3} md={3} className={styles.productoDerecha}>
               <p className={styles.productoNombre}>{producto.nombreProducto}</p>
-              <p className={styles.productoMarca}>{producto.marca}</p>
-              <p className={styles.productoPrecio}>${producto.precio}</p>
+              <p className={styles.productoMarca}>{producto.marcaProducto}</p>
+              <p className={styles.productoPrecio}>${producto.precioProducto}</p>
             </Col>
             <Col xs={3} sm={3} md={3}>
               <div className="d-flex flex-column align-items-end">
@@ -217,7 +203,7 @@ export const DetalleProductos = () => {
                   <Accordion.Header>
                     <span className="fs-4">Descripción</span>
                   </Accordion.Header>
-                  <Accordion.Body>{producto.descripcion}</Accordion.Body>
+                  <Accordion.Body>{producto.descripcionProducto}</Accordion.Body>
                 </Accordion.Item>
               </Accordion>
             </Col>

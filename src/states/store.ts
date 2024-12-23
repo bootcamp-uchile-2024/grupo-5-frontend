@@ -1,42 +1,57 @@
-import { configureStore, Middleware  } from "@reduxjs/toolkit";
+import { configureStore, Middleware } from "@reduxjs/toolkit";
 import counterReducer from "./counterSlice";
 import cartReducer from "./cartSlice";
-import loggedUser from "./loggedUserSlice";
-import usersSlices from "./usersSlice";
-import  productsSlice  from "./ProductSlice";
+import userReducer from "./loggedUserSlice";
+import productsSlice from "./ProductSlice";
 import filtersReducer from "./filtersSlice";
+import formReducer from "./formSlice";
 
-const persistedState: Middleware = store => next => action => {
+const loadState = () => {
+  try {
+    const serializedState = localStorage.getItem("__redux__form__");
+    if (serializedState === null) {
+      return undefined;
+    }
+    return JSON.parse(serializedState);
+  } catch (err) {
+    return undefined;
+  }
+};
 
-  //en refencia al estado pre cambio
-
-
+const persistedState: Middleware = (store) => (next) => (action) => {
   next(action);
 
-  console.log(action)
-  //en referencia al estado post cambio
-  const estado = store.getState()
+  const estado = store.getState();
 
-  const estadoAsJson = JSON.stringify(estado.users)
-  localStorage.setItem('__redux__users__', estadoAsJson)
+  const estadoAsJson = JSON.stringify(estado.user);
+  localStorage.setItem("__redux__user__", estadoAsJson);
 
-   // Guardar estado de products en localStorage
-   const productsAsJson = JSON.stringify(estado.products);
-   localStorage.setItem('__redux__products__', productsAsJson);
+  const productsAsJson = JSON.stringify(estado.products);
+  localStorage.setItem("__redux__products__", productsAsJson);
 
-}
+  const formAsJson = JSON.stringify(estado.form);
+  localStorage.setItem("__redux__form__", formAsJson);
+};
+
+const preloadedState = {
+  form: loadState(),
+};
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     cart: cartReducer,
-    loggedUser: loggedUser,
-    users: usersSlices,
+    user: userReducer,
     products: productsSlice,
     filters: filtersReducer,
+    form: formReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(persistedState),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(persistedState),
+  preloadedState,
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+export default store;

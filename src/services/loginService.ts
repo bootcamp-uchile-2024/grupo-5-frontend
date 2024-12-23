@@ -1,44 +1,72 @@
+import { UsuarioDto } from "../interface/Usuarios/dto/UsuarioDto";
 
-interface ILogin {
-  user: string;
-  password: string;
-  roles?: string[];
-}
+const apiUrl = "http://107.21.145.167:5001/auth/login";
 
-export function login(user: ILogin): boolean {
-  if (user.user === "administrador" && user.password === "administrador") {
-    const UserResponse: ILogin = {
-      ...user,
-      roles: ["admin", "user"],
-    };
+export const login = async (
+  email: string,
+  password: string
+): Promise<UsuarioDto | null> => {
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "*/*",
+      },
+      body: JSON.stringify({ usuario: email, password }),
+    });
 
-    const datosUsuario = JSON.stringify(UserResponse);
-    localStorage.setItem("user", datosUsuario);
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
 
-    return true;
-  } else if (user.user === "usuario" && user.password === "usuario") {
-    const UserResponse: ILogin = {
-      ...user,
-      roles: ["user"],
-    };
+    const token = await response.text();
+    const user = parseJwt(token);
 
-    const datosUsuario = JSON.stringify(UserResponse);
-    localStorage.setItem("user", datosUsuario);
-
-    return true;
-  } else {
-    return false;
+    if (token) {
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      return user;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error("Error al iniciar sesión:", error);
+    return null;
   }
-}
+};
 
-export const logout = () => localStorage.removeItem('user');
-export const isAuth = () => localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null;
+const parseJwt = (token: string): UsuarioDto | null => {
+  try {
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+
+    return JSON.parse(jsonPayload);
+  } catch (error) {
+    console.error("Error al decodificar el token:", error);
+    return null;
+  }
+};
+
+export const logout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+};
+
+export const isAuth = () => {
+  const user = localStorage.getItem("user");
+  return user ? JSON.parse(user) : null;
+};
 
 export const userHasRole = (roles: string[]) => {
-    const user = localStorage.getItem('user');
-    if (user) {
-        const userResponse: ILogin = JSON.parse(user);
-        return roles.some(role => userResponse.roles?.includes(role));
-    }
-    return false;
-}
+  const user = isAuth();
+  return user ? roles.includes(user.rolUsuario) : false;
+};

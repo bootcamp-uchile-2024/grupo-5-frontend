@@ -1,0 +1,16 @@
+.titulo {
+  color: #535353;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.modal-content {
+  background-color: #f2fafd;
+}
+
+.modal-header {
+  border-bottom: none;
+}

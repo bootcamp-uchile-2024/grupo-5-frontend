@@ -8,8 +8,8 @@
   padding: 0;
   font-size: 1.5rem;
   line-height: 1;
-  color: #05C7F2;
-  background-color: #EEF8FD;
+  color: #05c7f2;
+  background-color: #eef8fd;
   border: none;
   cursor: pointer;
   text-decoration: none;
@@ -25,7 +25,17 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+}
+
+.empty-cart p {
+  color: #535353;
+  font-size: 40px;
+  font-weight: 900;
+  font-family: "Montserrat", serif;
+  margin-top: 0;
   text-align: center;
+  width: 430px;
+  line-height: 1.2;
 }
 
 .empty-cart img {
@@ -38,7 +48,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #F2B705;
+  background-color: #f2b705;
   border-radius: 28px;
   margin-top: 20px;
   padding: 5px;
@@ -58,7 +68,7 @@
   color: black;
 }
 
-.titulo_total{
+.titulo_total {
   color: #535353;
   font-size: 24px;
   font-weight: 700;
@@ -68,7 +78,7 @@
   padding-top: 7px;
 }
 
-.texto_total{
+.texto_total {
   color: #535353;
   font-size: 24px;
   font-weight: 500;
@@ -77,7 +87,7 @@
   margin-top: 0;
 }
 
-.text_envio{
+.text_envio {
   color: #535353;
   font-size: 24px;
   font-weight: 700;
@@ -94,4 +104,14 @@
 .link-custom {
   color: white;
   text-decoration: none;
+  font-size: 24px;
+  font-family: "Montserrat", serif;
+  font-weight: 700;
+  background-color: transparent;
+  border: none;
+}
+
+.link-custom:hover {
+  text-decoration: none;
+  background-color: transparent;
 }

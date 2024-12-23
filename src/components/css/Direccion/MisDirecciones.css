@@ -1,0 +1,86 @@
+.LocalitationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
+}
+.titulo_miDireccion {
+  color: #000000;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+  text-align: center;
+}
+
+.Localitation2 {
+  width: 102px;
+  height: 102px;
+}
+
+.direccionContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 16px;
+  margin: 0px;
+  width: 100%;
+}
+
+.direccionContainer p {
+  margin: 0px;
+  padding: 0px;
+}
+
+.editTrash {
+  width: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.editTrash img {
+  width: 100%;
+  padding-right: 16px;
+  cursor: pointer;
+}
+
+.alias {
+  color: #404040;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+}
+
+.direccionUsuario {
+  color: #404040;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Montserrat", serif;
+}
+
+.comuna {
+  color: #404040;
+  font-size: 12px;
+  font-weight: 400;
+  font-family: "Montserrat", serif;
+}
+
+.agregarDireccionContainer {
+  display: flex;
+  justify-content: start;
+  padding-top: 10px;
+  height: 48px;
+}
+
+.SignoMas {
+  width: 33px;
+  height: 33px;
+  cursor: pointer;
+}
+
+.agregarDireccion {
+  color: #000000;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Montserrat", serif;
+  padding-left: 10px;
+  cursor: pointer;
+}

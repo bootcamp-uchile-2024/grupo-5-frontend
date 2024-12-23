@@ -1,17 +1,26 @@
-import { ReactNode } from "react";
-import { isAuth, userHasRole } from "../../services/loginService";
-import { MainLayout } from "../MainLayout";
+import React from "react";
+import { Navigate } from "react-router-dom";
+import { isAuth } from "../../services/loginService";
 
 interface PrivateRouteProps {
-  children: ReactNode;
+  children: React.ReactNode;
   roles: string[];
 }
 
-export const PrivateRoute = (props: PrivateRouteProps) => {
-  const auth = isAuth();
-  const hasRole = userHasRole(props.roles);
+const PrivateRoute = ({ children, roles }: PrivateRouteProps) => {
+  const user = isAuth();
 
-  return <>{auth && hasRole ? props.children : <MainLayout><h1>Acceso denegado</h1></MainLayout>}</>;
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+
+  const userRole = user.idRol === 1 ? "user" : user.idRol === 2 ? "admin" : "";
+
+  if (!roles.includes(userRole)) {
+    return <Navigate to="/login" />;
+  }
+
+  return <>{children}</>;
 };
 
-
+export default PrivateRoute;
