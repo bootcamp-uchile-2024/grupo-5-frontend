@@ -1,30 +1,51 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UsuarioDto } from "../interface/Usuarios/dto/UsuarioDto";
 
-interface UserState{
-    user: string,
+interface UserState {
+  idUsuario: number;
+  rut: string;
+  nombres: string;
+  apellidos: string;
+  email: string;
+  telefono: string;
+  contrasena: string;
+  chkTerminos: boolean;
+  chkOfertas: boolean;
+  activo: boolean;
+  avatar: number;
 }
 
 const initialState: UserState = {
-    user: "",
+  idUsuario: 0,
+  rut: "",
+  nombres: "",
+  apellidos: "",
+  email: "",
+  telefono: "",
+  contrasena: "",
+  chkTerminos: false,
+  chkOfertas: false,
+  activo: false,
+  avatar: 0,
 };
 
-export const userSlice = createSlice({
-    name: 'user',
-    initialState,    
-    reducers: {
-        save: (state: UserState, action: PayloadAction<UserState>) => {
-            console.log("llamando al reducer save");
-            const { user} = action.payload;
-            state.user = user;
-            return state;
-        },
+const persistedUser = localStorage.getItem("__redux__user__");
+const initialUserState = persistedUser
+  ? JSON.parse(persistedUser)
+  : initialState;
 
-        del: (state: UserState) => {
-            state = {...initialState};
-            return state;
-        },
+export const userSlice = createSlice({
+  name: "user",
+  initialState: initialUserState,
+  reducers: {
+    save: (state: UserState, action: PayloadAction<UsuarioDto>) => {
+      return { ...state, ...action.payload };
     },
-})
+    del: () => {
+      return initialState;
+    },
+  },
+});
 
 export const { save, del } = userSlice.actions;
 export default userSlice.reducer;

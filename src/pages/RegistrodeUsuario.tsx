@@ -1,26 +1,43 @@
 import { useState } from "react";
-import {
-  Form,
-  Button,
-  Container,
-  Row,
-  Col,
-  Image,
-  Alert,
-} from "react-bootstrap";
+import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
 import { MainLayout } from "../layout/MainLayout";
+import { useNavigate, Link } from "react-router-dom";
+import ViewHideIcon from "../assets/icons/View_hide.svg";
+import ViewIcon from "../assets/icons/View.svg";
+import { hashPassword } from "../services/hashPassword";
+import "./css/registro.css";
+
+const apiUrl = import.meta.env.VITE_API_URL;
+
+if (!apiUrl) {
+  throw new Error(
+    "La URL de la API no está definida en las variables de entorno"
+  );
+}
 
 export const RegistrodeUsuario = () => {
   const [formData, setFormData] = useState({
-    nombre: "",
-    rut: "",
-    correo: "",
+    rutUsuario: "",
+    contrasena: "",
+    repetirContrasena: "",
+    nombres: "",
+    apellidos: "",
+    correoElectronico: "",
     telefono: "",
-    contraseña: "",
-    repetirContraseña: "",
-    terminos: false,
-    ofertas: false,
+    chkOfertas: true,
+    chkTerminos: true,
   });
+
+  const [feedback, setFeedback] = useState({
+    error: null as string | null,
+    success: null as string | null,
+    loading: false,
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -30,176 +47,561 @@ export const RegistrodeUsuario = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Datos del formulario:", formData);
+    setFeedback({ error: null, success: null, loading: true });
+
+    if (formData.contrasena !== formData.repetirContrasena) {
+      setFeedback({
+        error: "Las contraseñas no coinciden",
+        success: null,
+        loading: false,
+      });
+      return;
+    }
+
+    try {
+      // Enviar los datos del usuario a la API de registro
+      const response = await fetch(`${apiUrl}/usuarios/registrar/cliente`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          rutUsuario: formData.rutUsuario,
+          contrasena: formData.contrasena,
+          nombres: formData.nombres,
+          apellidos: formData.apellidos,
+          correoElectronico: formData.correoElectronico,
+          telefono: formData.telefono,
+          chkOfertas: formData.chkOfertas,
+          chkTerminos: formData.chkTerminos,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
+
+      // Hacer hash a la contraseña
+      const hashedPassword = await hashPassword(formData.contrasena);
+      if (!hashedPassword) {
+        setFeedback({
+          error: "Error al hashear la contraseña",
+          success: null,
+          loading: false,
+        });
+        return;
+      }
+
+      setFeedback({ error: null, success: "Registro exitoso", loading: false });
+      navigate("/login");
+    } catch (error) {
+      console.error("Error al registrar el usuario:", error);
+      setFeedback({
+        error: "Error al registrar el usuario",
+        success: null,
+        loading: false,
+      });
+    }
   };
 
   return (
     <MainLayout>
-      <Container className="mt-5">
-        <Row className="align-items-center">
-          {/* Imagen del gato */}
-          <Col
-            xs={3}
-            className="d-flex justify-content-start"
-            style={{ marginLeft: "-115px", marginTop: "-330px" }}
-          >
-            <Image
-              src="src/assets/CuteCat.png"
-              rounded
-              style={{ maxWidth: "200px" }}
-              alt="Gato"
-            />
-          </Col>
-
-          {/* Texto con el globo */}
-          <Col xs={9} className="position-relative">
-            {/* Imagen del globo como fondo */}
-            <Image
-              src="src/assets/GloboTextoYellow.png"
-              alt="Globo de texto"
-              className="position-absolute"
+      <Container className="mt-3">
+        <Row className="mb-0">
+          <Col>
+            <Link
+              to="/"
               style={{
-                top: "-5px", // Ajusta la posición vertical
-                left: "-70px", // Ajusta la posición horizontal
-                zIndex: 0, // Asegura que el globo quede detrás del texto
-                maxWidth: "100%",
+                color: "#404040",
+                textDecoration: "none",
+                fontSize: "18px",
+                fontWeight: "bold",
               }}
-            />
-            {/* Texto principal */}
+            >
+              <span style={{ marginRight: "8px" }}>&lt;</span> Volver
+            </Link>
+          </Col>
+        </Row>
+        <Row className="align-items-center text-center">
+          <Col md={12}>
             <h1
-              className="mb-4"
               style={{
-                position: "relative",
-                zIndex: 1,
-                top: "-50px",
-                left: "-280px",
+                color: "#000000",
+                fontSize: "40px",
+                fontWeight: "900",
+                textAlign: "center",
+                marginTop: "30px",
               }}
             >
               Bienvenid@ a Petropolis
             </h1>
-            <p style={{ position: "relative", zIndex: 1, top: "-10px" }}>
-              Para comenzar la experiencia personalizada en Petropolis, rellena
-              tus datos:
-            </p>
+            <div className="info-box">
+              <Image
+                src="src/assets/GloboTextoYellow.png"
+                alt="Globo Amarillo"
+                className="info-image"
+                style={{
+                  position: "relative",
+                  top: "50px",
+                  left: "-200px",
+                  width: "600px",
+                  height: "auto",
+                }}
+              />
+              <p
+                className="info-text"
+                style={{ position: "relative", left: "18%", bottom: "60px" }}
+              >
+                Para comenzar la experiencia personalizada en Petropolis,
+                rellena tus datos
+              </p>
+            </div>
+            <Image
+              src="src/assets/CuteCat.png"
+              alt="cat"
+              style={{
+                position: "absolute",
+                top: "310px",
+                left: "1px",
+                width: "300px",
+                height: "auto",
+              }}
+            />
+          </Col>
+        </Row>
 
-            {/* Aquí movemos solo el formulario */}
-            <Form onSubmit={handleSubmit} style={{ marginTop: "80px" }}>
-              {/* Campos del formulario */}
-              <Form.Group className="mb-3" controlId="formNombre">
-                <Form.Label>Nombre</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="nombre"
-                  value={formData.nombre}
-                  onChange={handleInputChange}
-                  placeholder="Ingresa tu nombre"
-                />
+        <Row>
+          <Col md={5} className="offset-md-3">
+            <Form onSubmit={handleSubmit}>
+              <Form.Group
+                as={Row}
+                controlId="formNombre"
+                className="d-flex justify-content-center align-items-center"
+              >
+                <Form.Label
+                  column
+                  sm={2}
+                  style={{
+                    color: "#000000",
+                    fontSize: "16px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "500",
+                  }}
+                >
+                  Nombre
+                </Form.Label>
+                <Col sm={10} className="position-relative">
+                  <Form.Control
+                    type="text"
+                    name="nombres"
+                    placeholder="Nombres"
+                    value={formData.nombres}
+                    onChange={handleInputChange}
+                    // isValid={touched.nombres && !errors.nombres}
+                    // isInvalid={!!errors.nombres}
+                    style={{
+                      borderRadius: "32px",
+                      width: "370px",
+                    }}
+                  />
+                </Col>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formRUT">
-                <Form.Label>RUT</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="rut"
-                  value={formData.rut}
-                  onChange={handleInputChange}
-                  placeholder="Ej: 12345678-9"
-                />
+              <Form.Group
+                as={Row}
+                controlId="formApellidos"
+                className="d-flex justify-content-center align-items-center"
+              >
+                <Form.Label
+                  column
+                  sm={2}
+                  style={{
+                    color: "#000000",
+                    fontSize: "16px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "500",
+                  }}
+                >
+                  Apellidos
+                </Form.Label>
+                <Col sm={10} className="position-relative">
+                  <Form.Control
+                    type="text"
+                    name="apellidos"
+                    placeholder="Apellidos"
+                    value={formData.apellidos}
+                    onChange={handleInputChange}
+                    // isValid={touched.apellidos && !errors.apellidos}
+                    // isInvalid={!!errors.apellidos}
+                    style={{
+                      borderRadius: "32px",
+                      width: "370px",
+                    }}
+                  />
+                </Col>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formCorreo">
-                <Form.Label>Correo</Form.Label>
-                <Form.Control
-                  type="email"
-                  name="correo"
-                  value={formData.correo}
-                  onChange={handleInputChange}
-                  placeholder="correo@ejemplo.com"
-                />
+              <Form.Group
+                as={Row}
+                controlId="formaRUT"
+                className="d-flex justify-content-center align-items-center"
+              >
+                <Form.Label
+                  column
+                  sm={2}
+                  style={{
+                    color: "#000000",
+                    fontSize: "16px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "500",
+                  }}
+                >
+                  Rut
+                </Form.Label>
+                <Col sm={10} className="position-relative">
+                  <Form.Control
+                    type="text"
+                    name="rutUsuario"
+                    placeholder="Rut"
+                    value={formData.rutUsuario}
+                    onChange={handleInputChange}
+                    // isValid={touched.rutUsuario && !errors.rutUsuario}
+                    // isInvalid={!!errors.rutUsuario}
+                    style={{
+                      borderRadius: "32px",
+                      width: "370px",
+                    }}
+                  />
+                </Col>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formTelefono">
-                <Form.Label>Teléfono</Form.Label>
-                <Form.Control
-                  type="tel"
-                  name="telefono"
-                  value={formData.telefono}
-                  onChange={handleInputChange}
-                  placeholder="Ej: +56912345678"
-                />
+              <Form.Group
+                as={Row}
+                controlId="formaEmail"
+                className="d-flex justify-content-center align-items-center"
+              >
+                <Form.Label
+                  column
+                  sm={2}
+                  style={{
+                    color: "#000000",
+                    fontSize: "16px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "500",
+                  }}
+                >
+                  Correo
+                </Form.Label>
+                <Col sm={10} className="position-relative">
+                  <Form.Control
+                    type="email"
+                    name="correoElectronico"
+                    placeholder="Correo"
+                    value={formData.correoElectronico}
+                    onChange={handleInputChange}
+                    // isValid={touched.correoElectronico && !errors.correoElectronico}
+                    // isInvalid={!!errors.correoElectronico}
+                    style={{
+                      borderRadius: "32px",
+                      width: "370px",
+                    }}
+                  />
+                </Col>
               </Form.Group>
 
-              <Alert variant="info">
-                Una contraseña segura debe tener al menos 8 caracteres, una
-                mayúscula y un carácter especial.
-              </Alert>
-
-              <Form.Group className="mb-3" controlId="formContraseña">
-                <Form.Label>Contraseña</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="contraseña"
-                  value={formData.contraseña}
-                  onChange={handleInputChange}
-                  placeholder="Contraseña"
-                />
+              <Form.Group
+                as={Row}
+                controlId="formaEmail"
+                className="d-flex justify-content-center align-items-center"
+              >
+                <Form.Label
+                  column
+                  sm={2}
+                  style={{
+                    color: "#000000",
+                    fontSize: "16px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "500",
+                  }}
+                >
+                  Teléfono
+                </Form.Label>
+                <Col sm={10} className="position-relative">
+                  <Form.Control
+                    type="text"
+                    name="telefono"
+                    placeholder="Teléfono"
+                    value={formData.telefono}
+                    onChange={handleInputChange}
+                    // isValid={touched.telefono && !errors.telefono}
+                    // isInvalid={!!errors.telefono}
+                    style={{
+                      borderRadius: "32px",
+                      width: "370px",
+                    }}
+                  />
+                </Col>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formRepetirContraseña">
-                <Form.Label>Repetir Contraseña</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="repetirContraseña"
-                  value={formData.repetirContraseña}
-                  onChange={handleInputChange}
-                  placeholder="Repetir contraseña"
+              <div className="password-info">
+                <Image
+                  src="src/assets/GloboTextoYellow.png"
+                  alt="Globo Amarillo"
+                  className="password-image"
+                  style={{
+                    zIndex: 1,
+                    transform: "rotateY(180deg) scaleY(1.5)",
+                    position: "relative",
+                    top: "90px",
+                    left: "-70px",
+                  }}
                 />
+                <div className="password-text">
+                  <p
+                    className="password-title"
+                    style={{
+                      position: "relative",
+                      top: "-80px",
+                      left: "-25px",
+                      whiteSpace: "nowrap",
+                      textAlign: "center",
+                    }}
+                  >
+                    Queremos proteger tus datos, una contraseña segura debe
+                    tener:
+                  </p>
+
+                  <div
+                    className="password-requirements"
+                    style={{
+                      position: "relative",
+                      top: "-80px",
+                      left: "-5px",
+                      display: "flex",
+                      flexDirection: "row",
+                      gap: "30px",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <p
+                      className="password-texto"
+                      style={{
+                        position: "relative",
+                        left: "-85px",
+                        top: "5px",
+                      }}
+                    >
+                      ********
+                    </p>
+                    <p
+                      className="password-texto"
+                      style={{ position: "relative", left: "-35px" }}
+                    >
+                      AaBbCc
+                    </p>
+                    <p
+                      className="password-texto"
+                      style={{ position: "relative", left: "20px" }}
+                    >
+                      #$.%
+                    </p>
+                  </div>
+
+                  <div
+                    className="password-requirements"
+                    style={{
+                      position: "relative",
+                      top: "-90px",
+                      left: "10px",
+                      display: "flex",
+                      flexDirection: "row",
+                      gap: "70px",
+                    }}
+                  >
+                    <p className="requirements-texto">Al menos 8 caracteres</p>
+                    <p className="requirements-texto">Al menos una mayúscula</p>
+                    <p className="requirements-texto">
+                      Al menos un carácter especial
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <Form.Group
+                as={Row}
+                controlId="formContrasena"
+                className="d-flex justify-content-center align-items-center"
+              >
+                <Form.Label
+                  column
+                  sm={2}
+                  style={{
+                    color: "#000000",
+                    fontSize: "16px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "500",
+                  }}
+                >
+                  Contraseña
+                </Form.Label>
+                <Col sm={10} className="position-relative">
+                  <Form.Control
+                    type={showPassword ? "text" : "password"}
+                    name="contrasena"
+                    placeholder="********"
+                    value={formData.contrasena}
+                    onChange={handleInputChange}
+                    // isValid={touched.correoElectronico && !errors.correoElectronico}
+                    // isInvalid={!!errors.correoElectronico}
+                    style={{
+                      borderRadius: "32px",
+                      width: "370px",
+                    }}
+                  />
+                  <img
+                    src={showPassword ? ViewIcon : ViewHideIcon}
+                    alt="Toggle visibility"
+                    onClick={() => setShowPassword(!showPassword)}
+                    style={{
+                      position: "absolute",
+                      right: "100px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      cursor: "pointer",
+                    }}
+                  />
+                  {feedback.error ===
+                    "La contraseña no cumple con los requisitos de seguridad" && (
+                    <p style={{ color: "red" }}>{feedback.error}</p>
+                  )}
+                </Col>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formTerminos">
-                <Form.Check
-                  type="checkbox"
-                  name="terminos"
-                  label="Acepto términos y condiciones"
-                  checked={formData.terminos}
-                  onChange={handleInputChange}
-                />
+              <Form.Group
+                as={Row}
+                controlId="formRepetirContrasena"
+                className="d-flex justify-content-center align-items-center"
+              >
+                <Form.Label
+                  column
+                  sm={2}
+                  style={{
+                    color: "#000000",
+                    fontSize: "16px",
+                    fontFamily: "Montserrat",
+                    fontWeight: "500",
+                  }}
+                >
+                  Repetir Contraseña
+                </Form.Label>
+                <Col sm={10} className="position-relative">
+                  <Form.Control
+                    type={showConfirmPassword ? "text" : "password"}
+                    name="repetirContrasena"
+                    placeholder="********"
+                    value={formData.repetirContrasena}
+                    onChange={handleInputChange}
+                    // isValid={touched.correoElectronico && !errors.correoElectronico}
+                    // isInvalid={!!errors.correoElectronico}
+                    style={{
+                      borderRadius: "32px",
+                      width: "370px",
+                    }}
+                  />
+                  <img
+                    src={showConfirmPassword ? ViewIcon : ViewHideIcon}
+                    alt="Toggle visibility"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    style={{
+                      position: "absolute",
+                      right: "100px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      cursor: "pointer",
+                    }}
+                  />
+                  {feedback.error === "Las contraseñas no coinciden" && (
+                    <p style={{ color: "red" }}>{feedback.error}</p>
+                  )}
+                </Col>
               </Form.Group>
 
-              <Form.Group className="mb-4" controlId="formOfertas">
-                <Form.Check
-                  type="checkbox"
-                  name="ofertas"
-                  label="Quiero recibir ofertas"
-                  checked={formData.ofertas}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
+              <Row className="d-flex justify-content-center ">
+                <Col sm={8}>
+                  <Form.Group className="mb-2 mt-3">
+                    <Form.Check
+                      type="checkbox"
+                      name="chkTerminos"
+                      checked={formData.chkTerminos}
+                      onChange={handleInputChange}
+                      label="Acepto términos y condiciones"
+                      required
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                      className="custom-checkbox"
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-5">
+                    <Form.Check
+                      type="checkbox"
+                      name="chkOfertas"
+                      checked={formData.chkOfertas}
+                      onChange={handleInputChange}
+                      label="Quiero recibir ofertas y promociones"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                      className="custom-checkbox"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
 
-              <Button variant="primary" type="submit" className="w-100">
-                Registrarme
-              </Button>
+              <Row>
+                <Col sm={12} className="text-center">
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    disabled={feedback.loading}
+                    style={{
+                      backgroundColor: "#F2B705",
+                      borderRadius: "32px",
+                      padding: "8px 16px",
+                      border: "none",
+                      fontSize: "16px",
+                      fontWeight: "500",
+                      fontFamily: "Montserrat",
+                      color: "#363636",
+                      width: "271px",
+                      height: "41px",
+                    }}
+                  >
+                    {feedback.loading ? "Registrando..." : "Registrarse"}
+                  </Button>
+                </Col>
+              </Row>
             </Form>
           </Col>
+        </Row>
 
-          {/* Imagen adicional al final, frente al campo de Contraseña */}
-          <Col
-            xs={3}
-            className="d-flex justify-content-end"
-            style={{ marginTop: "20px" }}
-          >
+        <Row className="mt-4">
+          <Col className="text-center">
             <Image
               src="src/assets/CoolDog.png"
-              rounded
+              alt="Perro"
               style={{
-                maxWidth: "1000px", // Controlamos el tamaño máximo
-                position: "relative", // Necesario para mover la imagen
-                top: "64px", // Mueve la imagen verticalmente
-                left: "1111px", // Mueve la imagen horizontalmente
+                position: "absolute",
+                top: "943px",
+                right: "50px",
+                width: "450px",
+                height: "auto",
               }}
-              alt="Imagen perrito"
             />
           </Col>
         </Row>

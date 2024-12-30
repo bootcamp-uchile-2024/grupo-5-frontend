@@ -6,7 +6,7 @@
   color: #404040;
   display: flex;
   align-items: center;
-}  
+}
 
 .titulo {
   color: #535353;
@@ -17,128 +17,164 @@
   padding-bottom: 30px;
 }
 
-/* Contenedor principal */
 .loginContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  position: relative;
+  padding-bottom: 50px;
+  height: 100%;
 }
 
-/* Card de inicio de sesión */
 .loginCard {
-  background-color: #f0f9ff;
-  padding: 2rem;
-  border-radius: 10px;
-  width: 350px;
+  background-color: #f2fafd;
+  border-radius: 32px;
+  width: 510px;
+  height: 370px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-right: 500px; /* Espacio entre los elementos */
+  justify-content: start;
+  padding-top: 15px;
 }
 
-/* Título de la card */
-h1 {
-  font-weight: bold;
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 1rem;
-}
-
-/* Estilos de los inputs */
-input {
-  width: 100%;
-  padding: 0.75rem;
-  margin: 10px 0;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-
-/* Estilos de los botones */
-button {
-  width: 100%;
-  padding: 0.75rem;
-  background-color: #ffcc00;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #ffaa00;
-}
-
-/* Enlace para contraseña olvidada */
-.forgotPassword {
-  margin-top: 10px;
+.loginCard h1 {
+  font-size: 40px;
+  font-weight: 900;
+  font-family: "Montserrat", serif;
   text-align: center;
+  color: #363636;
+  padding: 35px;
+  margin: 0px;
+}
+
+.inputContainer {
+  position: relative;
+  width: 446px;
+}
+
+input {
+  border-radius: 32px;
+  width: 100%;
+  height: 44px;
+  margin: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Montserrat", serif;
+  color: #535353;
+  padding-left: 30px;
+}
+
+.message {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 20px;
+  color: #33363f;
+  width: 25px;
+  height: 25px;
+}
+
+.forgotPassword {
+  text-align: center;
+  padding: 10px;
 }
 
 .forgotPassword a {
-  color: #0099cc;
-  font-size: 0.875rem;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Montserrat", serif;
+  text-decoration: none;
+  color: #363636;
+}
+
+.sesion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-top: 5px;
+}
+
+.sesion button {
+  background-color: #f2b705;
+  border: #f2b705;
+  border-radius: 32px;
+  width: 138px;
+  height: 40px;
+  color: #222222;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "Montserrat", serif;
+}
+
+button:hover {
+  background-color: #f2b705;
+}
+
+.inputContainer {
+  position: relative;
+  width: 446px;
+}
+
+.validInput {
+  border: 2px solid #7fd54d;
+}
+
+.invalidInput {
+  border: 2px solid #f23d4c;
+}
+
+.noUnderline {
   text-decoration: none;
 }
 
-.forgotPassword a:hover {
-  text-decoration: underline;
-}
-
-/* Mensajes de error */
-.errorMessage {
-  color: red;
-  font-size: 0.875rem;
-  margin-top: 10px;
-}
-
-/* Rectángulo azul */
 .rectangle {
-  position: absolute;
-  top: 20%; /* Lo movemos más cerca del centro */
-  left: 50%;
-  transform: translateX(-50%);
   width: 7px;
   height: 445px;
-  background-color: #0099cc;
+  background-color: #82e3f8;
 }
 
-/* Botones a la derecha del rectángulo */
 .sideOptions {
-  position: absolute;
-  transform: translateX(100%);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 25px;
 }
 
-.sideOptions button {
-  padding: 0.75rem;
-  border-radius: 8px; /* Esquinas redondeadas en los botones */
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.sideOptions button:first-child {
-  background-color: #ffcc00;
-  color: white;
+.registro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 5px;
+  background-color: #f2b705;
   border: none;
+  width: 370px;
+  height: 43px;
+  border-radius: 32px;
+  color: #363636;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: "Montserrat", serif;
 }
 
-.sideOptions button:first-child:hover {
-  background-color: #ffaa00;
+.invitado {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 5px;
+  border: 1px solid #f2b705;
+  background-color: transparent;
+  width: 370px;
+  height: 43px;
+  border-radius: 32px;
+  color: #363636;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: "Montserrat", serif;
 }
 
-.sideOptions button:last-child {
-  background-color: white;
-  color: black; /* Texto negro en este botón */
-  border: 2px solid #ffcc00;
-}
-
-.sideOptions button:last-child:hover {
-  background-color: #f7f7f7;
+.invitado:hover {
+  background-color: transparent;
+  color: #363636;
+  border: 1px solid #f2b705;
 }

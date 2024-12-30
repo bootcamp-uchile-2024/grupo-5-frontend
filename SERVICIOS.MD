@@ -10,13 +10,19 @@ Este documento describe las interfaces de los objetos de transferencia de datos 
 
 - **Ruta**: `src/dtos/CreateUsuarioDto.ts`
 - **Propiedades**:
-  - `rutUsuario` (`number`): Rut del Usuario. Ejemplo: `10234945-K`
-  - `contrasena` (`string`): Contraseña del Usuario. Ejemplo: `Snn00py`
-  - `nombre` (`string`): Nombre del Usuario. Ejemplo: `Mamerto`
-  - `apePaterno` (`string`): Apellido Paterno del Usuario. Ejemplo: `Soto`
-  - `apeMaterno` (`string`): Apellido Materno del Usuario. Ejemplo: `Perez`
-  - `correoElectronico` (`string`): Correo Electrónico del Usuario. Ejemplo: `mamerto.soto@mail.cl`
-  - `telefono` (`string`): Teléfono del Usuario. Ejemplo: `56944556699`
+  - `idUsuario` (`number`): Identificador único del Usuario. Ejemplo: `1`
+  - `rut` (`string`): Rut del Usuario en formato string. Ejemplo: `12345678-9`
+  - `nombres` (`string`): Nombres del Usuario. Ejemplo: `Juan`
+  - `apellidos` (`string`): Apellidos del Usuario. Ejemplo: `Pérez`
+  - `email` (`string`): Correo electrónico del Usuario. Ejemplo: `juan.perez@gmail.com`
+  - `chkTerminos` (`boolean`): Aceptación de términos y condiciones. Ejemplo: `true`
+  - `chkOfertas` (`boolean`): Aceptación de ofertas promocionales. Ejemplo: `true`
+  - `activo` (`boolean`): Estado del Usuario. Ejemplo: `true`
+  - `avatar` (`object`): Información del avatar del Usuario.
+    - `idImagenAvatar` (`number`): ID de la imagen del avatar. Ejemplo: `1`
+    - `pathImaUsuario` (`string`): Ruta del archivo de imagen del avatar. Ejemplo: `AvatarUsuario1.png`
+
+
 
 ## 2. CreateMascotaDto
 
@@ -40,30 +46,215 @@ Este documento describe las interfaces de los objetos de transferencia de datos 
 
 - **Ruta**: `src/dtos/CreateProductoDto.ts`
 - **Propiedades**:
-  - `nombre` (`string`): Nombre del Producto. Ejemplo: `Proplan Cachorro`
-  - `marca` (`string`): Marca del Producto. Ejemplo: `Royal Canin`
-  - `descripcion` (`string`): Descripción del Producto. Ejemplo: `Proplan Cachorro de 3 a 12 meses - 15 Kg`
+  - `nombreProducto` (`string`): Nombre del Producto. Ejemplo: `Proplan Cachorro`
+  - `idMarca` (`string`): Marca del Producto. Ejemplo: `Royal Canin`
+  - `sku` (`string`): SKU del Producto. Ejemplo: `ATRC1927`
   - `precio` (`number`): Precio del Producto. Ejemplo: `54000`
-  - `etiquetas` (`string[]`): Etiquetas del Producto. Ejemplo: `["perro", "gato", "cachorro"]`
-  - `categoria` (`string`): Categoria del Producto Ejemplo: `Alimento Seco Perros`
-  - `stock` (`number`): Stock del Producto. Ejemplo: `1550`
-  - `ingredientes` (`string`): Ingredientes del Producto. Ejemplo: `Maíz, harina de subproductos de pollo, grasas animales (vacuna y pollo), proteína vegetal purificada (L.I.P._), harina de carne vacuna (L.I.P._), arroz, harina de trigo, pulpa de remolacha, hidrolizado de hígado de pollo, harina de gluten de maíz, sales minerales, aceite de pescado, vitaminas, aceite vegetal (con aceite de borraja), zeolita, levadura de cerveza, L-lisina, fructo-oligosacáridos (FOS), oligoelementos, taurina, DL-metionina, mananooligosacáridos (MOS), oligoelementos quelados, extracto de rosa de la India (rico en luteína). (\*) Low Indigestible Protein: proteína seleccionada por su alta asimilación.
+  - `stock` (`number`): Stock del Producto. Ejemplo: `1200`
+  - `peso` (`string`): Peso del Producto. Ejemplo: `12 Kg`
   - `tamanio` (`string`): Tamaño del Producto. Ejemplo: `15 Kg`
-  - `origen` (`string`): Origen del Producto. Ejemplo: `Francia`
-  - `Vida Útil del Producto` (`string`): Vida Útil del Producto. Ejemplo: `12 meses`
-  - `Recomendaciones de Uso` (`string`): Recomendaciones de Uso. Ejemplo: `Solo para cachorros`
+  - `ingredientes` (`string`): Ingredientes del Producto. Ejemplo: `Arcilla aglutinante`
+  - `material` (`string`): Materiales del Producto. Ejemplo: `Arcilla aglutinante.`
+  - `imagenes` (`string[]`): Imágenes del Producto Ejemplo: `List ["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/4QAYRXhpZgAATU0AKgAAAAgAA1IBAAEA" ]`
+  - `idCategoria` (`number`): Categoria del Producto Ejemplo: `Alimento Seco Perros`
+  - `activo` (`number`): Estado del Producto. Ejemplo: `1`
+
+## 4. CreatePedidoDto
+
+**Descripción**: Esta interfaz define la estructura de los datos necesarios para la creación de un pedido en el sistema.
+**Propiedades**:
+  - `idPedido` (`number`): ID del pedido. Ejemplo: `10`
+  - `idUsuario` (`number`): ID del usuario que realiza el pedido. Ejemplo: `10`
+  - `detalles` (`DetallePedidoDto[]`): Detalles del pedido. Ejemplo:
+
+## 5. DetallePedidoDto
+
+**Descripción**: Esta interfaz define los detalles individuales de un pedido.
+**Propiedades**:
+  - `idpedido` (`number`): ID del pedido. Ejemplo: `1`
+  - `iddetallepedido` (`number`): ID del detalle del pedido. Ejemplo: `1001`
+  - `idProducto` (`number`): ID del producto en el pedido. Ejemplo: `10`
+  - `cantidad` (`number`): Cantidad de productos en el detalle del pedido. Ejemplo: `2`
+  - `precio` (`number`): Precio unitario del producto. Ejemplo: `1500`
+
+## 6. RegisterClienteDto
+
+**Descripción**: Esta interfaz define la estructura de los datos necesarios para registrar un usuario en el sistema.
+**Propiedades**:
+  - `rutUsuario` (`string`): RUT del Usuario. Ejemplo: `12345678-9`
+  - `contrasena` (`string`): Contraseña del Usuario. Ejemplo: `contrasena123`
+  - `nombres` (`string`): Nombres del Usuario. Ejemplo: `Juan`
+  - `apellidos` (`string`): Apellidos del Usuario. Ejemplo: `Pérez`
+  - `correoElectronico` (`string`): Correo Electrónico del Usuario. Ejemplo: `juan.perez@gmail.com`
+  - `telefono` (`string`): Teléfono del Usuario. Ejemplo: `56912345678`
+  - `chkOfertas` (`boolean`): Check de Ofertas al crear el Usuario. Ejemplo: `true`
+
+## 7. RegisterInvitadoDto
+
+**Descripción**: Esta interfaz define la estructura de los datos necesarios para registrar un invitado en el sistema.
+**Propiedades**:
+  - `rutUsuario` (`string`): RUT del Usuario. Ejemplo: `12345678-9`
+  - `nombres` (`string`): Nombres del Usuario. Ejemplo: `Juan`
+  - `apellidos` (`string`): Apellidos del Usuario. Ejemplo: `Pérez`
+  - `correoElectronico` (`string`): Correo Electrónico del Usuario. Ejemplo: `juan.perez@gmail.com`
+  - `telefono` (`string`): Teléfono del Usuario. Ejemplo: `56912345678`
+
+
+## 8. UpdateClienteDto
+
+**Descripción**: Esta interfaz define la estructura de los datos necesarios para actualizar un cliente en el sistema.
+**Propiedades**:
+  - `rutUsuario` (`string`): RUT del Usuario. Ejemplo: `12345678-9`
+  - `nombre` (`string`): Nombre del Usuario. Ejemplo: `Juan`
+  - `apePaterno` (`string`): Apellido Paterno del Usuario. Ejemplo: `Pérez`
+  - `apeMaterno` (`string`): Apellido Materno del Usuario. Ejemplo: `González`
+  - `correoElectronico` (`string`): Correo Electrónico del Usuario. Ejemplo: `juan.perez@gmail.com`
+  - `telefono` (`string`): Teléfono del Usuario. Ejemplo: `56912345678`
+  - `rolUsuario` (`string`): Rol del Usuario. Ejemplo: `Cliente`
+
+## 9. EliminaUsuarioDto
+
+**Descripción**: Esta interfaz define la estructura de los datos necesarios para eliminar un usuario del sistema.
+**Propiedades**:- 
+  - `rut` (`string`): RUT del usuario a eliminar. Ejemplo: `12345678-9`
+
+## 10. ActivaUsuarioDto
+
+**Descripción**: Esta interfaz define la estructura de los datos necesarios para activar o desactivar un usuario en el sistema.
+**Propiedades**:
+  - `rut` (`string`): RUT del usuario. Ejemplo: `12345678-9`
+  - `activo` (`boolean`): Estado de activación del usuario. Ejemplo: `true`
+
+## 11. CredencialesDto
+
+**Descripción**: Esta interfaz define la estructura de las credenciales necesarias para la autenticación de un usuario.
+**Propiedades**:
+  - `usuario` (`string`): Nombre de usuario. Ejemplo: `juan.perez`
+  - `password` (`string`): Contraseña del usuario. Ejemplo: `password123`
+
+## 12. EjemploDto
+
+**Descripción**: Esta interfaz define la estructura para el manejo de la información y autenticación en el sistema.
+**Propiedades**:
+ - `info` (`string`): Información adicional o identificador único. Ejemplo: `12345678asdfghjk`
+ - `jwt` (`string`): Token JWT utilizado para la autenticación. Ejemplo: `123456`
+
+## 13. CreateDireccionDto
+**Descripción**: Esta interfaz define la estructura para la creación de una dirección asociada a un usuario.
+**Propiedades**:
+- `idUsuario` (`number`): Identificador único del usuario. Ejemplo: `101`
+- `idComuna` (`number`): Identificador de la comuna. Ejemplo: `5109`
+- `alias` (`string`): Alias para la dirección. Ejemplo: `Casa Playa`
+- `calle` (`string`): Nombre de la calle. Ejemplo: `Los Pinos`
+- `numero` (`string`): Número de la dirección. Ejemplo: `123`
+- `referencias` (`string`): Información adicional sobre la dirección. Ejemplo: `1309A`
+- `personaContacto` (`string`): Persona de contacto para la dirección. Ejemplo: `Juan Perez`
+- `telefonoContacto` (`string`): Teléfono de contacto. Ejemplo: `56912345678`
+
+## 14. UpdateDireccionDto
+**Descripción**: Esta interfaz define la estructura para la actualización de una dirección asociada a un usuario.
+**Propiedades**:
+ - `idComuna` (`number`): Identificador de la comuna. Ejemplo: `13203`
+ - `alias` (`string`): Alias para la dirección. Ejemplo: `Casa Playa`
+ - `calle` (`string`): Nombre de la calle. Ejemplo: `Los Pinos`
+ - `numero` (`string`): Número de la dirección. Ejemplo: `123`
+ - `referencias` (`string`): Información adicional sobre la dirección. Ejemplo: `1309A`
+ - `personaContacto` (`string`): Persona de contacto para la dirección. Ejemplo: `Juan Perez`
+ - `telefonoContacto` (`string`): Teléfono de contacto. Ejemplo: `56912345678`
+
+## 15. CreateComunaDto
+**Descripción**: Esta interfaz define la estructura para la creación de una comuna en el sistema.
+**Propiedades**:
+- `idComuna` (`number`): Identificador único de la comuna. Ejemplo: `3000`
+- `idRegion` (`number`): Identificador de la región a la que pertenece la comuna. Ejemplo: `1`
+- `nombreComuna` (`string`): Nombre de la comuna. Ejemplo: `Santiago`
+
+## 16. UpdateComunaDto
+**Descripción**: Esta interfaz define la estructura para la actualización de una comuna en el sistema.
+**Propiedades**:
+- `idRegion` (`number`): Identificador de la región a la que pertenece la comuna. Ejemplo: `13`
+- `nombreComuna` (`string`): Nombre de la comuna. Ejemplo: `Santiago`
+
+## 17. UpdateRegionDto
+**Descripción**: Esta interfaz define la estructura para la actualización de una región en el sistema.
+**Propiedades**:
+- `orden` (`number`): Orden de la región. Ejemplo: `7
+- `nombreRegion` (`string`): Nombre de la región. Ejemplo: `Región de Valparaíso`
+
+## 18. ActualizarProductoDto
+
+**Descripción**: Esta interfaz define la estructura para la actualización de un producto en el sistema.
+**Propiedades**:
+  - `nombreProducto` (`string`): Nombre del producto. Ejemplo: `Royal Canin Cachorro Medium Puppy alimento para perro`
+  - `idMarca` (`number`): Identificador de la marca del producto. Ejemplo: `1`
+  - `descripcion` (`string`): Descripción del producto. Ejemplo: `Royal Canin Medium Junior es un alimento para cachorros de razas medianas (11 a 25 Kg peso adulto) hasta los 12 meses de edad. Con una combinación exclusiva de nutrientes para garantizar una seguridad digestiva óptima y favorecer el equilibrio de la flora intestinal, con prebióticos, contribuyendo así a mejorar la calidad de las heces.`
+  - `sku` (`string`): SKU del producto. Ejemplo: `ATRC1927`
+  - `precio` (`number`): Precio del producto en pesos CLP. Ejemplo: `86990`
+  - `stock` (`number`): Stock disponible del producto. Ejemplo: `1200`
+  - `peso` (`string`): Peso del producto. Ejemplo: `12 Kg`
+  - `tamanio` (`string`): Tamaño del producto. Ejemplo: `12 Kg`
+  - `ingredientes` (`string`): Ingredientes del producto. Ejemplo: `Arcilla aglutinante.`
+  - `material` (`string`): Materiales del producto. Ejemplo: `Arcilla aglutinante.`
+  - `imagenes` (`ImagenProducto[]`): Lista de imágenes del producto. Ejemplo: 
+  - `idCategoria` (`number`): Identificador de la categoría del producto. Ejemplo: `1`
+  - `activo` (`number`): Estado del producto (activo o inactivo). Ejemplo: `1`
+
+## 19. CreateMarcaProductoDto
+**Descripción**: Esta interfaz define la estructura para la creación de una nueva marca de producto.
+**Propiedades**:
+  - `nombreMarca` (`string`): Nombre de la marca del producto. Ejemplo: `Royal Canin`
+
+## 20. UpdateMarcaProductoDto
+**Descripción**: Esta interfaz define la estructura para la actualización de una marca de producto.
+**Propiedades**:
+  - `nombreMarca` (`string`): Nombre de la marca del producto. Ejemplo: `Royal Canin`
+
+## 21. CreateCategoriaProductoDto
+**Descripción**: Esta interfaz define la estructura para la creación de una nueva categoría de producto.
+**Propiedades**:
+  - `nombreCategoria` (`string`): Nombre de la categoría del producto. Ejemplo: `Alimento para Gatos`
+  - `descripcionCategoria` (`string`): Descripción de la categoría del producto. Ejemplo: `Alimento para Gatos de todas las edades`
+
+## 22. UpdateCategoriaProductoDto
+**Descripción**: Esta interfaz define la estructura para la actualización de una categoría de producto.
+**Propiedades**:
+  - `nombreCategoria` (`string`): Nombre de la categoría del producto. Ejemplo: `Alimento para Perros`
+  - `descripcionCategoria` (`string`): Descripción de la categoría del producto. Ejemplo: `Productos alimenticios para perros`
+  - `idCategoria` (`number`): Identificador de la categoría del producto. Ejemplo: `1`
+
+## 23. CreateDescuentoDto
+**Descripción**: Esta interfaz define la estructura para la creación de un descuento.
+**Propiedades**:
+  - `nombreDescuento` (`string`): Nombre del descuento. Ejemplo: `Descuento de Navidad`
+  - `descripcionDescuento` (`string`): Descripción del descuento. Ejemplo: `Descuento de Navidad`
+  - `porcentajeDescuento` (`number`): Porcentaje del descuento. Ejemplo: `20`
+  - `fechaInicio` (`string`): Fecha de inicio del descuento. Ejemplo: `2024-12-20`
+  - `fechaFin` (`string`): Fecha de fin del descuento. Ejemplo: `2024-12-31`
+  - `estado` (`number`): Estado del descuento. Ejemplo: `1`
+
+## 24. UpdateDescuentoDto
+
+**Descripción**: Esta interfaz define la estructura para la actualización de un descuento.
+**Propiedades**:
+  - `nombreDescuento` (`string`): Nombre del descuento. Ejemplo: `Descuento de Navidad`
+  - `descripcionDescuento` (`string`): Descripción del descuento. Ejemplo: `Descuento de Navidad`
+  - `porcentajeDescuento` (`number`): Porcentaje del descuento. Ejemplo: `20`
+  - `fechaInicio` (`string`): Fecha de inicio del descuento. Ejemplo: `2024-12-20`
+  - `fechaFin` (`string`): Fecha de fin del descuento. Ejemplo: `2024-12-31`
+  - `estado` (`number`): Estado del descuento. Ejemplo: `1`
+
 
 ## Catalago de Productos
 
 - **Detalle**: Muestra un listado de productos disponibles<br>
-- **Ruta Backend**: http://localhost:3000/api/producto<br>
+- **Ruta Backend**: http://107.21.145.167:5001/api/producto<br>
 - **Ruta Frontend**: http://localhost:5173/catalogo-productos<br>
 
 ## Detalles por producto
 
 - **Detalle**: Muestra el detalle de cada producto de acuerdo a su ID<br>
-- **Ruta Backend**: http://localhost:3000/api/producto{id}<br>
-- **Ruta Frontend**: http://localhost:5173/catalogo-productos/{id}<br>
+- **Ruta Backend**: http://107.21.145.167:5001/api/producto<br>
+- **Ruta Frontend**: http://localhost:5173/catalogo-productos<br>
 
 ## Ejemplo de Uso
 
@@ -145,55 +336,36 @@ const nuevoProducto: CreateProductoDto = {
 
    - Se creó una página para mostrar el resumen del carrito de compras.
    - Se utilizó el componente `ResumenCarrito` para mostrar los productos en el carrito, el total y un botón para volver al home.
+   - Cambios en Redux Persistencia Mejorada del Carrito: La lógica del cartSlice fue optimizada para garantizar la sincronización con localStorage en cada acción
 
 2. **Componente de Resumen del Carrito (ResumenCarrito.tsx):**
    - Se creó un componente para mostrar los productos en el carrito, el total y un botón para volver al home.
    - Se implementó la lógica para aumentar, disminuir y eliminar productos del carrito.
 
-   Cambios Implementados
-Actualización de la Página Home
-Diseño Mejorado:
+3. **Página del Home (HomePage.tsx):**
+   - Actualización de la Página Home
+   - Se implementaron cambios en el diseño para alinearse con las especificaciones entregadas por el equipo de diseño.
+   - Se implementaron cambios en el diseño para alinearse con las especificaciones entregadas por el equipo de diseño.
+   - Se actualizaron los colores, tipografía, y distribución de elementos para mejorar la experiencia del usuario (UX/UI).
 
-Se implementaron cambios en el diseño para alinearse con las especificaciones entregadas por el equipo de diseño.
-Se actualizaron los colores, tipografía, y distribución de elementos para mejorar la experiencia del usuario (UX/UI).
-Elementos Nuevos:
+4. **Página de Catálogo (CatalogoPage.tsx):**
+  - Se añadieron filtros dinámicos para categoría, precio etc
 
-Banner Promocional: Se añadió un banner dinámico en la parte superior, destacando ofertas y novedades.
-Sección de Productos Destacados: Se incluyó una sección para productos recomendados, categorizados por popularidad y ofertas.
-Navegación Mejorada: La barra de navegación ahora incluye accesos rápidos a categorías y búsqueda avanzada.
+5. **Página de login (Loginpage.tsx):**
+  - Aqui el usuario puede ingresar como invitado o hacer uso de sus datos para logearse
 
-Cambios en Redux
-Persistencia Mejorada del Carrito:
+6. **Página de registro de usuario (RegistrodeUsuario.tsx):**
+  - Aqui el usuario puede registrarse añadiendo sus datos como el correo, la contraseña entre otros
 
-La lógica del cartSlice fue optimizada para garantizar la sincronización con localStorage en cada acción.
-Nueva Acción:
+7. **Perfil de usuario (PerfildeUsuario.tsx):**
+  - Aqui el usuario puede modificar sus datos, como las direcciones, la foto de perfil etc
 
-Filtrar por Categoría: Permite filtrar productos en el carrito por categoría.
-Configuración de la Tienda:
 
-Los reducers adicionales fueron integrados para manejar el estado de la página home y el catálogo de productos.
+**Frameworks y Herramientas Utilizadas**
+- Bootstrap: Utilizado para garantizar un diseño responsivo y profesional en todo el sitio.
+- Uso: Componentes predefinidos (botones, formularios, modales).
+- Versión: Bootstrap 5.x.
 
-Nuevas Páginas y Componentes
-Página de Inicio (HomePage.tsx):
-
-Se rediseñó la página inicial para reflejar los cambios solicitados por diseño.
-Se añadieron nuevas secciones: banner promocional, productos destacados y categorías.
-Página de Catálogo (CatalogoPage.tsx):
-
-Se añadieron filtros dinámicos para categoría, precio y popularidad.
-Componente de Producto Destacado (ProductoDestacado.tsx):
-
-Componente que muestra productos en una tarjeta con información básica (nombre, precio y enlace a detalles).
-
-Frameworks y Herramientas Utilizadas
-Bootstrap:
-Utilizado para garantizar un diseño responsivo y profesional en todo el sitio.
-
-Uso: Componentes predefinidos (botones, formularios, modales).
-Versión: Bootstrap 5.x.
-Docker:
-Todo el entorno del proyecto se encuentra contenido en Docker para facilitar el desarrollo y la integración continua.
-
-Archivos clave:
-Dockerfile: Define la configuración del contenedor de la aplicación.
-docker-compose.yml: Orquestación de contenedores (backend, frontend y base de datos).
+- Docker: Todo el entorno del proyecto se encuentra contenido en Docker para facilitar el desarrollo y la integración continua.
+- Dockerfile: Define la configuración del contenedor de la aplicación.
+- Docker-compose.yml: Orquestación de contenedores (backend, frontend y base de datos).

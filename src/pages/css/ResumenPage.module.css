@@ -1,0 +1,244 @@
+.linkVolver {
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+  color: #404040;
+  display: flex;
+  align-items: center;
+}
+.customContainer {
+  max-width: 800px;
+  margin: 15px auto;
+  padding: 0 15px;
+  height: 100%;
+}
+
+.titulo {
+  color: #535353;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Montserrat", serif;
+  text-align: center;
+  padding-bottom: 25px;
+  padding-top: 30px;
+}
+
+.iconContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.iconText {
+  line-height: 1.2;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.icons {
+  border-radius: 50%;
+  background-color: #c0f1fc;
+  width: 88px;
+  height: 88px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconCaja {
+  border-radius: 50%;
+  background-color: #05c7f2;
+  width: 88px;
+  height: 88px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icons img,
+.iconLocation img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.chevron {
+  width: 46px;
+  height: 47px;
+}
+
+.cardTitle {
+  color: #363636;
+  font-size: 16px;
+  font-family: "Montserrat", serif;
+  font-weight: 500;
+}
+
+.cardText {
+  color: #363636;
+  font-size: 24px;
+  font-family: "Montserrat", serif;
+  font-weight: 700;
+  border-bottom: 1px solid #888888;
+  padding-right: 20px;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #f2b705;
+  border-radius: 20px;
+  padding: 12px;
+  margin-left: 20px;
+}
+
+.contenedorProducto {
+  width: 190px;
+  height: 150px;
+  justify-items: center;
+  justify-content: center;
+  padding-left: 20px;
+}
+
+.direccionTitle {
+  color: #404040;
+  font-size: 20px;
+  font-family: "Montserrat", serif;
+  font-weight: 700;
+  width: 100%;
+  margin-bottom: 0px;
+  margin-top: 25px;
+}
+
+.comunaText {
+  color: #404040;
+  font-size: 14px;
+  font-family: "Montserrat", serif;
+  font-weight: 400;
+  width: 100%;
+}
+
+.contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.contenedorSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contenedorPrecio {
+  width: 273px;
+  height: 50px;
+  background-color: #dff4d2;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.totalText {
+  color: #404040;
+  font-size: 24px;
+  font-family: "Montserrat", serif;
+  font-weight: 700;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.contenedorTruck {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.envioText {
+  color: #404040;
+  font-size: 20px;
+  font-family: "Montserrat", serif;
+  font-weight: 500;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.contenedorFooter {
+  background-color: #dff4d2;
+  width: 85%;
+  height: 120px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contenedorParafo {
+  width: 500px;
+  height: 75px;
+  color: #404040;
+  margin-left: 30px;
+}
+
+.parrafo2 {
+  font-size: 20px;
+  font-family: "Montserrat", serif;
+  font-weight: 700;
+}
+
+.parrafo5 {
+  font-size: 12px;
+  font-family: "Montserrat", serif;
+  font-weight: 500;
+  margin: 0px;
+  padding: 0px;
+  line-height: 1.2;
+}
+
+.imgPerro {
+  width: 332px;
+  height: 312px;
+  margin-left: 20px;
+}
+
+.contenedorFecha {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5px;
+}
+
+.fechaText {
+  color: #404040;
+  font-size: 16px;
+  font-family: "Montserrat", serif;
+  font-weight: 500;
+  margin: 0px;
+  padding: 0px;
+}
+
+.fecha {
+  color: #404040;
+  font-size: 24px;
+  font-family: "Montserrat", serif;
+  font-weight: 700;
+  margin: 0px;
+  padding: 0px;
+}
+
+.hora {
+  color: #404040;
+  font-size: 24px;
+  font-family: "Montserrat", serif;
+  font-weight: 500;
+  margin: 0px;
+  padding: 0px;
+}

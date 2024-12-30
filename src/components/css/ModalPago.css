@@ -1,0 +1,53 @@
+.img_check{
+    width: 80px;
+    height: 80px;
+}
+.titulo{
+    color: #363636;
+    font-size: 40px;
+    font-weight: 700;
+    font-family: "Montserrat", serif;
+}
+.parrafo_compra{
+    color: #363636;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: "Montserrat", serif;
+    padding: 0px;
+    margin: 0px;
+}
+
+.orden{
+    color: #363636;
+    font-size: 40px;
+    font-weight: 900;
+    font-family: "Montserrat", serif;
+    padding: 0px;
+    margin: 0px;
+}
+
+.n_orden{
+    color: #363636;
+    font-size: 40px;
+    font-weight: 300;
+    font-family: "Montserrat", serif;
+    padding: 0px;
+    margin: 0px;
+}
+
+.img_correo{
+    width: 80px;
+    height: 80px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.parrafo_correo{
+    color: #363636;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: "Montserrat", serif;
+    padding-top: 0px;
+    margin-top: 0px;
+    padding-bottom: 30px;
+}
