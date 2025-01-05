@@ -1,39 +1,49 @@
+version: '3.8'
+
 services:
   frontend:
     build:
       context: ./frontend  # Ruta al frontend
+      dockerfile: Dockerfile
+    image: pretopolis:latest
     ports:
-      - "8080:8080"
+      - "80:80"
     environment:
-      - VITE_URL_ENDPOINT_BACKEND=http://api-1:5001
+      - VITE_API_URL=http://107.21.145.167:5001
     depends_on:
-      - api-1
+      - api
     networks:
       - app_network
 
-  api-1:
-    image: leori0/backend:cmd
-    ports:
-      - "5001:5001"
+  api:
+    image: "node:22.9.0-alpine3.19"               
     environment:
-      - DB_HOST=db-1
-      - DB_PORT=3306
-      - DB_USER=root
-      - DB_PASSWORD=clave123
+      - VITE_API_URL=http://107.21.145.167:5001
+    ports:
+      - "5001:5001"                        
+    volumes:
+      - .:/home/node/nest                  
     depends_on:
-      - db-1
+      - db                                  
     networks:
-      - app_network
+      - app_network 
 
-  db-1:
-    image: mysql:8.0.39-debian
-    ports:
-      - "3306:3306"
+  db:
+    image: "mysql:${DB_VERSION}"            
     environment:
-      - MYSQL_ROOT_PASSWORD=clave123
+      MYSQL_ROOT_PASSWORD: ${DB_PASS_ROOT}  
+      MYSQL_DATABASE: ${DB_NAME}            
+    volumes:
+      - .mysql_data:/var/lib/mysql          
+    ports:
+      - "3307:3306"                         
     networks:
       - app_network
 
 networks:
   app_network:
     driver: bridge
+
+volumes:
+  .mysql_data:
+    driver: local
