@@ -33,6 +33,7 @@ export const ResumenPage = () => {
     useState(false);
 
   const source = location.state?.source;
+  const isLoggedIn = useSelector((state: RootState) => state.user.idUsuario !== 0);
 
   useEffect(() => {
     const fetchComunaNombre = async (idComuna: number) => {
@@ -371,7 +372,7 @@ export const ResumenPage = () => {
                   fontSize: "24px",
                   fontFamily: "Montserrat",
                   fontWeight: "700",
-                  marginTop: "10px",
+                  marginTop: "70px",
                 }}
                 onClick={() => navigate("/pago")}
               >
@@ -393,6 +394,7 @@ export const ResumenPage = () => {
             userData={userData}
           />
         </Row>
+        {!isLoggedIn && (
         <Row
           className="d-flex justify-content-center"
           style={{ paddingTop: "100px", paddingBottom: "70px" }}
@@ -435,6 +437,7 @@ export const ResumenPage = () => {
             </div>
           </Col>
         </Row>
+        )}
       </Container>
     </MainLayout>
   );
