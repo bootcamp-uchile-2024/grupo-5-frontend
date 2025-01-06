@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MainLayout } from "../layout/MainLayout";
 import styles from "./css/LoginPage.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { save } from "../states/loggedUserSlice";
 import { Col, Row } from "react-bootstrap";
 import Message from "../assets/icons/Buttons_message.svg";
 import View from "../assets/icons/View.svg";
 import { login } from "../services/loginService";
 import { UsuarioDto } from "../interface/Usuarios/dto/UsuarioDto";
+import { RootState } from "../states/store";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -20,6 +21,10 @@ export const LoginPage = () => {
   }>({ email: null, password: null });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const fromModalCarrito = useSelector(
+    (state: RootState) => state.navigation.fromModalCarrito
+  );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -75,7 +80,9 @@ export const LoginPage = () => {
         </Link>
       </Row>
 
-      <h1 className={styles.titulo}>Continuar comprando como...</h1>
+      <h1 className={styles.titulo}>
+        {fromModalCarrito ? "Continuar comprando como..." : "Iniciar sesión"}
+      </h1>
 
       <Row className="justify-content-center mt-5 mb-5 pt-5">
         <div className={styles.loginContainer}>

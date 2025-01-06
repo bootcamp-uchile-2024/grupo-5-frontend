@@ -10,6 +10,7 @@ import { Offcanvas, Button, Carousel, Card, Row, Col } from "react-bootstrap";
 import { useState, forwardRef, useImperativeHandle } from "react";
 import { formatPrice } from "../utils/formatPrice";
 import { useNavigate } from "react-router-dom";
+import { setFromModalCarrito } from "../states/navigationSlice";
 
 export const ModalCarrito = forwardRef((_props, ref) => {
   const cart = useSelector((state: RootState) => state.cart.productos);
@@ -41,12 +42,21 @@ export const ModalCarrito = forwardRef((_props, ref) => {
     0
   );
 
+  const handleCompare = () => {
+    dispatch(setFromModalCarrito(true));
+  };
+
   const handleNavigate = () => {
     if (usuario.idUsuario !== 0) {
       navigate("/direccion");
     } else {
       navigate("/login");
     }
+  };
+
+  const handleNavigateAndCompare = () => {
+    handleCompare();
+    handleNavigate();
   };
 
   return (
@@ -237,7 +247,7 @@ export const ModalCarrito = forwardRef((_props, ref) => {
                   height: " 79px",
                 }}
               >
-                <button onClick={handleNavigate} className="link-custom">
+                <button onClick={handleNavigateAndCompare} className="link-custom">
                   Ir a Comprar
                 </button>
               </Col>

@@ -5,6 +5,7 @@ import userReducer from "./loggedUserSlice";
 import productsSlice from "./ProductSlice";
 import filtersReducer from "./filtersSlice";
 import formReducer from "./formSlice";
+import navigationReducer from "./navigationSlice";
 
 const loadState = () => {
   try {
@@ -45,6 +46,7 @@ export const store = configureStore({
     products: productsSlice,
     filters: filtersReducer,
     form: formReducer,
+    navigation: navigationReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(persistedState),

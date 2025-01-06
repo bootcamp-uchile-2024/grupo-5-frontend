@@ -285,9 +285,7 @@ export const DireccionPage = () => {
                       onChange={() => setSelectedDireccion(direccion)}
                     />
                   ))
-                ) : (
-                  <p>Cargando direcciones...</p>
-                )}
+                ) : null}
               </Form.Group>
             </Form>
           </Col>
