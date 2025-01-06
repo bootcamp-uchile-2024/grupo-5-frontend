@@ -5,7 +5,7 @@ services:
     build:
       context: ./frontend  # Ruta al frontend
       dockerfile: Dockerfile
-    image: pretopolis:latest
+    image: petropolis:latest
     ports:
       - "80:80"
     environment:

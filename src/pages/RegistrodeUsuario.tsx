@@ -5,7 +5,11 @@ import { useNavigate, Link } from "react-router-dom";
 import ViewHideIcon from "../assets/icons/View_hide.svg";
 import ViewIcon from "../assets/icons/View.svg";
 import { hashPassword } from "../services/hashPassword";
+import GloboTextoYellow from "../assets/RegistroUsuario/GloboTextoYellow.png";
+import CuteCat from "../assets/RegistroUsuario/CuteCat.png";
+import CoolDog from "../assets/RegistroUsuario/CoolDog.png";
 import "./css/registro.css";
+import { ModalRegistro } from "../components/ModalRegistro";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -36,6 +40,7 @@ export const RegistrodeUsuario = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
 
   const navigate = useNavigate();
 
@@ -83,19 +88,13 @@ export const RegistrodeUsuario = () => {
         throw new Error(`Error ${response.status}: ${response.statusText}`);
       }
 
-      // Hacer hash a la contraseña
+      setFeedback({ error: null, success: "Registro exitoso", loading: false });
+      setShowMessage(true);
+
       const hashedPassword = await hashPassword(formData.contrasena);
       if (!hashedPassword) {
-        setFeedback({
-          error: "Error al hashear la contraseña",
-          success: null,
-          loading: false,
-        });
-        return;
+        console.error("Error al hashear la contraseña");
       }
-
-      setFeedback({ error: null, success: "Registro exitoso", loading: false });
-      navigate("/login");
     } catch (error) {
       console.error("Error al registrar el usuario:", error);
       setFeedback({
@@ -104,6 +103,11 @@ export const RegistrodeUsuario = () => {
         loading: false,
       });
     }
+  };
+
+  const irAPerfil = () => {
+    setShowMessage(false);
+    navigate("/login");
   };
 
   return (
@@ -139,7 +143,7 @@ export const RegistrodeUsuario = () => {
             </h1>
             <div className="info-box">
               <Image
-                src="src/assets/GloboTextoYellow.png"
+                src={GloboTextoYellow}
                 alt="Globo Amarillo"
                 className="info-image"
                 style={{
@@ -159,7 +163,7 @@ export const RegistrodeUsuario = () => {
               </p>
             </div>
             <Image
-              src="src/assets/CuteCat.png"
+              src={CuteCat}
               alt="cat"
               style={{
                 position: "absolute",
@@ -347,7 +351,7 @@ export const RegistrodeUsuario = () => {
 
               <div className="password-info">
                 <Image
-                  src="src/assets/GloboTextoYellow.png"
+                  src={GloboTextoYellow}
                   alt="Globo Amarillo"
                   className="password-image"
                   style={{
@@ -584,8 +588,17 @@ export const RegistrodeUsuario = () => {
                   >
                     {feedback.loading ? "Registrando..." : "Registrarse"}
                   </Button>
+                  {feedback.error && <p className="error">{feedback.error}</p>}
+                  {feedback.success && (
+                    <p className="success">{feedback.success}</p>
+                  )}
                 </Col>
               </Row>
+              <ModalRegistro
+                show={showMessage}
+                onHide={() => setShowMessage(false)}
+                irAPerfil={irAPerfil}
+              />
             </Form>
           </Col>
         </Row>
@@ -593,7 +606,7 @@ export const RegistrodeUsuario = () => {
         <Row className="mt-4">
           <Col className="text-center">
             <Image
-              src="src/assets/CoolDog.png"
+              src={CoolDog}
               alt="Perro"
               style={{
                 position: "absolute",
