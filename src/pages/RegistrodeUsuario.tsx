@@ -202,11 +202,10 @@ export const RegistrodeUsuario = () => {
       setFeedback({ error: null, success: "Registro exitoso", loading: false });
       setShowMessage(true);
 
-      // Login automático después del registro exitoso
-      const user = await login(formData.correoElectronico, formData.contrasena);
+            const user = await login(formData.correoElectronico, formData.contrasena);
       if (user) {
         dispatch(save(user));
-        setShowMessage(true); // Mostrar el modal de registro exitoso
+        setShowMessage(true);
       } else {
         setFeedback({
           error: "Error al iniciar sesión automáticamente",

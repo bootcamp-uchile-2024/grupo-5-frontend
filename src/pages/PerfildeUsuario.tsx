@@ -2,14 +2,15 @@ import { MainLayout } from "../layout/MainLayout";
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Image, Carousel } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import AvatarPerfil from "../assets/icons/Avatar_perfil.svg";
+import Add_mascotas from "../assets/icons/Add_mascotas.svg";
+import styles from "./css/perfilUsuario.module.css";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 export const PerfildeUsuario = () => {
   const [perfiles, setPerfiles] = useState<string[]>([]);
-  const [avatar, setAvatar] = useState<string>(
-    "https://via.placeholder.com/240"
-  );
+  const [avatar, setAvatar] = useState<string>(AvatarPerfil);
   const [, setError] = useState<string>("");
   const navigate = useNavigate();
 
@@ -139,6 +140,14 @@ export const PerfildeUsuario = () => {
             </Col>
           ))}
         </Row>
+
+        <Row className="justify-content-center mb-5">
+          <Col xs="auto" className="d-flex flex-column align-items-center">
+           <img src={Add_mascotas} alt="Agregar mascota" />
+           <p className={styles.addMascotas}>Agregar mascota</p>
+          </Col>
+        </Row>
+
         <Container fluid className="mb-5">
           <Carousel
             indicators={false}
