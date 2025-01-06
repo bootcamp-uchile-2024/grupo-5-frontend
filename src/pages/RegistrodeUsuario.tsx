@@ -10,6 +10,9 @@ import CuteCat from "../assets/RegistroUsuario/CuteCat.png";
 import CoolDog from "../assets/RegistroUsuario/CoolDog.png";
 import "./css/registro.css";
 import { ModalRegistro } from "../components/ModalRegistro";
+import { login } from "../services/loginService";
+import { save } from "../states/loggedUserSlice";
+import { useDispatch } from "react-redux";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -43,13 +46,111 @@ export const RegistrodeUsuario = () => {
   const [showMessage, setShowMessage] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
+    let formattedValue = value;
+
+    if (name === "rutUsuario") {
+      formattedValue = formatearRUT(value);
+    }
+
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === "checkbox" ? checked : formattedValue,
     });
+
+    if (name === "contrasena") {
+      if (!validarContrasena(value)) {
+        setFeedback({
+          error: "La contraseña no cumple con los requisitos de seguridad",
+          success: null,
+          loading: false,
+        });
+      } else {
+        setFeedback({ error: null, success: null, loading: false });
+      }
+    }
+
+    if (name === "correoElectronico") {
+      if (!validarCorreoElectronico(value)) {
+        setFeedback({
+          error: "El correo electrónico no es válido",
+          success: null,
+          loading: false,
+        });
+      } else {
+        setFeedback({ error: null, success: null, loading: false });
+      }
+    }
+
+    if (name === "rutUsuario" && formattedValue.includes("-")) {
+      if (!validarRUT(formattedValue)) {
+        setFeedback({
+          error: "El RUT no es válido",
+          success: null,
+          loading: false,
+        });
+      } else {
+        setFeedback({ error: "", success: null, loading: false });
+      }
+    }
+  };
+
+  const formatearRUT = (rut: string) => {
+    rut = rut.replace(/[^0-9Kk]/g, "");
+
+    if (rut.length > 1) {
+      rut = rut.slice(0, -1) + "-" + rut.slice(-1);
+    }
+
+    return rut;
+  };
+
+  const validarContrasena = (contrasena: string) => {
+    const minLength = 8;
+    const hasUpperCase = /[A-Z]/.test(contrasena);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(contrasena);
+    return contrasena.length >= minLength && hasUpperCase && hasSpecialChar;
+  };
+
+  const validarCorreoElectronico = (correo: string) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    return regex.test(correo);
+  };
+
+  const validarRUT = (rut: string) => {
+    const regex = /^[0-9]{7,8}-[0-9Kk]$/;
+    if (!regex.test(rut)) {
+      return false;
+    }
+
+    const [numero, digitoVerificador] = rut.split("-");
+    return validarDigitoVerificador(numero, digitoVerificador);
+  };
+
+  const validarDigitoVerificador = (
+    numero: string,
+    digitoVerificador: string
+  ) => {
+    let suma = 0;
+    let multiplicador = 2;
+
+    for (let i = numero.length - 1; i >= 0; i--) {
+      suma += parseInt(numero[i], 10) * multiplicador;
+      multiplicador = multiplicador === 7 ? 2 : multiplicador + 1;
+    }
+
+    const dvCalculado = 11 - (suma % 11);
+    const dv =
+      dvCalculado === 11
+        ? "0"
+        : dvCalculado === 10
+        ? "K"
+        : dvCalculado.toString();
+
+    return dv.toUpperCase() === digitoVerificador.toUpperCase();
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -66,7 +167,8 @@ export const RegistrodeUsuario = () => {
     }
 
     try {
-      // Enviar los datos del usuario a la API de registro
+      hashPassword(formData.contrasena);
+
       const response = await fetch(`${apiUrl}/usuarios/registrar/cliente`, {
         method: "POST",
         headers: {
@@ -84,6 +186,15 @@ export const RegistrodeUsuario = () => {
         }),
       });
 
+      if (response.status === 409 || response.status === 404) {
+        setFeedback({
+          error: `El usuario con RUT ${formData.rutUsuario} ya se encuentra registrado`,
+          success: null,
+          loading: false,
+        });
+        return;
+      }
+
       if (!response.ok) {
         throw new Error(`Error ${response.status}: ${response.statusText}`);
       }
@@ -91,14 +202,22 @@ export const RegistrodeUsuario = () => {
       setFeedback({ error: null, success: "Registro exitoso", loading: false });
       setShowMessage(true);
 
-      const hashedPassword = await hashPassword(formData.contrasena);
-      if (!hashedPassword) {
-        console.error("Error al hashear la contraseña");
+      // Login automático después del registro exitoso
+      const user = await login(formData.correoElectronico, formData.contrasena);
+      if (user) {
+        dispatch(save(user));
+        setShowMessage(true); // Mostrar el modal de registro exitoso
+      } else {
+        setFeedback({
+          error: "Error al iniciar sesión automáticamente",
+          success: null,
+          loading: false,
+        });
       }
     } catch (error) {
       console.error("Error al registrar el usuario:", error);
       setFeedback({
-        error: "Error al registrar el usuario",
+        error: "Debe llenar todos los campos del formulario",
         success: null,
         loading: false,
       });
@@ -107,7 +226,7 @@ export const RegistrodeUsuario = () => {
 
   const irAPerfil = () => {
     setShowMessage(false);
-    navigate("/login");
+    navigate("/perfil-usuario");
   };
 
   return (
@@ -271,13 +390,14 @@ export const RegistrodeUsuario = () => {
                     placeholder="Rut"
                     value={formData.rutUsuario}
                     onChange={handleInputChange}
-                    // isValid={touched.rutUsuario && !errors.rutUsuario}
-                    // isInvalid={!!errors.rutUsuario}
                     style={{
                       borderRadius: "32px",
                       width: "370px",
                     }}
                   />
+                  {feedback.error === "El RUT no es válido" && (
+                    <p style={{ color: "red" }}>{feedback.error}</p>
+                  )}
                 </Col>
               </Form.Group>
 
@@ -305,13 +425,14 @@ export const RegistrodeUsuario = () => {
                     placeholder="Correo"
                     value={formData.correoElectronico}
                     onChange={handleInputChange}
-                    // isValid={touched.correoElectronico && !errors.correoElectronico}
-                    // isInvalid={!!errors.correoElectronico}
                     style={{
                       borderRadius: "32px",
                       width: "370px",
                     }}
                   />
+                  {feedback.error === "El correo electrónico no es válido" && (
+                    <p style={{ color: "red" }}>{feedback.error}</p>
+                  )}
                 </Col>
               </Form.Group>
 
@@ -458,8 +579,6 @@ export const RegistrodeUsuario = () => {
                     placeholder="********"
                     value={formData.contrasena}
                     onChange={handleInputChange}
-                    // isValid={touched.correoElectronico && !errors.correoElectronico}
-                    // isInvalid={!!errors.correoElectronico}
                     style={{
                       borderRadius: "32px",
                       width: "370px",
@@ -594,12 +713,12 @@ export const RegistrodeUsuario = () => {
                   )}
                 </Col>
               </Row>
-              <ModalRegistro
-                show={showMessage}
-                onHide={() => setShowMessage(false)}
-                irAPerfil={irAPerfil}
-              />
             </Form>
+            <ModalRegistro
+              show={showMessage}
+              onHide={() => setShowMessage(false)}
+              irAPerfil={irAPerfil}
+            />
           </Col>
         </Row>
 
