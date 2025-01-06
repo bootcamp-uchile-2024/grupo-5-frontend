@@ -42,7 +42,7 @@ export const LoginPage = () => {
 
       if (user) {
         dispatch(save(user));
-        navigate("/perfil-usuario");
+        navigate("/direccion");
       } else {
         setError("Credenciales inválidas");
       }
