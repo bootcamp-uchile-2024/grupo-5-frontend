@@ -18,7 +18,7 @@ export const ModalCarrito = forwardRef((_props, ref) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const usuario = useSelector((state: RootState) => state.user);
+  const usuario = useSelector((state: RootState) => state.user) as { idUsuario: number };
   const navigate = useNavigate();
 
   useImperativeHandle(ref, () => ({
@@ -194,7 +194,7 @@ export const ModalCarrito = forwardRef((_props, ref) => {
                             }}
                             onClick={() => handleIncrease(producto.id)}
                           >
-                            <img src={plus} alt="" />
+                            <img src={plus} alt="Aumentar-producto" />
                           </Button>
                         </div>
                         <Button

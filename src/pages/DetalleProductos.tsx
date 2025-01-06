@@ -1,25 +1,38 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../states/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeFromCart, updateQuantity } from "../states/cartSlice";
+import { RootState } from "../states/store";
 import { GetProductoDto } from "../interface/Productos/dto/GetProductoDto";
 import styles from "./css/DetalleProductos.module.css";
 import { MainLayout } from "../layout/MainLayout";
-import addIcon from "../assets/icons/icono_carrito.svg";
-import { Carousel, Col, Container, Row, Accordion, Button } from "react-bootstrap";
+import {
+  Carousel,
+  Col,
+  Container,
+  Row,
+  Accordion,
+  Button,
+} from "react-bootstrap";
 import carouselImage from "../assets/Carousels/Carousels2.png";
 import { CatalogoProductos } from "./CatalogoProductos";
+import addIcon from "../assets/icons/icono_carrito.svg";
+import trash from "../assets/icons/trash.svg";
+import plus from "../assets/icons/plus.svg";
 
 export const DetalleProductos = () => {
   const { id } = useParams<{ id: string }>();
   const [producto, setProducto] = useState<GetProductoDto | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const cart = useSelector((state: RootState) => state.cart.productos);
   const dispatch = useDispatch();
 
   const apiUrl = import.meta.env.VITE_API_URL;
   if (!apiUrl) {
-    throw new Error("La URL de la API no está definida en las variables de entorno");
+    throw new Error(
+      "La URL de la API no está definida en las variables de entorno"
+    );
   }
 
   useEffect(() => {
@@ -48,14 +61,19 @@ export const DetalleProductos = () => {
   }, [id]);
 
   const handleAddToCart = (producto: GetProductoDto) => {
-    if (producto) {
-      dispatch(
-        addToCart({
-          ...producto,
-          stockProducto: 1,
-        })
-      );
-    }
+    dispatch(addToCart({ ...producto, stockProducto: 1 }));
+  };
+
+  const handleIncrease = (id: number) => {
+    dispatch(updateQuantity({ id, cantidad: 1 }));
+  };
+
+  const handleDecrease = (id: number) => {
+    dispatch(updateQuantity({ id, cantidad: -1 }));
+  };
+
+  const handleRemove = (id: number) => {
+    dispatch(removeFromCart(id));
   };
 
   if (loading) return <div>Cargando producto...</div>;
@@ -83,7 +101,8 @@ export const DetalleProductos = () => {
         {producto && (
           <Row className="d-flex justify-content-center align-items-center">
             <Col xs={2} sm={3} md={3} className={styles.productoIzquierda}>
-              {producto.imagenesProducto && producto.imagenesProducto.length > 0 ? (
+              {producto.imagenesProducto &&
+              producto.imagenesProducto.length > 0 ? (
                 <Carousel
                   slide={false}
                   indicators={false}
@@ -134,37 +153,82 @@ export const DetalleProductos = () => {
             <Col xs={3} sm={3} md={3} className={styles.productoDerecha}>
               <p className={styles.productoNombre}>{producto.nombreProducto}</p>
               <p className={styles.productoMarca}>{producto.marcaProducto}</p>
-              <p className={styles.productoPrecio}>${producto.precioProducto}</p>
+              <p className={styles.productoPrecio}>
+                ${producto.precioProducto}
+              </p>
             </Col>
             <Col xs={3} sm={3} md={3}>
               <div className="d-flex flex-column align-items-end">
-                <Button
-                  style={{
-                    backgroundColor: "#F2B705",
-                    width: "124px",
-                    height: "44px",
-                    padding: "12",
-                    borderRadius: "32px",
-                    color: "#222222",
-                    fontSize: "16px",
-                    fontFamily: "Montserrat",
-                    fontWeight: "700",
-                    border: "1px solid #FFC71D",
-                    marginBottom: "16px",
-                  }}
-                  onClick={() => handleAddToCart(producto)}
-                >
-                  Añadir
-                  <img
-                    src={addIcon}
-                    alt="Añadir"
+                {cart.find((p) => p.id === producto.id) ? (
+                  <div className={styles.cartButtons}>
+                    <Button
+                      size="sm"
+                      className="btn-trash"
+                      style={{
+                        backgroundColor: "transparent",
+                        borderColor: "transparent",
+                        color: "inherit",
+                        boxShadow: "none",        
+                      }}
+                      onClick={() => {
+                        if (
+                          cart.find((p) => p.id === producto.id)
+                            ?.stockProducto! > 1
+                        ) {
+                          handleDecrease(producto.id);
+                        } else {
+                          handleRemove(producto.id);
+                        }
+                      }}
+                    >
+                      <img style={{ width: "24px", height: "24px" }} src={trash} alt="trash" />
+                    </Button>
+                    <span className="mx-2">
+                      {cart.find((p) => p.id === producto.id)?.stockProducto}
+                    </span>
+                    <Button
+                      size="sm"
+                      className="btn-plus"
+                      style={{
+                        backgroundColor: "transparent",
+                        borderColor: "transparent",
+                        color: "inherit",
+                        boxShadow: "none",
+                      }}
+                      onClick={() => handleIncrease(producto.id)}
+                    >
+                      <img style={{ width: "24px", height: "24px" }} src={plus} alt="Aumentar-producto" />
+                    </Button>
+                  </div>
+                ) : (
+                  <Button
                     style={{
-                      width: "20px",
-                      height: "20px",
-                      marginLeft: "8px",
+                      backgroundColor: "#F2B705",
+                      width: "124px",
+                      height: "44px",
+                      padding: "12",
+                      borderRadius: "32px",
+                      color: "#222222",
+                      fontSize: "16px",
+                      fontFamily: "Montserrat",
+                      fontWeight: "700",
+                      border: "1px solid #FFC71D",
+                      marginBottom: "16px",
                     }}
-                  />
-                </Button>
+                    onClick={() => handleAddToCart(producto)}
+                  >
+                    Añadir
+                    <img
+                      src={addIcon}
+                      alt="Añadir"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        marginLeft: "8px",
+                      }}
+                    />
+                  </Button>
+                )}
                 <Button
                   className="btn-detalle mt-2"
                   style={{
@@ -203,7 +267,9 @@ export const DetalleProductos = () => {
                   <Accordion.Header>
                     <span className="fs-4">Descripción</span>
                   </Accordion.Header>
-                  <Accordion.Body>{producto.descripcionProducto}</Accordion.Body>
+                  <Accordion.Body>
+                    {producto.descripcionProducto}
+                  </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
             </Col>

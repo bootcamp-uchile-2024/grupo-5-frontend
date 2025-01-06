@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import { CatalogoProductoDto } from "../interface/Productos/dto/CatalogoProductoDto";
 import styles from "./css/Catalogo.module.css";
-import { addToCart } from "../states/cartSlice";
-import { useDispatch } from "react-redux";
+import { addToCart, removeFromCart, updateQuantity } from "../states/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
 import Carousel from "react-bootstrap/Carousel";
 import addIcon from "../assets/icons/icono_carrito.svg";
+import trash from "../assets/icons/trash.svg";
+import plus from "../assets/icons/plus.svg";
 import { Row, Col, Container, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { formatPrice } from "../utils/formatPrice";
+import { RootState } from "../states/store";
 
 export const CatalogoProductos = () => {
   const [productos, setProductos] = useState<CatalogoProductoDto[]>([]);
+  const cart = useSelector((state: RootState) => state.cart.productos);
   const dispatch = useDispatch();
 
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -49,6 +53,18 @@ export const CatalogoProductos = () => {
 
   const handleAddToCart = (producto: CatalogoProductoDto) => {
     dispatch(addToCart({ ...producto, stockProducto: 1 }));
+  };
+
+  const handleIncrease = (id: number) => {
+    dispatch(updateQuantity({ id, cantidad: 1 }));
+  };
+
+  const handleDecrease = (id: number) => {
+    dispatch(updateQuantity({ id, cantidad: -1 }));
+  };
+
+  const handleRemove = (id: number) => {
+    dispatch(removeFromCart(id));
   };
 
   const chunkSize = 4;
@@ -130,32 +146,83 @@ export const CatalogoProductos = () => {
                       <span>{formatPrice(producto.precioProducto)}</span>
                     </p>
                     <div className={styles.buttonContainer}>
-                      <Button
-                        style={{
-                          backgroundColor: "#F2B705",
-                          width: "124px",
-                          height: "44px",
-                          padding: "12",
-                          borderRadius: "32px",
-                          color: "#222222",
-                          fontSize: "16px",
-                          fontFamily: "Montserrat",
-                          fontWeight: "700",
-                          border: "1px solid #FFC71D",
-                        }}
-                        onClick={() => handleAddToCart(producto)}
-                      >
-                        Añadir
-                        <img
-                          src={addIcon}
-                          alt="Añadir"
+                    {cart.find((p) => p.id === producto.id) ? (
+                        <div className={styles.cartButtons}>
+                          <Button
+                            style={{
+                              backgroundColor: "transparent",
+                              borderColor: "transparent",
+                              color: "black",
+                              boxShadow: "none",
+                            }}
+                            onClick={() => {
+                              if (
+                                cart.find((p) => p.id === producto.id)
+                                  ?.stockProducto! > 1
+                              ) {
+                                handleDecrease(producto.id);
+                              } else {
+                                handleRemove(producto.id);
+                              }
+                            }}
+                          >
+                            <img
+                              style={{ width: "24px", height: "24px" }}
+                              src={trash}
+                              alt="trash"
+                            />
+                          </Button>
+                          <span className="mx-2">
+                            {
+                              cart.find((p) => p.id === producto.id)
+                                ?.stockProducto
+                            }
+                          </span>
+                          <Button
+                            className="btn-plus"
+                            style={{
+                              backgroundColor: "transparent",
+                              borderColor: "transparent",
+                              color: "inherit",
+                              boxShadow: "none",
+                            }}
+                            onClick={() => handleIncrease(producto.id)}
+                          >
+                            <img
+                              style={{ width: "24px", height: "24px" }}
+                              src={plus}
+                              alt="Aumentar-producto"
+                            />
+                          </Button>
+                        </div>
+                      ) : (
+                        <Button
                           style={{
-                            width: "20px",
-                            height: "20px",
-                            marginLeft: "8px",
+                            backgroundColor: "#F2B705",
+                            width: "124px",
+                            height: "44px",
+                            padding: "12",
+                            borderRadius: "32px",
+                            color: "#222222",
+                            fontSize: "16px",
+                            fontFamily: "Montserrat",
+                            fontWeight: "700",
+                            border: "1px solid #FFC71D",
                           }}
-                        />
-                      </Button>
+                          onClick={() => handleAddToCart(producto)}
+                        >
+                          Añadir
+                          <img
+                            src={addIcon}
+                            alt="Añadir"
+                            style={{
+                              width: "20px",
+                              height: "20px",
+                              marginLeft: "8px",
+                            }}
+                          />
+                        </Button>
+                      )}
                       <Button
                         className="btn-detalle"
                         style={{
