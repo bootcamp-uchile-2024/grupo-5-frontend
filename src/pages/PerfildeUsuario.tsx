@@ -5,6 +5,12 @@ import { useNavigate } from "react-router-dom";
 import AvatarPerfil from "../assets/icons/Avatar_perfil.svg";
 import Add_mascotas from "../assets/icons/Add_mascotas.svg";
 import styles from "./css/perfilUsuario.module.css";
+import MisDirecciones from "../assets/PerfilUsuarios/MisDirecciones.png";
+import MisMediosdePago from "../assets/PerfilUsuarios/MisMediosdePago.png";
+import MisCompras from "../assets/PerfilUsuarios/MisCompras.png";
+import MisDatos from "../assets/PerfilUsuarios/MisDatos.png";
+import Carousels1 from "../assets/Carousels/Carousels1.png";
+import Carousels2 from "../assets/Carousels/Carousels2.png";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -15,12 +21,7 @@ export const PerfildeUsuario = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setPerfiles([
-      "src/assets/PerfilUsuarios/MisDirecciones.png",
-      "src/assets/PerfilUsuarios/MisMediosdePago.png",
-      "src/assets/PerfilUsuarios/MisCompras.png",
-      "src/assets/PerfilUsuarios/MisDatos.png",
-    ]);
+    setPerfiles([MisDirecciones, MisMediosdePago, MisCompras, MisDatos]);
   }, []);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -143,8 +144,8 @@ export const PerfildeUsuario = () => {
 
         <Row className="justify-content-center mb-5">
           <Col xs="auto" className="d-flex flex-column align-items-center">
-           <img src={Add_mascotas} alt="Agregar mascota" />
-           <p className={styles.addMascotas}>Agregar mascota</p>
+            <img src={Add_mascotas} alt="Agregar mascota" />
+            <p className={styles.addMascotas}>Agregar mascota</p>
           </Col>
         </Row>
 
@@ -176,7 +177,7 @@ export const PerfildeUsuario = () => {
           >
             <Carousel.Item>
               <Image
-                src="src/assets/Carousels/Carousels1.png"
+                src={Carousels1}
                 alt="Primera imagen"
                 fluid
                 style={{
@@ -188,7 +189,7 @@ export const PerfildeUsuario = () => {
             </Carousel.Item>
             <Carousel.Item>
               <Image
-                src="src/assets/Carousels/Carousels2.png"
+                src={Carousels2}
                 alt="Segunda imagen"
                 fluid
                 style={{

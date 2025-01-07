@@ -155,7 +155,34 @@ export const RegistrodeUsuario = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFeedback({ error: null, success: null, loading: true });
+
+    const {
+      rutUsuario,
+      contrasena,
+      repetirContrasena,
+      nombres,
+      apellidos,
+      correoElectronico,
+      telefono,
+      chkTerminos,
+    } = formData;
+    if (
+      !rutUsuario ||
+      !contrasena ||
+      !repetirContrasena ||
+      !nombres ||
+      !apellidos ||
+      !correoElectronico ||
+      !telefono ||
+      !chkTerminos
+    ) {
+      setFeedback({
+        error: "Debe llenar todos los campos del formulario",
+        success: null,
+        loading: false,
+      });
+      return;
+    }
 
     if (formData.contrasena !== formData.repetirContrasena) {
       setFeedback({
@@ -202,7 +229,7 @@ export const RegistrodeUsuario = () => {
       setFeedback({ error: null, success: "Registro exitoso", loading: false });
       setShowMessage(true);
 
-            const user = await login(formData.correoElectronico, formData.contrasena);
+      const user = await login(formData.correoElectronico, formData.contrasena);
       if (user) {
         dispatch(save(user));
         setShowMessage(true);
@@ -216,7 +243,7 @@ export const RegistrodeUsuario = () => {
     } catch (error) {
       console.error("Error al registrar el usuario:", error);
       setFeedback({
-        error: "Debe llenar todos los campos del formulario",
+        error: "El usuario con RUT ya se encuentra registrado",
         success: null,
         loading: false,
       });
