@@ -1,5 +1,5 @@
 .footer {
-  background-color: #05C7F2;
+  background-color: #05c7f2;
   padding: 40px 20px;
   color: white;
 }
@@ -22,12 +22,12 @@
   margin: 0 15px;
 }
 
-.footerColumn img{
+.footerColumn img {
   width: 250px;
 }
 
 .footerTitle {
-  color: #000;
+  color: white;
   font-weight: bold;
   margin-bottom: 20px;
 }
@@ -68,6 +68,5 @@
 }
 
 .footerIcons a:hover {
-  color: #FFC71D;
+  color: #ffc71d;
 }
-

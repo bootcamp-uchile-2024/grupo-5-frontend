@@ -1,6 +1,13 @@
 import { Nav } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleNavigateToCategoriaPerro = () => {
+    navigate("/categoria-perro");
+  };
+
   return (
     <Nav
       className="d-flex justify-content-between"
@@ -30,7 +37,7 @@ export const Navbar = () => {
             fontWeight: "700",
             borderBottom: "none",
           }}
-          href="/categoria-perro"
+          onClick={handleNavigateToCategoriaPerro}
         >
           Perros
         </Nav.Link>

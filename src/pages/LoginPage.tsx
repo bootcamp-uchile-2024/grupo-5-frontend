@@ -10,6 +10,7 @@ import View from "../assets/icons/View.svg";
 import { login } from "../services/loginService";
 import { UsuarioDto } from "../interface/Usuarios/dto/UsuarioDto";
 import { RootState } from "../states/store";
+import { setUserId, setCarroCompraId } from "../states/cartSlice";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -47,6 +48,27 @@ export const LoginPage = () => {
 
       if (user) {
         dispatch(save(user));
+        dispatch(setUserId(user.idUsuario));
+
+        const response = await fetch(
+          `http://107.21.145.167:5001/carrocompra/${user.idUsuario}`,
+          {
+            method: "GET",
+            headers: {
+              accept: "*/*",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        const idCarroCompra = data.idCarroCompra;
+
+        dispatch(setCarroCompraId(idCarroCompra));
+
         navigate("/direccion");
       } else {
         setError("Credenciales inválidas");

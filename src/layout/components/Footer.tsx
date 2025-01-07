@@ -14,12 +14,10 @@ export const Footer = () => {
     <footer className={styles.footer}>
       <div className={styles.footerContainer}>
         <div className={styles.footerColumns}>
-          {/* Columna de logotipo y enlaces principales */}
           <div className={styles.footerColumn}>
             <img src={img} alt="" />
           </div>
 
-          {/* Columna Título */}
           <div className={styles.footerColumn}>
             <h5 className={styles.footerTitle}>Título</h5>
             <ul className={styles.footerList}>
@@ -32,7 +30,6 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Columna Mi cuenta */}
           <div className={styles.footerColumn}>
             <h5 className={styles.footerTitle}>Mi cuenta</h5>
             <ul className={styles.footerList}>
@@ -48,7 +45,6 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Columna Guía de compra */}
           <div className={styles.footerColumn}>
             <h5 className={styles.footerTitle}>Guía de compra</h5>
             <ul className={styles.footerList}>
@@ -64,9 +60,8 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* Columna Guía de compra */}
           <div className={styles.footerColumn}>
-            <h5 className={styles.footerTitle}>¡Siguénos!</h5>
+            <h5 className={styles.footerTitle}>¡síguenos!</h5>
             <div className={styles.footerIcons}>
               <a href="#!">
                 <FontAwesomeIcon icon={faInstagram} />

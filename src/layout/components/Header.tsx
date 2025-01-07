@@ -81,8 +81,13 @@ export const Header = () => {
                   <NavDropdown
                     title={`Hola, ${getUsernameFromEmail(userState.email)}`}
                   >
+                    <NavDropdown.Item
+                      onClick={() => navigate("/perfil-usuario")}
+                    >
+                      Perfil de Usuario
+                    </NavDropdown.Item>
                     <NavDropdown.Item onClick={handleLogout}>
-                      Logout
+                      Cerrar Sesión
                     </NavDropdown.Item>
                   </NavDropdown>
                   <img

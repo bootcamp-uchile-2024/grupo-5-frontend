@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ModalPago } from "../components/ModalPago";
 import { formatPrice } from "../utils/formatPrice";
-import { clearCartAndLocalStorage } from "../states/cartSlice";
+import { clearCartAndLocalStorage, enviarPedido } from "../states/cartSlice";
 
 export const PagoPage = () => {
   const [selectedPago, setSelectedPago] = useState<string | null>(null);
@@ -31,6 +31,15 @@ export const PagoPage = () => {
 
   const handlePago = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedPago(event.target.id);
+  };
+
+  const handleCheckout = () => {
+    dispatch(enviarPedido());
+  };
+
+  const handleButtonClick = () => {
+    handlePagarClick();
+    handleCheckout();
   };
 
   const handlePagarClick = () => {
@@ -237,7 +246,7 @@ export const PagoPage = () => {
                 fontWeight: "700",
                 marginTop: "10px",
               }}
-              onClick={handlePagarClick}
+              onClick={handleButtonClick}
               disabled={!selectedPago}
             >
               Pagar

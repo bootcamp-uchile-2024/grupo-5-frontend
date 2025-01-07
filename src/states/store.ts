@@ -6,6 +6,7 @@ import productsSlice from "./ProductSlice";
 import filtersReducer from "./filtersSlice";
 import formReducer from "./formSlice";
 import navigationReducer from "./navigationSlice";
+import userCarroReducer from "./UserCarro";
 
 const loadState = () => {
   try {
@@ -32,6 +33,9 @@ const persistedState: Middleware = (store) => (next) => (action) => {
 
   const formAsJson = JSON.stringify(estado.form);
   localStorage.setItem("__redux__form__", formAsJson);
+
+  const UserCarroAsJson = JSON.stringify(estado.form);
+  localStorage.setItem("__redux__UserCarro__", UserCarroAsJson);
 };
 
 const preloadedState = {
@@ -47,6 +51,7 @@ export const store = configureStore({
     filters: filtersReducer,
     form: formReducer,
     navigation: navigationReducer,
+    userCarroSlice: userCarroReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(persistedState),

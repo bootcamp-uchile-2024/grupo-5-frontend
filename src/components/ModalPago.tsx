@@ -30,7 +30,7 @@ export const ModalPago = ({ show, onHide }: ModalPagoProps) => {
         <img className="img_check" src={check} alt="Check" />
         <p className="parrafo_compra">Tu compra se ha realizado con éxito</p>
         <p className="orden">N° Orden</p>
-        <p className="n_orden">xxxxxxx</p>
+        <p className="n_orden">x</p>
         <img className="img_correo" src={Message} alt="Message" />
         <p className="parrafo_correo">
           Se ha enviado tu boleta a correo electrónico con el detalle de tu

@@ -48,7 +48,7 @@ export const DireccionPage = () => {
   const [direccionToEdit, setDireccionToEdit] = useState<Direccion | null>(
     null
   );
-  const idUsuario = useSelector((state: RootState) => state.user.idUsuario);
+  const idUsuario = useSelector((state: RootState) => state.cart.idUsuario);
 
   const navigate = useNavigate();
 
@@ -232,60 +232,62 @@ export const DireccionPage = () => {
           <Col md={5}>
             <Form>
               <Form.Group as={Row} className="mb-3">
-                {direcciones.length > 0 ? (
-                  direcciones.map((direccion) => (
-                    <Form.Check
-                      key={direccion.idDireccion}
-                      style={{
-                        border:
-                          direccion.idDireccion ===
-                          selectedDireccion?.idDireccion
-                            ? "1px solid #F2B705"
-                            : "1px solid #BFBFBF",
-                        backgroundColor:
-                          direccion.idDireccion ===
-                          selectedDireccion?.idDireccion
-                            ? "#FCEDC0"
-                            : "transparent",
-                        display: "flex",
-                        alignItems: "center",
-                        width: "100%",
-                        marginBottom: "10px",
-                        borderRadius: "8px",
-                        padding: "15px 25px",
-                      }}
-                      type="radio"
-                      label={
-                        <>
-                          <div className={styles.direccionContainer}>
-                            <p className={styles.alias}>{direccion.alias}</p>
-                            <p className={styles.direccionUsuario}>
-                              {direccion.calle} {direccion.numero}
-                            </p>
-                            <p className={styles.comuna}>
-                              {direccion.comuna.nombreComuna}
-                            </p>
-                          </div>
-                          <div className={styles.editTrash}>
-                            <img
-                              src={Edit}
-                              alt="Edit"
-                              onClick={() => handleShowEditModal(direccion)}
-                            />
-                            <img
-                              src={Trash}
-                              alt="Trash"
-                              onClick={() => handleShowConfirmModal(direccion)}
-                            />
-                          </div>
-                        </>
-                      }
-                      name="formHorizontalRadios"
-                      id={`formHorizontalRadios${direccion.idDireccion}`}
-                      onChange={() => setSelectedDireccion(direccion)}
-                    />
-                  ))
-                ) : null}
+                {direcciones.length > 0
+                  ? direcciones.map((direccion) => (
+                      <Form.Check
+                        key={direccion.idDireccion}
+                        style={{
+                          border:
+                            direccion.idDireccion ===
+                            selectedDireccion?.idDireccion
+                              ? "1px solid #F2B705"
+                              : "1px solid #BFBFBF",
+                          backgroundColor:
+                            direccion.idDireccion ===
+                            selectedDireccion?.idDireccion
+                              ? "#FCEDC0"
+                              : "transparent",
+                          display: "flex",
+                          alignItems: "center",
+                          width: "100%",
+                          marginBottom: "10px",
+                          borderRadius: "8px",
+                          padding: "15px 25px",
+                        }}
+                        type="radio"
+                        label={
+                          <>
+                            <div className={styles.direccionContainer}>
+                              <p className={styles.alias}>{direccion.alias}</p>
+                              <p className={styles.direccionUsuario}>
+                                {direccion.calle} {direccion.numero}
+                              </p>
+                              <p className={styles.comuna}>
+                                {direccion.comuna.nombreComuna}
+                              </p>
+                            </div>
+                            <div className={styles.editTrash}>
+                              <img
+                                src={Edit}
+                                alt="Edit"
+                                onClick={() => handleShowEditModal(direccion)}
+                              />
+                              <img
+                                src={Trash}
+                                alt="Trash"
+                                onClick={() =>
+                                  handleShowConfirmModal(direccion)
+                                }
+                              />
+                            </div>
+                          </>
+                        }
+                        name="formHorizontalRadios"
+                        id={`formHorizontalRadios${direccion.idDireccion}`}
+                        onChange={() => setSelectedDireccion(direccion)}
+                      />
+                    ))
+                  : null}
               </Form.Group>
             </Form>
           </Col>

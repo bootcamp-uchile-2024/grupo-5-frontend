@@ -7,7 +7,13 @@ import { removeFromCart, updateQuantity } from "../states/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../states/store";
 import { Offcanvas, Button, Carousel, Card, Row, Col } from "react-bootstrap";
-import { useState, forwardRef, useImperativeHandle } from "react";
+import {
+  useState,
+  forwardRef,
+  useImperativeHandle,
+  useEffect,
+  useRef,
+} from "react";
 import { formatPrice } from "../utils/formatPrice";
 import { useNavigate } from "react-router-dom";
 import { setFromModalCarrito } from "../states/navigationSlice";
@@ -18,8 +24,11 @@ export const ModalCarrito = forwardRef((_props, ref) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const usuario = useSelector((state: RootState) => state.user) as { idUsuario: number };
+  const usuario = useSelector((state: RootState) => state.user) as {
+    idUsuario: number;
+  };
   const navigate = useNavigate();
+  const prevCartRef = useRef(cart);
 
   useImperativeHandle(ref, () => ({
     openModal: handleShow,
@@ -58,6 +67,20 @@ export const ModalCarrito = forwardRef((_props, ref) => {
     handleCompare();
     handleNavigate();
   };
+
+  useEffect(() => {
+    const prevCart = prevCartRef.current;
+    if (cart.length > prevCart.length) {
+      const newProduct = cart.find(
+        (producto) =>
+          !prevCart.some((prevProducto) => prevProducto.id === producto.id)
+      );
+      if (newProduct) {
+        handleShow();
+      }
+    }
+    prevCartRef.current = cart;
+  }, [cart]);
 
   return (
     <>
@@ -247,7 +270,10 @@ export const ModalCarrito = forwardRef((_props, ref) => {
                   height: " 79px",
                 }}
               >
-                <button onClick={handleNavigateAndCompare} className="link-custom">
+                <button
+                  onClick={handleNavigateAndCompare}
+                  className="link-custom"
+                >
                   Ir a Comprar
                 </button>
               </Col>
