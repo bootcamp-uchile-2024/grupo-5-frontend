@@ -16,6 +16,7 @@ import {
 } from "react-bootstrap";
 import carouselImage from "../assets/Carousels/Carousels2.png";
 import { CatalogoProductos } from "./CatalogoProductos";
+import { formatPrice } from "../utils/formatPrice";
 import addIcon from "../assets/icons/icono_carrito.svg";
 import trash from "../assets/icons/trash.svg";
 import plus from "../assets/icons/plus.svg";
@@ -154,7 +155,7 @@ export const DetalleProductos = () => {
               <p className={styles.productoNombre}>{producto.nombreProducto}</p>
               <p className={styles.productoMarca}>{producto.marcaProducto}</p>
               <p className={styles.productoPrecio}>
-                ${producto.precioProducto}
+                {formatPrice(producto.precioProducto)}
               </p>
             </Col>
             <Col xs={3} sm={3} md={3}>
@@ -168,7 +169,7 @@ export const DetalleProductos = () => {
                         backgroundColor: "transparent",
                         borderColor: "transparent",
                         color: "inherit",
-                        boxShadow: "none",        
+                        boxShadow: "none",
                       }}
                       onClick={() => {
                         if (
@@ -181,7 +182,11 @@ export const DetalleProductos = () => {
                         }
                       }}
                     >
-                      <img style={{ width: "24px", height: "24px" }} src={trash} alt="trash" />
+                      <img
+                        style={{ width: "24px", height: "24px" }}
+                        src={trash}
+                        alt="trash"
+                      />
                     </Button>
                     <span className="mx-2">
                       {cart.find((p) => p.id === producto.id)?.stockProducto}
@@ -197,7 +202,11 @@ export const DetalleProductos = () => {
                       }}
                       onClick={() => handleIncrease(producto.id)}
                     >
-                      <img style={{ width: "24px", height: "24px" }} src={plus} alt="Aumentar-producto" />
+                      <img
+                        style={{ width: "24px", height: "24px" }}
+                        src={plus}
+                        alt="Aumentar-producto"
+                      />
                     </Button>
                   </div>
                 ) : (

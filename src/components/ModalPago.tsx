@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import "./css/ModalPago.css";
 import check from "../assets/icons/Check_fill.svg";
@@ -9,6 +10,17 @@ interface ModalPagoProps {
 }
 
 export const ModalPago = ({ show, onHide }: ModalPagoProps) => {
+  const [numeroOrden, setNumeroOrden] = useState<string>("");
+
+  useEffect(() => {
+    if (show) {
+      const generarNumeroOrden = () => {
+        return Math.floor(100000 + Math.random() * 900000).toString();
+      };
+      setNumeroOrden(generarNumeroOrden());
+    }
+  }, [show]);
+
   return (
     <Modal
       show={show}
@@ -30,7 +42,7 @@ export const ModalPago = ({ show, onHide }: ModalPagoProps) => {
         <img className="img_check" src={check} alt="Check" />
         <p className="parrafo_compra">Tu compra se ha realizado con éxito</p>
         <p className="orden">N° Orden</p>
-        <p className="n_orden">x</p>
+        <p className="n_orden">{numeroOrden}</p>
         <img className="img_correo" src={Message} alt="Message" />
         <p className="parrafo_correo">
           Se ha enviado tu boleta a correo electrónico con el detalle de tu

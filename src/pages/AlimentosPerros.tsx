@@ -19,6 +19,7 @@ import {
   setOrdenarFilter,
   clearFilters,
 } from "../states/filtersSlice";
+import { formatPrice } from "../utils/formatPrice";
 
 export const AlimentosPerros = () => {
   const [productos, setProductos] = useState<CatalogoProductoDto[]>([]);
@@ -30,7 +31,6 @@ export const AlimentosPerros = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const productosPerPage = 15;
 
-  // Estado local para los filtros seleccionados
   const [selectedMarca, setSelectedMarca] = useState<string[]>([]);
   const [selectedTipo, setSelectedTipo] = useState<string[]>([]);
   const [selectedEdad, setSelectedEdad] = useState<string[]>([]);
@@ -74,18 +74,6 @@ export const AlimentosPerros = () => {
         filters.marca.includes(producto.marcaProducto)
       );
     }
-
-    // if (filters.tipo.length > 0) {
-    //   filtered = filtered.filter((producto) =>
-    //     filters.tipo.includes(producto.TipoProducto)
-    //   );
-    // }
-
-    // if (filters.edad.length > 0) {
-    //   filtered = filtered.filter((producto) =>
-    //     filters.edad.includes(producto.EdadProducto)
-    //   );
-    // }
 
     if (filters.ordenar) {
       switch (filters.ordenar) {
@@ -220,146 +208,206 @@ export const AlimentosPerros = () => {
             <h2>Filtros</h2>
             <Row className="pb-3 pt-0">
               <p className={styles.categoria_filtros}>Marca</p>
-              <Form.Check
-                type="checkbox"
-                label="Royal Canin"
-                onChange={() => handleFilterChange("marca", "Royal Canin")}
-                checked={selectedMarca.includes("Royal Canin")}
-              />
-              <Form.Check
-                type="checkbox"
-                label="Brit"
-                onChange={() => handleFilterChange("marca", "Brit")}
-                checked={selectedMarca.includes("Brit")}
-              />
-              <Form.Check
-                type="checkbox"
-                label="Acana"
-                onChange={() => handleFilterChange("marca", "Acana")}
-                checked={selectedMarca.includes("Acana")}
-              />
-              <Form.Check
-                type="checkbox"
-                label="Pro Plan"
-                onChange={() => handleFilterChange("marca", "Pro Plan")}
-                checked={selectedMarca.includes("Pro Plan")}
-              />
-              <Form.Check
-                type="checkbox"
-                label="Taste of the Wild"
-                onChange={() =>
-                  handleFilterChange("marca", "Taste of the Wild")
-                }
-                checked={selectedMarca.includes("Taste of the Wild")}
-              />
-              <Form.Check
-                type="checkbox"
-                label="Orijen"
-                onChange={() => handleFilterChange("marca", "Orijen")}
-                checked={selectedMarca.includes("Orijen")}
-              />
-              <Form.Check
-                type="checkbox"
-                label="Nutrience"
-                onChange={() => handleFilterChange("marca", "Nutrience")}
-                checked={selectedMarca.includes("Nutrience")}
-              />
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="checkbox"
+                  onChange={() => handleFilterChange("marca", "Royal Canin")}
+                  checked={selectedMarca.includes("Royal Canin")}
+                />
+                <label style={{ marginLeft: "8px" }}>Royal Canin</label>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="checkbox"
+                  onChange={() => handleFilterChange("marca", "Brit")}
+                  checked={selectedMarca.includes("Brit")}
+                />
+                <label style={{ marginLeft: "8px" }}>Brit</label>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="checkbox"
+                  onChange={() => handleFilterChange("marca", "Acana")}
+                  checked={selectedMarca.includes("Acana")}
+                />
+                <label style={{ marginLeft: "8px" }}>Acana</label>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="checkbox"
+                  onChange={() => handleFilterChange("marca", "Pro Plan")}
+                  checked={selectedMarca.includes("Pro Plan")}
+                />
+                <label style={{ marginLeft: "8px" }}>Pro Plan</label>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="checkbox"
+                  onChange={() =>
+                    handleFilterChange("marca", "Taste of the Wild")
+                  }
+                  checked={selectedMarca.includes("Taste of the Wild")}
+                />
+                <label style={{ marginLeft: "8px" }}>Taste of the Wild</label>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="checkbox"
+                  onChange={() => handleFilterChange("marca", "Orijen")}
+                  checked={selectedMarca.includes("Orijen")}
+                />
+                <label style={{ marginLeft: "8px" }}>Orijen</label>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="checkbox"
+                  onChange={() => handleFilterChange("marca", "Nutrience")}
+                  checked={selectedMarca.includes("Nutrience")}
+                />
+                <label style={{ marginLeft: "8px" }}>Nutrience</label>
+              </div>
             </Row>
 
             <Row className="pb-3 pt-0">
               <p className={styles.categoria_filtros}>Tipo de alimento</p>
-              <Form.Check
-                type="checkbox"
-                label="Húmedo"
-                onChange={() => handleFilterChange("tipo", "Húmedo")}
-                checked={selectedTipo.includes("Húmedo")}
-              />
-              <Form.Check
-                type="checkbox"
-                label="Seco"
-                onChange={() => handleFilterChange("tipo", "Seco")}
-                checked={selectedTipo.includes("Seco")}
-              />
-              <Form.Check
-                type="checkbox"
-                label="Mixto"
-                onChange={() => handleFilterChange("tipo", "Mixto")}
-                checked={selectedTipo.includes("Mixto")}
-              />
-              <Form.Check
-                type="checkbox"
-                label="BARF"
-                onChange={() => handleFilterChange("tipo", "BARF")}
-                checked={selectedTipo.includes("BARF")}
-              />
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="checkbox"
+                  onChange={() => handleFilterChange("marca", "Húmedo")}
+                  checked={selectedMarca.includes("Húmedo")}
+                />
+                <label style={{ marginLeft: "8px" }}>Húmedo</label>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="checkbox"
+                  onChange={() => handleFilterChange("marca", "Seco")}
+                  checked={selectedMarca.includes("Seco")}
+                />
+                <label style={{ marginLeft: "8px" }}>Seco</label>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="checkbox"
+                  onChange={() => handleFilterChange("marca", "Mixto")}
+                  checked={selectedMarca.includes("Mixto")}
+                />
+                <label style={{ marginLeft: "8px" }}>Mixto</label>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="checkbox"
+                  onChange={() => handleFilterChange("marca", "BARF")}
+                  checked={selectedMarca.includes("BARF")}
+                />
+                <label style={{ marginLeft: "8px" }}>BARF</label>
+              </div>
             </Row>
 
             <Row className="pb-3 pt-0">
               <p className={styles.categoria_filtros}>Edad</p>
-              <Form.Check
-                type="checkbox"
-                label="Cachorro"
-                onChange={() => handleFilterChange("edad", "Cachorro")}
-                checked={selectedEdad.includes("Cachorro")}
-              />
-              <Form.Check
-                type="checkbox"
-                label="Adulto"
-                onChange={() => handleFilterChange("edad", "Adulto")}
-                checked={selectedEdad.includes("Adulto")}
-              />
-              <Form.Check
-                type="checkbox"
-                label="Senior"
-                onChange={() => handleFilterChange("edad", "Senior")}
-                checked={selectedEdad.includes("Senior")}
-              />
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="checkbox"
+                  onChange={() => handleFilterChange("marca", "Cachorro")}
+                  checked={selectedMarca.includes("Cachorro")}
+                />
+                <label style={{ marginLeft: "8px" }}>Cachorro</label>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="checkbox"
+                  onChange={() => handleFilterChange("marca", "Adulto")}
+                  checked={selectedMarca.includes("Adulto")}
+                />
+                <label style={{ marginLeft: "8px" }}>Adulto</label>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="checkbox"
+                  onChange={() => handleFilterChange("marca", "Senior")}
+                  checked={selectedMarca.includes("Senior")}
+                />
+                <label style={{ marginLeft: "8px" }}>Senior</label>
+              </div>
             </Row>
 
             <Row className="pb-3 pt-0">
               <p className={styles.categoria_filtros}>Ordenar</p>
-              <Form.Check
-                type="radio"
-                label="De la A a la Z"
-                name="ordenar"
-                onChange={() => handleFilterChange("ordenar", "A-Z")}
-                checked={filters.ordenar === "A-Z"}
-              />
-              <Form.Check
-                type="radio"
-                label="De la Z a la A"
-                name="ordenar"
-                onChange={() => handleFilterChange("ordenar", "Z-A")}
-                checked={filters.ordenar === "Z-A"}
-              />
-              <Form.Check
-                type="radio"
-                label="Precio menor primero"
-                name="ordenar"
-                onChange={() => handleFilterChange("ordenar", "PrecioMenor")}
-                checked={filters.ordenar === "PrecioMenor"}
-              />
-              <Form.Check
-                type="radio"
-                label="Precio mayor primero"
-                name="ordenar"
-                onChange={() => handleFilterChange("ordenar", "PrecioMayor")}
-                checked={filters.ordenar === "PrecioMayor"}
-              />
-              <Form.Check
-                type="radio"
-                label="Más vendidos"
-                name="ordenar"
-                onChange={() => handleFilterChange("ordenar", "MasVendidos")}
-                checked={filters.ordenar === "MasVendidos"}
-              />
-              <Form.Check
-                type="radio"
-                label="Recomendados"
-                name="ordenar"
-                onChange={() => handleFilterChange("ordenar", "Recomendados")}
-                checked={filters.ordenar === "Recomendados"}
-              />
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="radio"
+                  name="ordenar"
+                  onChange={() => handleFilterChange("ordenar", "A-Z")}
+                  checked={filters.ordenar === "A-Z"}
+                />
+                <label style={{ marginLeft: "8px" }}>De la A a la Z</label>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="radio"
+                  name="ordenar"
+                  onChange={() => handleFilterChange("ordenar", "Z-A")}
+                  checked={filters.ordenar === "Z-A"}
+                />
+                <label style={{ marginLeft: "8px" }}>De la Z a la A</label>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="radio"
+                  name="ordenar"
+                  onChange={() => handleFilterChange("ordenar", "PrecioMenor")}
+                  checked={filters.ordenar === "PrecioMenor"}
+                />
+                <label style={{ marginLeft: "8px" }}>
+                  Precio menor primero
+                </label>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="radio"
+                  name="ordenar"
+                  onChange={() => handleFilterChange("ordenar", "PrecioMayor")}
+                  checked={filters.ordenar === "PrecioMayor"}
+                />
+                <label style={{ marginLeft: "8px" }}>
+                  Precio mayor primero
+                </label>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="radio"
+                  name="ordenar"
+                  onChange={() => handleFilterChange("ordenar", "MasVendidos")}
+                  checked={filters.ordenar === "MasVendidos"}
+                />
+                <label style={{ marginLeft: "8px" }}>Más vendidos</label>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Form.Check
+                  type="radio"
+                  name="ordenar"
+                  onChange={() => handleFilterChange("ordenar", "Recomendados")}
+                  checked={filters.ordenar === "Recomendados"}
+                />
+                <label style={{ marginLeft: "8px" }}>Recomendados</label>
+              </div>
             </Row>
 
             <div className="d-flex flex-column align-items-center mt-3">
@@ -433,7 +481,7 @@ export const AlimentosPerros = () => {
                       {producto.nombreProducto}
                     </p>
                     <p className={styles.nom_precio}>
-                      ${producto.precioProducto}
+                      {formatPrice(producto.precioProducto)}
                     </p>
                     <div className={styles.buttonContainer}>
                       <Button

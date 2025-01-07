@@ -6,6 +6,7 @@ export interface CartState {
   idUsuario: number;
   idCarroCompra: string | null;
   productos: (CatalogoProductoDto | GetProductoDto)[];
+  mensajePedido?: string,
 }
 
 const loadCartFromLocalStorage = (): CartState => {
@@ -111,18 +112,21 @@ const cartSlice = createSlice({
           body: JSON.stringify(pedido),
         }
       )
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`Error ${response.status}: ${response.statusText}`);
-          }
+      .then((response) => {
+        if (response.status === 201) {
           return response.json();
-        })
-        .then((data) => {
-          console.log("Pedido enviado exitosamente:", data);
-        })
-        .catch((error) => {
-          console.error("Error al enviar el pedido:", error);
-        });
+        } else {
+          throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+      })
+      .then((data) => {
+        console.log("Pedido enviado exitosamente:", data);
+        state.mensajePedido = data.message;
+      })
+      .catch((error) => {
+        console.error("Error al enviar el pedido:", error);
+        state.mensajePedido = `Error al enviar el pedido: ${error.message}`; 
+      });
     },
   },
 });

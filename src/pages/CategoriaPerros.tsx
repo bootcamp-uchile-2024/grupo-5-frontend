@@ -9,7 +9,7 @@ import BannerPerro from "../assets/Banner/perros.png";
 import AlimentoPerro from "../assets/Categorias/alimentos_perro.png";
 import JuguetesPerro from "../assets/Categorias/juguetes_perro.png";
 import SaludPerro from "../assets/Categorias/salud_perro.png";
-
+import { formatPrice } from "../utils/formatPrice";
 import { Container, Row, Col, Button, Pagination } from "react-bootstrap";
 import { MainLayout } from "../layout/MainLayout";
 
@@ -122,7 +122,9 @@ export const CategoriaPerros = () => {
                   )}
                 </div>
                 <p className={styles.nom_producto}>{producto.nombreProducto}</p>
-                <p className={styles.nom_precio}>${producto.precioProducto}</p>
+                <p className={styles.nom_precio}>
+                  {formatPrice(producto.precioProducto)}
+                </p>
                 <div className={styles.buttonContainer}>
                   <Button
                     style={{
