@@ -21,10 +21,15 @@ export const ModalPago = ({ show, onHide }: ModalPagoProps) => {
     }
   }, [show]);
 
+  const handleClose = () => {
+    localStorage.clear();
+    onHide();
+  };
+
   return (
     <Modal
       show={show}
-      onHide={onHide}
+      onHide={handleClose}
       backdrop="static"
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"

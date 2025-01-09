@@ -59,6 +59,8 @@ const parseJwt = (token: string): UsuarioDto | null => {
 export const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
+  localStorage.removeItem("__redux__cart__");
+  localStorage.clear();
 };
 
 export const isAuth = () => {

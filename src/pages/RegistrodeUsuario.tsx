@@ -13,6 +13,7 @@ import { ModalRegistro } from "../components/ModalRegistro";
 import { login } from "../services/loginService";
 import { save } from "../states/loggedUserSlice";
 import { useDispatch } from "react-redux";
+import { setUserId } from "../states/cartSlice";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -226,12 +227,15 @@ export const RegistrodeUsuario = () => {
         throw new Error(`Error ${response.status}: ${response.statusText}`);
       }
 
+      localStorage.clear();
+
       setFeedback({ error: null, success: "Registro exitoso", loading: false });
       setShowMessage(true);
 
       const user = await login(formData.correoElectronico, formData.contrasena);
       if (user) {
         dispatch(save(user));
+        dispatch(setUserId(user.idUsuario));
         setShowMessage(true);
       } else {
         setFeedback({

@@ -28,14 +28,14 @@ const persistedState: Middleware = (store) => (next) => (action) => {
   const estadoAsJson = JSON.stringify(estado.user);
   localStorage.setItem("__redux__user__", estadoAsJson);
 
-  const productsAsJson = JSON.stringify(estado.products);
-  localStorage.setItem("__redux__products__", productsAsJson);
+  // const productsAsJson = JSON.stringify(estado.products);
+  // localStorage.setItem("__redux__products__", productsAsJson);
 
-  const formAsJson = JSON.stringify(estado.form);
-  localStorage.setItem("__redux__form__", formAsJson);
+  // const formAsJson = JSON.stringify(estado.form);
+  // localStorage.setItem("__redux__form__", formAsJson);
 
-  const UserCarroAsJson = JSON.stringify(estado.form);
-  localStorage.setItem("__redux__UserCarro__", UserCarroAsJson);
+  // const UserCarroAsJson = JSON.stringify(estado.form);
+  // localStorage.setItem("__redux__UserCarro__", UserCarroAsJson);
 };
 
 const preloadedState = {

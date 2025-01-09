@@ -6,11 +6,6 @@ interface FormState {
   rut: string;
   correo: string;
   telefono: string;
-  region: string;
-  comuna: string;
-  direccion: string;
-  numero: string;
-  referencias?: string;
 }
 
 const initialState: FormState = {
@@ -19,11 +14,6 @@ const initialState: FormState = {
   rut: "",
   correo: "",
   telefono: "",
-  region: "",
-  comuna: "",
-  direccion: "",
-  numero: "",
-  referencias: "",
 };
 
 const formSlice = createSlice({
@@ -34,14 +24,8 @@ const formSlice = createSlice({
       return { ...state, ...action.payload };
     },
     updateForm: (state, action: PayloadAction<Partial<FormState>>) => {
-      const { idUsuario, region, comuna, direccion, numero, referencias } =
-        action.payload;
+      const { idUsuario } = action.payload;
       if (idUsuario !== undefined) state.idUsuario = idUsuario;
-      if (region !== undefined) state.region = region;
-      if (comuna !== undefined) state.comuna = comuna;
-      if (direccion !== undefined) state.direccion = direccion;
-      if (numero !== undefined) state.numero = numero;
-      if (referencias !== undefined) state.referencias = referencias;
     },
   },
 });

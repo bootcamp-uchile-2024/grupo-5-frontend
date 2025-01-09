@@ -22,6 +22,7 @@ export const LoginPage = () => {
   }>({ email: null, password: null });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const productos = useSelector((state: RootState) => state.cart.productos);
 
   const fromModalCarrito = useSelector(
     (state: RootState) => state.navigation.fromModalCarrito
@@ -69,13 +70,35 @@ export const LoginPage = () => {
 
         dispatch(setCarroCompraId(idCarroCompra));
 
-        navigate("/direccion");
-      } else {
-        setError("Credenciales inválidas");
+        for (const producto of productos) {
+          await fetch(
+            `http://107.21.145.167:5001/detalle-carro-compras/agregarProducto/${idCarroCompra}/${producto.id}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                cantidad: producto.stockProducto,
+                precio: producto.precioProducto,
+              }),
+            }
+          );
+        }
+
+        if (productos.length === 0) {
+          navigate("/");
+        } else {
+          navigate("/direccion");
+        }
       }
     } catch (error) {
       console.error("Error:", error);
-      setError("Error al iniciar sesión");
+      if (error instanceof Error && error.message === "Contraseña incorrecta") {
+        setError("Contraseña incorrecta");
+      } else {
+        setError("Error al iniciar sesión");
+      }
     }
   };
 
@@ -144,6 +167,11 @@ export const LoginPage = () => {
                         : styles.invalidInput
                     }
                   />
+                  {error === "Contraseña incorrecta" && (
+                    <div className={styles.errorMessage}>
+                      Contraseña incorrecta
+                    </div>
+                  )}
                   <img
                     className={styles.message}
                     src={View}

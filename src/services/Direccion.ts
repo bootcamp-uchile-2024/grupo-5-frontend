@@ -1,18 +1,46 @@
 export const getDireccion = async (idUsuario: number) => {
-  const apiUrl = `${
-    import.meta.env.VITE_API_URL
-  }/direccion/direcciones/${idUsuario}`;
   try {
-    const response = await fetch(apiUrl);
+    const response = await fetch(
+      `http://107.21.145.167:5001/direccion/direcciones/${idUsuario}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
     if (!response.ok) {
       throw new Error(`Error ${response.status}: ${response.statusText}`);
     }
-    const direccion = await response.json();
-    const direccionArray = Array.isArray(direccion) ? direccion : [direccion];
-    return direccionArray;
+
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error("Error al obtener la dirección:", error);
     return [];
+  }
+};
+
+export const addDireccion = async (direccion: any) => {
+  try {
+    const response = await fetch(`http://107.21.145.167:5001/direccion`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(direccion),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error al agregar la dirección:", error);
+    return null;
   }
 };
 

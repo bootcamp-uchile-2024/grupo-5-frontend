@@ -57,7 +57,7 @@ export const ModalMisDirecciones = ({
 
   const handleAddSuccess = async () => {
     const data = await getDireccion(idUsuario);
-    setDirecciones(data);
+    setDirecciones((prevDirecciones) => [...prevDirecciones, ...data]);
     setShowModal(false);
   };
 
@@ -74,6 +74,12 @@ export const ModalMisDirecciones = ({
         style={{ margin: "20px 20px 0 20px" }}
       ></Modal.Header>
       <Modal.Body style={{ padding: "0" }}>
+        {direcciones.map((direccion) => (
+          <div
+            key={direccion.idDireccion}
+            onClick={() => handleDireccionSelect(direccion)}
+          ></div>
+        ))}
         <div className="LocalitationContainer">
           <img src={Localitation2} alt="ImgMas" className="Localitation2" />
           <p className="titulo_miDireccion">Mis Direcciones</p>
